@@ -1,0 +1,127 @@
+[
+ {
+  "account": "1200",
+  "name": "Forderungen aus Lieferungen und Leistungen",
+  "type": "asset"
+ },
+ {
+  "account": "1800",
+  "name": "Bank",
+  "type": "asset"
+ },
+ {
+  "account": "1406",
+  "name": "Abziehbare Vorsteuer 19 %",
+  "type": "asset"
+ },
+ {
+  "account": "3300",
+  "name": "Verbindlichkeiten aus Lieferungen und Leistungen",
+  "type": "liability"
+ },
+ {
+  "account": "3806",
+  "name": "Umsatzsteuer 19 %",
+  "type": "liability"
+ },
+ {
+  "account": "3801",
+  "name": "Umsatzsteuer 7 %",
+  "type": "liability"
+ },
+ {
+  "account": "4400",
+  "name": "Erlöse 19 % USt",
+  "type": "revenue"
+ },
+ {
+  "account": "4300",
+  "name": "Erlöse 7 % USt",
+  "type": "revenue"
+ },
+ {
+  "account": "4125",
+  "name": "Steuerfreie innergemeinschaftliche Lieferungen",
+  "type": "revenue"
+ },
+ {
+  "account": "4120",
+  "name": "Steuerfreie Umsätze Drittland",
+  "type": "revenue"
+ },
+ {
+  "account": "5400",
+  "name": "Wareneingang 19 % Vorsteuer",
+  "type": "expense"
+ },
+ {
+  "account": "6310",
+  "name": "Miete",
+  "type": "expense"
+ },
+ {
+  "account": "6320",
+  "name": "Heizung und Nebenkosten",
+  "type": "expense"
+ },
+ {
+  "account": "6520",
+  "name": "Kfz-Versicherungen",
+  "type": "expense"
+ },
+ {
+  "account": "6530",
+  "name": "Laufende Kfz-Betriebskosten",
+  "type": "expense"
+ },
+ {
+  "account": "6600",
+  "name": "Werbekosten",
+  "type": "expense"
+ },
+ {
+  "account": "6640",
+  "name": "Bewirtungskosten",
+  "type": "expense"
+ },
+ {
+  "account": "6805",
+  "name": "Telefon",
+  "type": "expense"
+ },
+ {
+  "account": "6815",
+  "name": "Bürobedarf",
+  "type": "expense"
+ },
+ {
+  "account": "6825",
+  "name": "Rechts- und Beratungskosten",
+  "type": "expense"
+ },
+ {
+  "account": "6827",
+  "name": "Abschluss- und Prüfungskosten",
+  "type": "expense"
+ },
+ {
+  "account": "6835",
+  "name": "Mieten für Einrichtungen",
+  "type": "expense"
+ },
+ {
+  "account": "6837",
+  "name": "Aufwendungen für Software-Lizenzen",
+  "type": "expense"
+ },
+ {
+  "account": "6855",
+  "name": "Nebenkosten des Geldverkehrs",
+  "type": "expense"
+ },
+ {
+  "account": "6300",
+  "name": "Sonstige betriebliche Aufwendungen",
+  "type": "expense"
+ }
+]

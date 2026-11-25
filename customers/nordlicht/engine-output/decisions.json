@@ -1,0 +1,6924 @@
+[
+ {
+  "id": "D0001",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "ER-L00102-01511: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00102-01511",
+    "file": "invoices.csv",
+    "row": 677
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0002",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01235: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "13257.94",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01235",
+    "file": "invoices.csv",
+    "row": 1566
+   }
+  ],
+  "confidence": 0.54,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0003",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01288: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "6439.46",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01288",
+    "file": "invoices.csv",
+    "row": 1540
+   }
+  ],
+  "confidence": 0.62,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0004",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01308: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "24155.13",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01308",
+    "file": "invoices.csv",
+    "row": 797
+   }
+  ],
+  "confidence": 0.53,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0005",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01327: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "24801.29",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01327",
+    "file": "invoices.csv",
+    "row": 1505
+   }
+  ],
+  "confidence": 0.36,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0006",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01328: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "6939.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01328",
+    "file": "invoices.csv",
+    "row": 269
+   }
+  ],
+  "confidence": 0.61,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0007",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01380: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "2576.59",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01380",
+    "file": "invoices.csv",
+    "row": 294
+   }
+  ],
+  "confidence": 0.48,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0008",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01396: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "13772.82",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01396",
+    "file": "invoices.csv",
+    "row": 1503
+   }
+  ],
+  "confidence": 0.41,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0009",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01470: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "14887.14",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01470",
+    "file": "invoices.csv",
+    "row": 58
+   }
+  ],
+  "confidence": 0.53,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0010",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01524: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "16629.09",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01524",
+    "file": "invoices.csv",
+    "row": 1676
+   }
+  ],
+  "confidence": 0.43,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0011",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01606: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "14713.02",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01606",
+    "file": "invoices.csv",
+    "row": 585
+   }
+  ],
+  "confidence": 0.5,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0012",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01622: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "11218.45",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01622",
+    "file": "invoices.csv",
+    "row": 87
+   }
+  ],
+  "confidence": 0.44,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0013",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00107-01636: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "19588.20",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00107-01636",
+    "file": "invoices.csv",
+    "row": 999
+   }
+  ],
+  "confidence": 0.64,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0014",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "ER-L00111-01466: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00111-01466",
+    "file": "invoices.csv",
+    "row": 771
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0015",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01233: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "192.76",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01233",
+    "file": "invoices.csv",
+    "row": 1237
+   }
+  ],
+  "confidence": 0.6,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0016",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01263: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "1911.94",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01263",
+    "file": "invoices.csv",
+    "row": 453
+   }
+  ],
+  "confidence": 0.35,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0017",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01282: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "1611.34",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01282",
+    "file": "invoices.csv",
+    "row": 150
+   }
+  ],
+  "confidence": 0.46,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0018",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01289: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "2105.86",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01289",
+    "file": "invoices.csv",
+    "row": 1344
+   }
+  ],
+  "confidence": 0.53,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0019",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01320: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "17746.54",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01320",
+    "file": "invoices.csv",
+    "row": 39
+   }
+  ],
+  "confidence": 0.37,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0020",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01321: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "22569.13",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01321",
+    "file": "invoices.csv",
+    "row": 1419
+   }
+  ],
+  "confidence": 0.42,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0021",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01358: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "24908.64",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01358",
+    "file": "invoices.csv",
+    "row": 898
+   }
+  ],
+  "confidence": 0.52,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0022",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01518: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "2043.32",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01518",
+    "file": "invoices.csv",
+    "row": 263
+   }
+  ],
+  "confidence": 0.41,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0023",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01572: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "4748.82",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01572",
+    "file": "invoices.csv",
+    "row": 1321
+   }
+  ],
+  "confidence": 0.62,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0024",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01588: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "6875.24",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01588",
+    "file": "invoices.csv",
+    "row": 542
+   }
+  ],
+  "confidence": 0.45,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0025",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01639: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "18486.44",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01639",
+    "file": "invoices.csv",
+    "row": 1669
+   }
+  ],
+  "confidence": 0.56,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0026",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00119-01650: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "5811.96",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00119-01650",
+    "file": "invoices.csv",
+    "row": 211
+   }
+  ],
+  "confidence": 0.4,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0027",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00121-01222: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "15613.28",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00121-01222",
+    "file": "invoices.csv",
+    "row": 1553
+   }
+  ],
+  "confidence": 0.45,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0028",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00121-01248: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "10855.71",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00121-01248",
+    "file": "invoices.csv",
+    "row": 914
+   }
+  ],
+  "confidence": 0.56,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0029",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00121-01368: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "13150.02",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00121-01368",
+    "file": "invoices.csv",
+    "row": 91
+   }
+  ],
+  "confidence": 0.52,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0030",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00121-01400: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "10036.57",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00121-01400",
+    "file": "invoices.csv",
+    "row": 1151
+   }
+  ],
+  "confidence": 0.58,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0031",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00121-01406: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "5711.16",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00121-01406",
+    "file": "invoices.csv",
+    "row": 1330
+   }
+  ],
+  "confidence": 0.54,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0032",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00121-01618: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "1108.56",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00121-01618",
+    "file": "invoices.csv",
+    "row": 751
+   }
+  ],
+  "confidence": 0.41,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0033",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01246: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "18561.60",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01246",
+    "file": "invoices.csv",
+    "row": 428
+   }
+  ],
+  "confidence": 0.39,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0034",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01250: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "10599.92",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01250",
+    "file": "invoices.csv",
+    "row": 1256
+   }
+  ],
+  "confidence": 0.57,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0035",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01286: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "7966.61",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01286",
+    "file": "invoices.csv",
+    "row": 826
+   }
+  ],
+  "confidence": 0.35,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0036",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01301: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "24662.15",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01301",
+    "file": "invoices.csv",
+    "row": 1575
+   }
+  ],
+  "confidence": 0.49,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0037",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "ER-L00122-01303: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01303",
+    "file": "invoices.csv",
+    "row": 1104
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0038",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01303: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "21004.97",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01303",
+    "file": "invoices.csv",
+    "row": 1104
+   }
+  ],
+  "confidence": 0.41,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0039",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01388: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "8972.91",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01388",
+    "file": "invoices.csv",
+    "row": 750
+   }
+  ],
+  "confidence": 0.44,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0040",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01397: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "16827.45",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01397",
+    "file": "invoices.csv",
+    "row": 1351
+   }
+  ],
+  "confidence": 0.4,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0041",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01409: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "21855.99",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01409",
+    "file": "invoices.csv",
+    "row": 1460
+   }
+  ],
+  "confidence": 0.57,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0042",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01448: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "19976.21",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01448",
+    "file": "invoices.csv",
+    "row": 143
+   }
+  ],
+  "confidence": 0.44,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0043",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01553: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "16081.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01553",
+    "file": "invoices.csv",
+    "row": 1252
+   }
+  ],
+  "confidence": 0.35,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0044",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01556: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "19887.40",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01556",
+    "file": "invoices.csv",
+    "row": 653
+   }
+  ],
+  "confidence": 0.48,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0045",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01584: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "4860.09",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01584",
+    "file": "invoices.csv",
+    "row": 1582
+   }
+  ],
+  "confidence": 0.35,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0046",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00122-01609: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "20005.19",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00122-01609",
+    "file": "invoices.csv",
+    "row": 609
+   }
+  ],
+  "confidence": 0.51,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0047",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00126-01407: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "3039.34",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00126-01407",
+    "file": "invoices.csv",
+    "row": 225
+   }
+  ],
+  "confidence": 0.47,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0048",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "ER-L00129-01349: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00129-01349",
+    "file": "invoices.csv",
+    "row": 858
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0049",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01232: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "2799.80",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01232",
+    "file": "invoices.csv",
+    "row": 544
+   }
+  ],
+  "confidence": 0.43,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0050",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01310: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "8046.11",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01310",
+    "file": "invoices.csv",
+    "row": 968
+   }
+  ],
+  "confidence": 0.6,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0051",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01326: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "13402.04",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01326",
+    "file": "invoices.csv",
+    "row": 1245
+   }
+  ],
+  "confidence": 0.44,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0052",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01372: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "14023.05",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01372",
+    "file": "invoices.csv",
+    "row": 1236
+   }
+  ],
+  "confidence": 0.58,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0053",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01405: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "5862.69",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01405",
+    "file": "invoices.csv",
+    "row": 1443
+   }
+  ],
+  "confidence": 0.45,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0054",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01463: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "14063.98",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01463",
+    "file": "invoices.csv",
+    "row": 945
+   }
+  ],
+  "confidence": 0.55,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0055",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01488: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "18799.63",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01488",
+    "file": "invoices.csv",
+    "row": 25
+   }
+  ],
+  "confidence": 0.55,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0056",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01489: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "3569.48",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01489",
+    "file": "invoices.csv",
+    "row": 1169
+   }
+  ],
+  "confidence": 0.63,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0057",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01513: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "9421.34",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01513",
+    "file": "invoices.csv",
+    "row": 1453
+   }
+  ],
+  "confidence": 0.4,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0058",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01570: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "10119.13",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01570",
+    "file": "invoices.csv",
+    "row": 373
+   }
+  ],
+  "confidence": 0.63,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0059",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01576: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "12032.02",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01576",
+    "file": "invoices.csv",
+    "row": 1232
+   }
+  ],
+  "confidence": 0.49,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0060",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00130-01621: 'Beratung Digitalisierung' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "19143.40",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00130-01621",
+    "file": "invoices.csv",
+    "row": 758
+   }
+  ],
+  "confidence": 0.43,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0061",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "ER-L00133-01226: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00133-01226",
+    "file": "invoices.csv",
+    "row": 271
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0062",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00133-01226: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "12585.35",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00133-01226",
+    "file": "invoices.csv",
+    "row": 271
+   }
+  ],
+  "confidence": 0.6,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0063",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00133-01425: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "971.24",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00133-01425",
+    "file": "invoices_delta_2026-10-31.csv",
+    "row": 64
+   }
+  ],
+  "confidence": 0.43,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0064",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00133-01447: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "4535.77",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00133-01447",
+    "file": "invoices.csv",
+    "row": 369
+   }
+  ],
+  "confidence": 0.57,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0065",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00133-01475: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "6118.39",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00133-01475",
+    "file": "invoices.csv",
+    "row": 1364
+   }
+  ],
+  "confidence": 0.48,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0066",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00133-01479: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "18788.25",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00133-01479",
+    "file": "invoices.csv",
+    "row": 774
+   }
+  ],
+  "confidence": 0.48,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0067",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00133-01560: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "18997.06",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00133-01560",
+    "file": "invoices.csv",
+    "row": 1072
+   }
+  ],
+  "confidence": 0.58,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0068",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00133-01633: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "7098.02",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00133-01633",
+    "file": "invoices.csv",
+    "row": 1098
+   }
+  ],
+  "confidence": 0.43,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0069",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00133-01647: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "11436.50",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00133-01647",
+    "file": "invoices.csv",
+    "row": 1023
+   }
+  ],
+  "confidence": 0.34,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0070",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "ER-L00134-01209: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00134-01209",
+    "file": "invoices.csv",
+    "row": 831
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0071",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00136-01315: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "17252.80",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00136-01315",
+    "file": "invoices.csv",
+    "row": 770
+   }
+  ],
+  "confidence": 0.51,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0072",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "ER-L00136-01340: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00136-01340",
+    "file": "invoices.csv",
+    "row": 148
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0073",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00136-01340: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "100.37",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00136-01340",
+    "file": "invoices.csv",
+    "row": 148
+   }
+  ],
+  "confidence": 0.66,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0074",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00136-01399: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "5954.24",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00136-01399",
+    "file": "invoices.csv",
+    "row": 790
+   }
+  ],
+  "confidence": 0.47,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0075",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00136-01423: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "1861.31",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00136-01423",
+    "file": "invoices.csv",
+    "row": 429
+   }
+  ],
+  "confidence": 0.35,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0076",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00136-01611: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "22993.99",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00136-01611",
+    "file": "invoices.csv",
+    "row": 402
+   }
+  ],
+  "confidence": 0.61,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0077",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00136-01627: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "23257.59",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00136-01627",
+    "file": "invoices.csv",
+    "row": 1617
+   }
+  ],
+  "confidence": 0.42,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0078",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00136-01629: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "5805.69",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00136-01629",
+    "file": "invoices.csv",
+    "row": 208
+   }
+  ],
+  "confidence": 0.55,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0079",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00143-01276: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "18131.14",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00143-01276",
+    "file": "invoices_delta_2026-10-31.csv",
+    "row": 12
+   }
+  ],
+  "confidence": 0.65,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0080",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00143-01281: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "11028.60",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00143-01281",
+    "file": "invoices.csv",
+    "row": 427
+   }
+  ],
+  "confidence": 0.43,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0081",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00143-01415: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "18639.74",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00143-01415",
+    "file": "invoices.csv",
+    "row": 1339
+   }
+  ],
+  "confidence": 0.45,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0082",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00143-01426: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "15646.94",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00143-01426",
+    "file": "invoices.csv",
+    "row": 1674
+   }
+  ],
+  "confidence": 0.43,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0083",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00143-01440: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "22410.13",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00143-01440",
+    "file": "invoices.csv",
+    "row": 1265
+   }
+  ],
+  "confidence": 0.59,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0084",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00143-01592: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "12555.80",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00143-01592",
+    "file": "invoices.csv",
+    "row": 1234
+   }
+  ],
+  "confidence": 0.58,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0085",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00143-01603: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "5203.78",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00143-01603",
+    "file": "invoices.csv",
+    "row": 1089
+   }
+  ],
+  "confidence": 0.53,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0086",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00143-01642: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "4017.70",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00143-01642",
+    "file": "invoices.csv",
+    "row": 452
+   }
+  ],
+  "confidence": 0.49,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0087",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00145-01214: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "10439.12",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00145-01214",
+    "file": "invoices.csv",
+    "row": 920
+   }
+  ],
+  "confidence": 0.43,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0088",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00145-01252: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "9346.13",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00145-01252",
+    "file": "invoices.csv",
+    "row": 504
+   }
+  ],
+  "confidence": 0.53,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0089",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00145-01366: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "5540.04",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00145-01366",
+    "file": "invoices.csv",
+    "row": 927
+   }
+  ],
+  "confidence": 0.46,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0090",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00145-01528: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "22831.28",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00145-01528",
+    "file": "invoices.csv",
+    "row": 737
+   }
+  ],
+  "confidence": 0.45,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0091",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00145-01587: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "5742.37",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00145-01587",
+    "file": "invoices.csv",
+    "row": 1479
+   }
+  ],
+  "confidence": 0.48,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0092",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00145-01613: 'Schulung + Reise' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "18675.79",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00145-01613",
+    "file": "invoices.csv",
+    "row": 1240
+   }
+  ],
+  "confidence": 0.41,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0093",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00147-01201: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6837",
+  "amount_affected": {
+   "amount": "13655.21",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00147-01201",
+    "file": "invoices.csv",
+    "row": 954
+   }
+  ],
+  "confidence": 0.39,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0094",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00147-01204: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6600",
+  "amount_affected": {
+   "amount": "10159.64",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00147-01204",
+    "file": "invoices.csv",
+    "row": 164
+   }
+  ],
+  "confidence": 0.37,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0095",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00147-01298: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6300",
+  "amount_affected": {
+   "amount": "15142.87",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00147-01298",
+    "file": "invoices.csv",
+    "row": 767
+   }
+  ],
+  "confidence": 0.59,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0096",
+  "type": "uncertain_classification",
+  "status": "open",
+  "title": "ER-L00147-01348: 'Wartung und Lizenz Paket' could belong to several expense accounts",
+  "question": "Which expense account is right for this supplier invoice?",
+  "options": [
+   {
+    "id": "6300",
+    "label": "6300 Sonstige betriebliche Aufwendungen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6825",
+    "label": "6825 Rechts- und Beratungskosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6837",
+    "label": "6837 Aufwendungen für Software-Lizenzen",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6600",
+    "label": "6600 Werbekosten",
+    "effect": "Books the expense to this account."
+   },
+   {
+    "id": "6640",
+    "label": "6640 Bewirtungskosten",
+    "effect": "Books the expense to this account."
+   }
+  ],
+  "suggested_option": "6825",
+  "amount_affected": {
+   "amount": "15101.75",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00147-01348",
+    "file": "invoices.csv",
+    "row": 210
+   }
+  ],
+  "confidence": 0.35,
+  "why_suggested": "The description is too general for a rule; the model's best guess is below the review threshold of 0.80."
+ },
+ {
+  "id": "D0097",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "ER-L00159-01599: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "ER-L00159-01599",
+    "file": "invoices.csv",
+    "row": 639
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0098",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00234: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00234",
+    "file": "invoices.csv",
+    "row": 188
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0099",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00297: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00297",
+    "file": "invoices.csv",
+    "row": 1593
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0100",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00308: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00308",
+    "file": "invoices.csv",
+    "row": 1514
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0101",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00408: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00408",
+    "file": "invoices.csv",
+    "row": 775
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0102",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00452: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00452",
+    "file": "invoices.csv",
+    "row": 1500
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0103",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00475: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00475",
+    "file": "invoices.csv",
+    "row": 1660
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0104",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00559: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00559",
+    "file": "invoices.csv",
+    "row": 1309
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0105",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00561: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00561",
+    "file": "invoices.csv",
+    "row": 973
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0106",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00623: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00623",
+    "file": "invoices.csv",
+    "row": 595
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0107",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00701: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00701",
+    "file": "invoices.csv",
+    "row": 1092
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0108",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00845: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00845",
+    "file": "invoices.csv",
+    "row": 884
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0109",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00874: gross in export is off by 0.01 USD",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 USD rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00874",
+    "file": "invoices.csv",
+    "row": 113
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0110",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00967: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00967",
+    "file": "invoices.csv",
+    "row": 1675
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0111",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-00982: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-00982",
+    "file": "invoices.csv",
+    "row": 89
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0112",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-01112: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-01112",
+    "file": "invoices.csv",
+    "row": 741
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0113",
+  "type": "rounding_difference",
+  "status": "open",
+  "title": "RE-2026-01137: gross in export is off by 0.01 EUR",
+  "question": "The old system's gross amount does not equal net plus VAT. Which figure should the books use?",
+  "options": [
+   {
+    "id": "use_net_plus_vat",
+    "label": "Use net + VAT (as booked now)",
+    "effect": "No change to the books."
+   },
+   {
+    "id": "use_export_gross",
+    "label": "Use the gross from the export",
+    "effect": "Adds a 0.01 EUR rounding posting."
+   }
+  ],
+  "suggested_option": "use_net_plus_vat",
+  "amount_affected": {
+   "amount": "0.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "invoice": "RE-2026-01137",
+    "file": "invoices.csv",
+    "row": 1037
+   }
+  ],
+  "why_suggested": "Net and VAT agree with the VAT rate; the gross figure does not."
+ },
+ {
+  "id": "D0114",
+  "type": "unexplained_refund",
+  "status": "open",
+  "title": "Refund of 388.84 EUR to Köhler Technik GmbH & Co. KG",
+  "question": "Which credit note does this refund settle?",
+  "options": [
+   {
+    "id": "pick_credit_note",
+    "label": "Choose a credit note",
+    "effect": "Closes that credit note."
+   },
+   {
+    "id": "book_other",
+    "label": "Book as other expense",
+    "effect": "Books to 6300."
+   }
+  ],
+  "suggested_option": "pick_credit_note",
+  "amount_affected": {
+   "amount": "388.84",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001358"
+   }
+  ]
+ },
+ {
+  "id": "D0115",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 650.46 EUR from Meyer Service matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "650.46",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001332"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0116",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 841.94 EUR from Groß Bau matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "841.94",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001349"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0117",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 423.43 EUR from Becker Bau matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "423.43",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001335"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0118",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Wagner Systeme AG paid 10.00 EUR more than invoice RE-2026-01120",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000225"
+   },
+   {
+    "invoice": "RE-2026-01120"
+   }
+  ]
+ },
+ {
+  "id": "D0119",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 709.90 EUR from Schmidt Handel matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "709.90",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001350"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0120",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Becker Bau GmbH paid 10.00 EUR more than invoice RE-2026-00954",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000052"
+   },
+   {
+    "invoice": "RE-2026-00954"
+   }
+  ]
+ },
+ {
+  "id": "D0121",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Wagner Systeme AG paid 10.00 EUR more than invoice RE-2026-01150",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000643"
+   },
+   {
+    "invoice": "RE-2026-01150"
+   }
+  ]
+ },
+ {
+  "id": "D0122",
+  "type": "unexplained_refund",
+  "status": "open",
+  "title": "Refund of 373.05 EUR to Meyer Montage GmbH & Co. KG",
+  "question": "Which credit note does this refund settle?",
+  "options": [
+   {
+    "id": "pick_credit_note",
+    "label": "Choose a credit note",
+    "effect": "Closes that credit note."
+   },
+   {
+    "id": "book_other",
+    "label": "Book as other expense",
+    "effect": "Books to 6300."
+   }
+  ],
+  "suggested_option": "pick_credit_note",
+  "amount_affected": {
+   "amount": "373.05",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001355"
+   }
+  ]
+ },
+ {
+  "id": "D0123",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Müller Metall GmbH paid 10.01 USD more than invoice RE-2026-00874",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000628"
+   },
+   {
+    "invoice": "RE-2026-00874"
+   }
+  ]
+ },
+ {
+  "id": "D0124",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 587.56 EUR from Wagner Bau matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "587.56",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001352"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0125",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 61.68 EUR from Becker Service matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "61.68",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001330"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0126",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 691.01 EUR from Groß Bau matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "691.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001342"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0127",
+  "type": "unexplained_refund",
+  "status": "open",
+  "title": "Refund of 81.50 EUR to Schulz Service GmbH",
+  "question": "Which credit note does this refund settle?",
+  "options": [
+   {
+    "id": "pick_credit_note",
+    "label": "Choose a credit note",
+    "effect": "Closes that credit note."
+   },
+   {
+    "id": "book_other",
+    "label": "Book as other expense",
+    "effect": "Books to 6300."
+   }
+  ],
+  "suggested_option": "pick_credit_note",
+  "amount_affected": {
+   "amount": "81.50",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001360"
+   }
+  ]
+ },
+ {
+  "id": "D0128",
+  "type": "unexplained_refund",
+  "status": "open",
+  "title": "Refund of 131.78 EUR to Müller Montage e.K.",
+  "question": "Which credit note does this refund settle?",
+  "options": [
+   {
+    "id": "pick_credit_note",
+    "label": "Choose a credit note",
+    "effect": "Closes that credit note."
+   },
+   {
+    "id": "book_other",
+    "label": "Book as other expense",
+    "effect": "Books to 6300."
+   }
+  ],
+  "suggested_option": "pick_credit_note",
+  "amount_affected": {
+   "amount": "131.78",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001361"
+   }
+  ]
+ },
+ {
+  "id": "D0129",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 107.60 EUR from Schmidt Handel matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "107.60",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001338"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0130",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Schmidt Logistik KG paid 10.00 EUR more than invoice RE-2026-00492",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000267"
+   },
+   {
+    "invoice": "RE-2026-00492"
+   }
+  ]
+ },
+ {
+  "id": "D0131",
+  "type": "unexplained_refund",
+  "status": "open",
+  "title": "Refund of 474.85 EUR to Müller Bau GmbH & Co. KG",
+  "question": "Which credit note does this refund settle?",
+  "options": [
+   {
+    "id": "pick_credit_note",
+    "label": "Choose a credit note",
+    "effect": "Closes that credit note."
+   },
+   {
+    "id": "book_other",
+    "label": "Book as other expense",
+    "effect": "Books to 6300."
+   }
+  ],
+  "suggested_option": "pick_credit_note",
+  "amount_affected": {
+   "amount": "474.85",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001356"
+   }
+  ]
+ },
+ {
+  "id": "D0132",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Schneider Werk e.K. paid 10.00 EUR more than invoice RE-2026-01186",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000080"
+   },
+   {
+    "invoice": "RE-2026-01186"
+   }
+  ]
+ },
+ {
+  "id": "D0133",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Hoffmann Service GmbH paid 10.00 EUR more than invoice RE-2026-00222",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000869"
+   },
+   {
+    "invoice": "RE-2026-00222"
+   }
+  ]
+ },
+ {
+  "id": "D0134",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Köhler Metall e.K. paid 10.00 EUR more than invoice RE-2026-00900",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000616"
+   },
+   {
+    "invoice": "RE-2026-00900"
+   }
+  ]
+ },
+ {
+  "id": "D0135",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Groß Service AG paid 10.00 EUR more than invoice RE-2026-00816",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000390"
+   },
+   {
+    "invoice": "RE-2026-00816"
+   }
+  ]
+ },
+ {
+  "id": "D0136",
+  "type": "unexplained_refund",
+  "status": "open",
+  "title": "Refund of 454.18 EUR to Wagner Technik GmbH",
+  "question": "Which credit note does this refund settle?",
+  "options": [
+   {
+    "id": "pick_credit_note",
+    "label": "Choose a credit note",
+    "effect": "Closes that credit note."
+   },
+   {
+    "id": "book_other",
+    "label": "Book as other expense",
+    "effect": "Books to 6300."
+   }
+  ],
+  "suggested_option": "pick_credit_note",
+  "amount_affected": {
+   "amount": "454.18",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001359"
+   }
+  ]
+ },
+ {
+  "id": "D0137",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 751.82 EUR from Groß Handel matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "751.82",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001336"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0138",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 622.56 EUR from Hoffmann Handel matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "622.56",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001339"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0139",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 867.19 EUR from Weber Systeme matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "867.19",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001354"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0140",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 696.09 EUR from Becker Montage matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "696.09",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001334"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0141",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 478.89 EUR from Müller Logistik matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "478.89",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001337"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0142",
+  "type": "unexplained_refund",
+  "status": "open",
+  "title": "Refund of 57.16 EUR to Schneider Logistik KG",
+  "question": "Which credit note does this refund settle?",
+  "options": [
+   {
+    "id": "pick_credit_note",
+    "label": "Choose a credit note",
+    "effect": "Closes that credit note."
+   },
+   {
+    "id": "book_other",
+    "label": "Book as other expense",
+    "effect": "Books to 6300."
+   }
+  ],
+  "suggested_option": "pick_credit_note",
+  "amount_affected": {
+   "amount": "57.16",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001362"
+   }
+  ]
+ },
+ {
+  "id": "D0143",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Köhler Logistik KG paid 10.00 USD more than invoice RE-2026-01153",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000006"
+   },
+   {
+    "invoice": "RE-2026-01153"
+   }
+  ]
+ },
+ {
+  "id": "D0144",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 181.36 EUR from Müller Montage matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "181.36",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001345"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0145",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 790.17 EUR from Weber Werk matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "790.17",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001351"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0146",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Köhler Metall e.K. paid 10.00 EUR more than invoice RE-2026-00890",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000825"
+   },
+   {
+    "invoice": "RE-2026-00890"
+   }
+  ]
+ },
+ {
+  "id": "D0147",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 385.02 EUR from Fischer Logistik matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "385.02",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001340"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0148",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 792.93 EUR from Schulz Logistik matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "792.93",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001341"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0149",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Schulz Service KG paid 10.00 EUR more than invoice RE-2026-00542",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000343"
+   },
+   {
+    "invoice": "RE-2026-00542"
+   }
+  ]
+ },
+ {
+  "id": "D0150",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Schmidt Logistik KG paid 10.00 EUR more than invoice RE-2026-00994",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000654"
+   },
+   {
+    "invoice": "RE-2026-00994"
+   }
+  ]
+ },
+ {
+  "id": "D0151",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Schulz Service KG paid 10.00 EUR more than invoice RE-2026-00091",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000310"
+   },
+   {
+    "invoice": "RE-2026-00091"
+   }
+  ]
+ },
+ {
+  "id": "D0152",
+  "type": "unexplained_refund",
+  "status": "open",
+  "title": "Refund of 423.81 EUR to Müller Montage KG",
+  "question": "Which credit note does this refund settle?",
+  "options": [
+   {
+    "id": "pick_credit_note",
+    "label": "Choose a credit note",
+    "effect": "Closes that credit note."
+   },
+   {
+    "id": "book_other",
+    "label": "Book as other expense",
+    "effect": "Books to 6300."
+   }
+  ],
+  "suggested_option": "pick_credit_note",
+  "amount_affected": {
+   "amount": "423.81",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001357"
+   }
+  ]
+ },
+ {
+  "id": "D0153",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 412.61 EUR from Groß Service matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "412.61",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001353"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0154",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 788.30 EUR from Schulz Service matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "788.30",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001333"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0155",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 640.09 EUR from Becker Service matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "640.09",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001344"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0156",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 602.38 EUR from Schmidt Metall matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "602.38",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001343"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0157",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 576.01 EUR from Köhler Metall matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "576.01",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001331"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0158",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 661.00 EUR from Fischer Service matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "661.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001347"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0159",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Müller Montage KG paid 10.00 EUR more than invoice RE-2026-00200",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000590"
+   },
+   {
+    "invoice": "RE-2026-00200"
+   }
+  ]
+ },
+ {
+  "id": "D0160",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Müller Technik KG paid 10.00 EUR more than invoice RE-2026-00826",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000718"
+   },
+   {
+    "invoice": "RE-2026-00826"
+   }
+  ]
+ },
+ {
+  "id": "D0161",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Köhler Technik GmbH & Co. KG paid 10.00 EUR more than invoice RE-2026-00353",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000674"
+   },
+   {
+    "invoice": "RE-2026-00353"
+   }
+  ]
+ },
+ {
+  "id": "D0162",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 287.48 EUR from Schulz Montage matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "287.48",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001346"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0163",
+  "type": "overpayment",
+  "status": "open",
+  "title": "Schulz Handel KG paid 10.00 EUR more than invoice RE-2026-00407",
+  "question": "What should happen with the extra amount?",
+  "options": [
+   {
+    "id": "keep_as_credit",
+    "label": "Keep as credit for the customer's next invoice",
+    "effect": "Stays on the customer's account."
+   },
+   {
+    "id": "refund",
+    "label": "Refund it",
+    "effect": "Creates a payment instruction for the extra amount."
+   },
+   {
+    "id": "write_off",
+    "label": "Book as other income",
+    "effect": "Closes the difference."
+   }
+  ],
+  "suggested_option": "keep_as_credit",
+  "amount_affected": {
+   "amount": "10.00",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX000126"
+   },
+   {
+    "invoice": "RE-2026-00407"
+   }
+  ]
+ },
+ {
+  "id": "D0164",
+  "type": "unmatched_receipt",
+  "status": "open",
+  "title": "Payment of 849.72 EUR from Wagner Handel matches no invoice",
+  "question": "Who paid this, and for what?",
+  "options": [
+   {
+    "id": "assign_invoice",
+    "label": "Assign to an invoice",
+    "effect": "Settles the invoice."
+   },
+   {
+    "id": "new_customer",
+    "label": "Create a customer and an advance payment",
+    "effect": "Kept as a liability until invoiced."
+   },
+   {
+    "id": "leave_open",
+    "label": "Leave open for now",
+    "effect": "Stays in the bank clearing account."
+   }
+  ],
+  "suggested_option": "leave_open",
+  "amount_affected": {
+   "amount": "849.72",
+   "currency": "EUR"
+  },
+  "references": [
+   {
+    "transaction": "TX001348"
+   }
+  ],
+  "why_suggested": "The reference says only 'Rechnung' and the sender is not a known customer."
+ },
+ {
+  "id": "D0165",
+  "type": "possible_duplicate_partner",
+  "status": "open",
+  "title": "K00004 and K00161 look like the same customer",
+  "question": "Are these the same company? Merging moves all invoices and payments to one customer.",
+  "options": [
+   {
+    "id": "merge",
+    "label": "Merge into K00004",
+    "effect": "K00161 is retired; its history is kept."
+   },
+   {
+    "id": "keep_both",
+    "label": "Keep both",
+    "effect": "No change."
+   }
+  ],
+  "suggested_option": "merge",
+  "amount_affected": null,
+  "references": [
+   {
+    "partner": "K00004"
+   },
+   {
+    "partner": "K00161"
+   }
+  ],
+  "confidence": 0.93,
+  "why_suggested": "Same name, VAT id, IBAN and e-mail address; the old system created the second record later."
+ },
+ {
+  "id": "D0166",
+  "type": "missing_country",
+  "status": "open",
+  "title": "Müller Metall GmbH has no country",
+  "question": "Which country is this customer in? It decides the VAT treatment of their invoices.",
+  "options": [
+   {
+    "id": "DE",
+    "label": "Germany",
+    "effect": "Invoices stay at German VAT."
+   },
+   {
+    "id": "other",
+    "label": "Another country",
+    "effect": "Invoices may need re-booking."
+   }
+  ],
+  "suggested_option": null,
+  "amount_affected": null,
+  "references": [
+   {
+    "partner": "K00018"
+   }
+  ]
+ },
+ {
+  "id": "D0167",
+  "type": "malformed_vat_id",
+  "status": "open",
+  "title": "Wagner Handel e.K.: VAT id 'DE12345' is not valid",
+  "question": "What is the correct VAT id? Zero-rated EU invoices need a valid one.",
+  "options": [
+   {
+    "id": "enter",
+    "label": "Enter the correct VAT id",
+    "effect": "Validated against the EU VIES service."
+   },
+   {
+    "id": "ask_customer",
+    "label": "Ask the customer",
+    "effect": "Sends a request; the decision stays open."
+   }
+  ],
+  "suggested_option": null,
+  "amount_affected": null,
+  "references": [
+   {
+    "partner": "K00043"
+   }
+  ]
+ },
+ {
+  "id": "D0168",
+  "type": "malformed_vat_id",
+  "status": "open",
+  "title": "Schneider Metall AG: VAT id 'n/a' is not valid",
+  "question": "What is the correct VAT id? Zero-rated EU invoices need a valid one.",
+  "options": [
+   {
+    "id": "enter",
+    "label": "Enter the correct VAT id",
+    "effect": "Validated against the EU VIES service."
+   },
+   {
+    "id": "ask_customer",
+    "label": "Ask the customer",
+    "effect": "Sends a request; the decision stays open."
+   }
+  ],
+  "suggested_option": null,
+  "amount_affected": null,
+  "references": [
+   {
+    "partner": "K00059"
+   }
+  ]
+ }
+]

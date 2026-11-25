@@ -1,0 +1,100 @@
+{
+ "customer": {
+  "name": "Nordlicht Werkzeuge GmbH",
+  "chart_of_accounts": "SKR04",
+  "base_currency": "EUR",
+  "migration_started": "2026-10-01",
+  "users": [
+   {
+    "name": "Finance lead",
+    "role": "finance_lead",
+    "can_see": "everything"
+   },
+   {
+    "name": "Tax advisor (external)",
+    "role": "tax_advisor",
+    "can_see": "books and lineage; read-only"
+   },
+   {
+    "name": "Managing director",
+    "role": "owner",
+    "can_see": "overview"
+   }
+  ]
+ },
+ "loads": [
+  {
+   "id": "load-01",
+   "kind": "initial_export",
+   "file": "invoices.csv",
+   "started_at": "2026-10-01T09:12:04+02:00",
+   "finished_at": "2026-10-01T09:14:51+02:00",
+   "status": "succeeded"
+  },
+  {
+   "id": "load-02",
+   "kind": "delta_export",
+   "file": "invoices_delta_2026-10-31.csv",
+   "started_at": "2026-10-31T18:02:40+01:00",
+   "finished_at": "2026-10-31T18:03:12+01:00",
+   "status": "succeeded"
+  },
+  {
+   "id": "load-03",
+   "kind": "bank_statement",
+   "file": "bank_transactions.json",
+   "started_at": "2026-11-03T07:30:00+01:00",
+   "finished_at": "2026-11-03T07:41:18+01:00",
+   "status": "failed",
+   "failed_step": "reconcile",
+   "error": "Timed out after 600 s while matching payments. Nothing was booked; the load can be retried safely.",
+   "rows_processed_before_failure": 811
+  },
+  {
+   "id": "load-04",
+   "kind": "bank_statement",
+   "file": "bank_transactions.json",
+   "retry_of": "load-03",
+   "started_at": "2026-11-03T08:05:11+01:00",
+   "finished_at": "2026-11-03T08:06:02+01:00",
+   "status": "succeeded"
+  }
+ ],
+ "counts": {
+  "invoice_rows_read": 1877,
+  "duplicate_rows_removed": 72,
+  "invoices_loaded": 1770,
+  "invoices_corrected_in_later_export": 17,
+  "partners_loaded": 161,
+  "bank_transactions_loaded": 1362,
+  "bank_transactions_matched": 1329,
+  "rows_rejected": 0,
+  "open_decisions": 168,
+  "open_decisions_by_type": {
+   "malformed_vat_id": 2,
+   "missing_country": 1,
+   "overpayment": 18,
+   "possible_duplicate_partner": 1,
+   "rounding_difference": 24,
+   "uncertain_classification": 89,
+   "unexplained_refund": 8,
+   "unmatched_receipt": 25
+  }
+ },
+ "totals_by_currency_original": {
+  "payable:invoice:EUR": "6680512.28",
+  "receivable:credit_note:EUR": "-560940.33",
+  "receivable:invoice:EUR": "18175010.30",
+  "receivable:invoice:USD": "702576.69"
+ },
+ "balance_check": {
+  "debits_eur": "24929183.08",
+  "credits_eur": "24929183.08",
+  "balanced": true
+ },
+ "open_items_eur_only": {
+  "receivables": "5216558.36",
+  "payables": "999978.99",
+  "note": "USD items are listed separately in invoices.json and are not included here."
+ }
+}

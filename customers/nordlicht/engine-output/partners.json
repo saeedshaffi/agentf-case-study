@@ -1,0 +1,2749 @@
+[
+ {
+  "id": "K00001",
+  "type": "customer",
+  "name": "Müller Technik KG",
+  "country": "DE",
+  "vat_id": "DE354357005",
+  "iban": "DE47471867224898293829",
+  "email": "buchhaltung@müller-1.example",
+  "contact_person": "Ben Groß",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 2,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00002",
+  "type": "customer",
+  "name": "Hoffmann Metall GmbH",
+  "country": "AT",
+  "vat_id": "ATU128219482",
+  "iban": "AT48511925524761269847",
+  "email": "buchhaltung@hoffmann-2.example",
+  "contact_person": "Lukas Meyer",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 3,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00003",
+  "type": "customer",
+  "name": "Meyer Technik AG",
+  "country": "DE",
+  "vat_id": "DE567034429",
+  "iban": "DE98829184241503575480",
+  "email": "buchhaltung@meyer-3.example",
+  "contact_person": "Emma Meyer",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 4,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00004",
+  "type": "customer",
+  "name": "Hoffmann Service GmbH",
+  "country": "DE",
+  "vat_id": "DE783231757",
+  "iban": "DE66784035631200247506",
+  "email": "buchhaltung@hoffmann-4.example",
+  "contact_person": "Emma Fischer",
+  "city": "Kiel",
+  "flags": [
+   "possible_duplicate"
+  ],
+  "source": {
+   "file": "partners.csv",
+   "row": 5,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00005",
+  "type": "customer",
+  "name": "Groß Service AG",
+  "country": "DE",
+  "vat_id": "DE976038811",
+  "iban": "DE15592424983590049661",
+  "email": "buchhaltung@groß-5.example",
+  "contact_person": "Sofia Groß",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 6,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00006",
+  "type": "customer",
+  "name": "Becker Logistik e.K.",
+  "country": "DE",
+  "vat_id": "DE235409512",
+  "iban": "DE43448538998311896002",
+  "email": "buchhaltung@becker-6.example",
+  "contact_person": "Ben Hoffmann",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 7,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00007",
+  "type": "customer",
+  "name": "Wagner Technik KG",
+  "country": "DE",
+  "vat_id": "DE744454544",
+  "iban": "DE86587574357447506750",
+  "email": "buchhaltung@wagner-7.example",
+  "contact_person": "Noah Schulz",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 8,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00008",
+  "type": "customer",
+  "name": "Hoffmann Werk GmbH",
+  "country": "DE",
+  "vat_id": "DE673113697",
+  "iban": "DE27810861594858734810",
+  "email": "buchhaltung@hoffmann-8.example",
+  "contact_person": "Mia Hoffmann",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 9,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00009",
+  "type": "customer",
+  "name": "Fischer Holz GmbH",
+  "country": "DE",
+  "vat_id": "DE408238734",
+  "iban": "DE86771542501702785603",
+  "email": "buchhaltung@fischer-9.example",
+  "contact_person": "Mia Weber",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 10,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00010",
+  "type": "customer",
+  "name": "Hoffmann Technik e.K.",
+  "country": "DE",
+  "vat_id": "DE393767931",
+  "iban": "DE44178748003667607706",
+  "email": "buchhaltung@hoffmann-10.example",
+  "contact_person": "Paul Schmidt",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 11,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00011",
+  "type": "customer",
+  "name": "Becker Systeme e.K.",
+  "country": "DE",
+  "vat_id": "DE666181902",
+  "iban": "DE56264354611281721099",
+  "email": "buchhaltung@becker-11.example",
+  "contact_person": "Lina Köhler",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 12,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00012",
+  "type": "customer",
+  "name": "Schneider Bau GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE844912917",
+  "iban": "DE52858010214129468438",
+  "email": "buchhaltung@schneider-12.example",
+  "contact_person": "Jonas Müller",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 13,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00013",
+  "type": "customer",
+  "name": "Müller Service e.K.",
+  "country": "DE",
+  "vat_id": "DE582153861",
+  "iban": "DE47252867402750161561",
+  "email": "buchhaltung@müller-13.example",
+  "contact_person": "Felix Wagner",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 14,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00014",
+  "type": "customer",
+  "name": "Meyer Bau e.K.",
+  "country": "DE",
+  "vat_id": "DE620356957",
+  "iban": "DE76687954638490595871",
+  "email": "buchhaltung@meyer-14.example",
+  "contact_person": "Paul Fischer",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 15,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00015",
+  "type": "customer",
+  "name": "Schulz Handel KG",
+  "country": "DE",
+  "vat_id": "DE336033003",
+  "iban": "DE82820459509765748674",
+  "email": "buchhaltung@schulz-15.example",
+  "contact_person": "Ben Hoffmann",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 16,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00016",
+  "type": "customer",
+  "name": "Schneider Logistik KG",
+  "country": "DE",
+  "vat_id": "DE841164482",
+  "iban": "DE38402544367030861625",
+  "email": "buchhaltung@schneider-16.example",
+  "contact_person": "Jonas Schneider",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 17,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00017",
+  "type": "customer",
+  "name": "Schulz Systeme GmbH",
+  "country": "DE",
+  "vat_id": "DE170355917",
+  "iban": "DE27268586353987014516",
+  "email": "buchhaltung@schulz-17.example",
+  "contact_person": "Noah Fischer",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 18,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00018",
+  "type": "customer",
+  "name": "Müller Metall GmbH",
+  "country": null,
+  "vat_id": "DE864066019",
+  "iban": "DE38608874311125506498",
+  "email": "buchhaltung@müller-18.example",
+  "contact_person": "Emma Groß",
+  "city": "Köln",
+  "flags": [
+   "missing_country"
+  ],
+  "source": {
+   "file": "partners.csv",
+   "row": 19,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00019",
+  "type": "customer",
+  "name": "Schmidt Logistik KG",
+  "country": "DE",
+  "vat_id": "DE383764294",
+  "iban": "DE52471486209542394439",
+  "email": "buchhaltung@schmidt-19.example",
+  "contact_person": "Paul Wagner",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 20,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00020",
+  "type": "customer",
+  "name": "Schmidt Logistik GmbH & Co. KG",
+  "country": "AT",
+  "vat_id": "ATU575960085",
+  "iban": "AT58233611160757123001",
+  "email": "buchhaltung@schmidt-20.example",
+  "contact_person": "Mia Schulz",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 21,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00021",
+  "type": "customer",
+  "name": "Hoffmann Technik GmbH",
+  "country": "AT",
+  "vat_id": "ATU546028343",
+  "iban": "AT51724292054297393859",
+  "email": "buchhaltung@hoffmann-21.example",
+  "contact_person": "Mia Köhler",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 22,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00022",
+  "type": "customer",
+  "name": "Groß Bau GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE208319388",
+  "iban": "DE16001692842618159541",
+  "email": "buchhaltung@groß-22.example",
+  "contact_person": "Jonas Meyer",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 23,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00023",
+  "type": "customer",
+  "name": "Weber Montage GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE100325612",
+  "iban": "DE36680456079226940231",
+  "email": "buchhaltung@weber-23.example",
+  "contact_person": "Emma Müller",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 24,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00024",
+  "type": "customer",
+  "name": "Fischer Logistik KG",
+  "country": "DE",
+  "vat_id": "DE121443554",
+  "iban": "DE33875422879677347208",
+  "email": "buchhaltung@fischer-24.example",
+  "contact_person": "Felix Köhler",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 25,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00025",
+  "type": "customer",
+  "name": "Müller Service AG",
+  "country": "DE",
+  "vat_id": "DE350157054",
+  "iban": "DE44548908800672902129",
+  "email": "buchhaltung@müller-25.example",
+  "contact_person": "Lukas Schmidt",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 26,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00026",
+  "type": "customer",
+  "name": "Wagner Handel GmbH",
+  "country": "DE",
+  "vat_id": "DE106795560",
+  "iban": "DE45456913855753434292",
+  "email": "buchhaltung@wagner-26.example",
+  "contact_person": "Emma Müller",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 27,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00027",
+  "type": "customer",
+  "name": "Weber Handel GmbH",
+  "country": "DE",
+  "vat_id": "DE824176778",
+  "iban": "DE16399560218534018255",
+  "email": "buchhaltung@weber-27.example",
+  "contact_person": "Emma Groß",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 28,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00028",
+  "type": "customer",
+  "name": "Schulz Holz GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE419676195",
+  "iban": "DE42722218377891493275",
+  "email": "buchhaltung@schulz-28.example",
+  "contact_person": "Lina Schmidt",
+  "city": "Görlitz",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 29,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00029",
+  "type": "customer",
+  "name": "Meyer Montage GmbH & Co. KG",
+  "country": "AT",
+  "vat_id": "ATU700749239",
+  "iban": "AT18642234694043307369",
+  "email": "buchhaltung@meyer-29.example",
+  "contact_person": "Jonas Schulz",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 30,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00030",
+  "type": "customer",
+  "name": "Weber Montage KG",
+  "country": "DE",
+  "vat_id": "DE096758862",
+  "iban": "DE90305672182335687649",
+  "email": "buchhaltung@weber-30.example",
+  "contact_person": "Felix Becker",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 31,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00031",
+  "type": "customer",
+  "name": "Fischer Bau e.K.",
+  "country": "DE",
+  "vat_id": "DE198073111",
+  "iban": "DE92229568144592366461",
+  "email": "buchhaltung@fischer-31.example",
+  "contact_person": "Emma Hoffmann",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 32,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00032",
+  "type": "customer",
+  "name": "Müller Montage e.K.",
+  "country": "DE",
+  "vat_id": "DE890624558",
+  "iban": "DE46613927687703536145",
+  "email": "buchhaltung@müller-32.example",
+  "contact_person": "Anna Schulz",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 33,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00033",
+  "type": "customer",
+  "name": "Schmidt Montage KG",
+  "country": "AT",
+  "vat_id": "ATU237109444",
+  "iban": "AT32714555862154346869",
+  "email": "buchhaltung@schmidt-33.example",
+  "contact_person": "Lukas Schneider",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 34,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00034",
+  "type": "customer",
+  "name": "Wagner Technik GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE152161217",
+  "iban": "DE93000563145609609263",
+  "email": "buchhaltung@wagner-34.example",
+  "contact_person": "Mia Becker",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 35,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00035",
+  "type": "customer",
+  "name": "Weber Systeme e.K.",
+  "country": "DE",
+  "vat_id": "DE194922408",
+  "iban": "DE56478922077183828355",
+  "email": "buchhaltung@weber-35.example",
+  "contact_person": "Jonas Fischer",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 36,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00036",
+  "type": "customer",
+  "name": "Becker Bau GmbH",
+  "country": "FR",
+  "vat_id": "FR952130272",
+  "iban": "FR88033116237105427739",
+  "email": "buchhaltung@becker-36.example",
+  "contact_person": "Ben Hoffmann",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 37,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00037",
+  "type": "customer",
+  "name": "Meyer Metall KG",
+  "country": "DE",
+  "vat_id": "DE220513877",
+  "iban": "DE69239783581778403737",
+  "email": "buchhaltung@meyer-37.example",
+  "contact_person": "Anna Schneider",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 38,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00038",
+  "type": "customer",
+  "name": "Köhler Technik e.K.",
+  "country": "DK",
+  "vat_id": "DK100551538",
+  "iban": "DK44629240457220196046",
+  "email": "buchhaltung@köhler-38.example",
+  "contact_person": "Ben Weber",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 39,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00039",
+  "type": "customer",
+  "name": "Meyer Metall GmbH",
+  "country": "DE",
+  "vat_id": "DE813420938",
+  "iban": "DE40543313211386940192",
+  "email": "buchhaltung@meyer-39.example",
+  "contact_person": "Jonas Schmidt",
+  "city": "Görlitz",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 40,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00040",
+  "type": "customer",
+  "name": "Becker Logistik GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE368504081",
+  "iban": "DE70817893038271850900",
+  "email": "buchhaltung@becker-40.example",
+  "contact_person": "Mia Müller",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 41,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00041",
+  "type": "customer",
+  "name": "Köhler Metall AG",
+  "country": "DE",
+  "vat_id": "DE206983024",
+  "iban": "DE85871918974257688129",
+  "email": "buchhaltung@köhler-41.example",
+  "contact_person": "Ben Wagner",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 42,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00042",
+  "type": "customer",
+  "name": "Groß Holz GmbH",
+  "country": "DE",
+  "vat_id": "DE193621164",
+  "iban": "DE24199235867533801741",
+  "email": "buchhaltung@groß-42.example",
+  "contact_person": "Lina Schneider",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 43,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00043",
+  "type": "customer",
+  "name": "Wagner Handel e.K.",
+  "country": "DE",
+  "vat_id": "DE12345",
+  "iban": "DE31321809004723746227",
+  "email": "buchhaltung@wagner-43.example",
+  "contact_person": "Lina Fischer",
+  "city": "Ulm",
+  "flags": [
+   "malformed_vat_id"
+  ],
+  "source": {
+   "file": "partners.csv",
+   "row": 44,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00044",
+  "type": "customer",
+  "name": "Wagner Holz KG",
+  "country": "DE",
+  "vat_id": "DE122175413",
+  "iban": "DE73017957002658396943",
+  "email": "buchhaltung@wagner-44.example",
+  "contact_person": "Noah Müller",
+  "city": "Würzburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 45,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00045",
+  "type": "customer",
+  "name": "Weber Logistik GmbH",
+  "country": "DE",
+  "vat_id": "DE573305475",
+  "iban": "DE82216274877942218142",
+  "email": "buchhaltung@weber-45.example",
+  "contact_person": "Anna Weber",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 46,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00046",
+  "type": "customer",
+  "name": "Fischer Holz e.K.",
+  "country": "DE",
+  "vat_id": "DE294657075",
+  "iban": "DE15920205617186904241",
+  "email": "buchhaltung@fischer-46.example",
+  "contact_person": "Emma Schmidt",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 47,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00047",
+  "type": "customer",
+  "name": "Köhler Systeme e.K.",
+  "country": "DE",
+  "vat_id": "DE727017679",
+  "iban": "DE65003882356552793348",
+  "email": "buchhaltung@köhler-47.example",
+  "contact_person": "Emma Meyer",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 48,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00048",
+  "type": "customer",
+  "name": "Meyer Technik AG",
+  "country": "DE",
+  "vat_id": "DE198052049",
+  "iban": "DE67416644269575272820",
+  "email": "buchhaltung@meyer-48.example",
+  "contact_person": "Lukas Köhler",
+  "city": "Görlitz",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 49,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00049",
+  "type": "customer",
+  "name": "Müller Werk AG",
+  "country": "DE",
+  "vat_id": "DE456284065",
+  "iban": "DE12776349010215145660",
+  "email": "buchhaltung@müller-49.example",
+  "contact_person": "Jonas Schmidt",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 50,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00050",
+  "type": "customer",
+  "name": "Meyer Werk GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE972626638",
+  "iban": "DE47850715837514332936",
+  "email": "buchhaltung@meyer-50.example",
+  "contact_person": "Noah Fischer",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 51,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00051",
+  "type": "customer",
+  "name": "Köhler Holz GmbH",
+  "country": "AT",
+  "vat_id": "ATU792055465",
+  "iban": "AT84879068963798373776",
+  "email": "buchhaltung@köhler-51.example",
+  "contact_person": "Lukas Köhler",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 52,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00052",
+  "type": "customer",
+  "name": "Hoffmann Logistik e.K.",
+  "country": "DE",
+  "vat_id": "DE757876129",
+  "iban": "DE77843930076087598131",
+  "email": "buchhaltung@hoffmann-52.example",
+  "contact_person": "Ben Becker",
+  "city": "Würzburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 53,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00053",
+  "type": "customer",
+  "name": "Köhler Metall GmbH",
+  "country": "DE",
+  "vat_id": "DE143738910",
+  "iban": "DE24244225136845220713",
+  "email": "buchhaltung@köhler-53.example",
+  "contact_person": "Lea Weber",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 54,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00054",
+  "type": "customer",
+  "name": "Hoffmann Technik e.K.",
+  "country": "NL",
+  "vat_id": "NL600937302",
+  "iban": "NL11657946255777460963",
+  "email": "buchhaltung@hoffmann-54.example",
+  "contact_person": "Lukas Meyer",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 55,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00055",
+  "type": "customer",
+  "name": "Groß Service GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE959394861",
+  "iban": "DE89908978319630240566",
+  "email": "buchhaltung@groß-55.example",
+  "contact_person": "Paul Hoffmann",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 56,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00056",
+  "type": "customer",
+  "name": "Müller Bau GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE526861412",
+  "iban": "DE33727877587838777846",
+  "email": "buchhaltung@müller-56.example",
+  "contact_person": "Sofia Köhler",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 57,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00057",
+  "type": "customer",
+  "name": "Müller Montage KG",
+  "country": "DE",
+  "vat_id": "DE089624760",
+  "iban": "DE85896564364645288673",
+  "email": "buchhaltung@müller-57.example",
+  "contact_person": "Paul Weber",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 58,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00058",
+  "type": "customer",
+  "name": "Schneider Werk e.K.",
+  "country": "DE",
+  "vat_id": "DE490552600",
+  "iban": "DE44451072235245396375",
+  "email": "buchhaltung@schneider-58.example",
+  "contact_person": "Ben Weber",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 59,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00059",
+  "type": "customer",
+  "name": "Schneider Metall AG",
+  "country": "FR",
+  "vat_id": "n/a",
+  "iban": "FR52898694282839315881",
+  "email": "buchhaltung@schneider-59.example",
+  "contact_person": "Lea Hoffmann",
+  "city": null,
+  "flags": [
+   "malformed_vat_id"
+  ],
+  "source": {
+   "file": "partners.csv",
+   "row": 60,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00060",
+  "type": "customer",
+  "name": "Müller Logistik GmbH",
+  "country": "PL",
+  "vat_id": "PL978732495",
+  "iban": "PL45889912642179083617",
+  "email": "buchhaltung@müller-60.example",
+  "contact_person": "Emma Schneider",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 61,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00061",
+  "type": "customer",
+  "name": "Schneider Bau e.K.",
+  "country": "DE",
+  "vat_id": "DE073803456",
+  "iban": "DE59248569496645059685",
+  "email": "buchhaltung@schneider-61.example",
+  "contact_person": "Noah Müller",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 62,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00062",
+  "type": "customer",
+  "name": "Schmidt Logistik KG",
+  "country": "DE",
+  "vat_id": "DE280398698",
+  "iban": "DE58565364704898150239",
+  "email": "buchhaltung@schmidt-62.example",
+  "contact_person": "Noah Hoffmann",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 63,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00063",
+  "type": "customer",
+  "name": "Wagner Systeme AG",
+  "country": "DE",
+  "vat_id": "DE721516832",
+  "iban": "DE91895768628100774977",
+  "email": "buchhaltung@wagner-63.example",
+  "contact_person": "Noah Meyer",
+  "city": "Würzburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 64,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00064",
+  "type": "customer",
+  "name": "Fischer Handel AG",
+  "country": "DE",
+  "vat_id": "DE490079589",
+  "iban": "DE75148793247659931815",
+  "email": "buchhaltung@fischer-64.example",
+  "contact_person": "Mia Meyer",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 65,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00065",
+  "type": "customer",
+  "name": "Köhler Logistik KG",
+  "country": "NL",
+  "vat_id": "NL175239499",
+  "iban": "NL28606115548011807942",
+  "email": "buchhaltung@köhler-65.example",
+  "contact_person": "Noah Schulz",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 66,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00066",
+  "type": "customer",
+  "name": "Becker Werk KG",
+  "country": "DE",
+  "vat_id": "DE352929316",
+  "iban": "DE16215079921844669166",
+  "email": "buchhaltung@becker-66.example",
+  "contact_person": "Lea Hoffmann",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 67,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00067",
+  "type": "customer",
+  "name": "Meyer Werk e.K.",
+  "country": "DE",
+  "vat_id": "DE166945440",
+  "iban": "DE78042736701693442547",
+  "email": "buchhaltung@meyer-67.example",
+  "contact_person": "Lina Groß",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 68,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00068",
+  "type": "customer",
+  "name": "Schulz Holz e.K.",
+  "country": "DE",
+  "vat_id": "DE085916170",
+  "iban": "DE57553544382936204810",
+  "email": "buchhaltung@schulz-68.example",
+  "contact_person": "Lukas Groß",
+  "city": "Görlitz",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 69,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00069",
+  "type": "customer",
+  "name": "Hoffmann Metall AG",
+  "country": "DE",
+  "vat_id": "DE720242825",
+  "iban": "DE58854810902693970635",
+  "email": "buchhaltung@hoffmann-69.example",
+  "contact_person": "Lukas Schulz",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 70,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00070",
+  "type": "customer",
+  "name": "Schulz Service KG",
+  "country": "DE",
+  "vat_id": "DE205101462",
+  "iban": "DE66277914277407795837",
+  "email": "buchhaltung@schulz-70.example",
+  "contact_person": "Jonas Köhler",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 71,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00071",
+  "type": "customer",
+  "name": "Wagner Technik GmbH",
+  "country": "DE",
+  "vat_id": "DE873047422",
+  "iban": "DE16673906165700314735",
+  "email": "buchhaltung@wagner-71.example",
+  "contact_person": "Emma Weber",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 72,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00072",
+  "type": "customer",
+  "name": "Schneider Logistik e.K.",
+  "country": "DE",
+  "vat_id": "DE872036231",
+  "iban": "DE24708790034723770969",
+  "email": "buchhaltung@schneider-72.example",
+  "contact_person": "Noah Schmidt",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 73,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00073",
+  "type": "customer",
+  "name": "Köhler Technik GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE656790396",
+  "iban": "DE18783566860001992182",
+  "email": "buchhaltung@köhler-73.example",
+  "contact_person": "Lina Fischer",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 74,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00074",
+  "type": "customer",
+  "name": "Weber Logistik AG",
+  "country": "DE",
+  "vat_id": "DE935637347",
+  "iban": "DE67209559810935476982",
+  "email": "buchhaltung@weber-74.example",
+  "contact_person": "Lukas Groß",
+  "city": "Görlitz",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 75,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00075",
+  "type": "customer",
+  "name": "Schneider Technik KG",
+  "country": "DE",
+  "vat_id": "DE922184370",
+  "iban": "DE67113591542130349400",
+  "email": "buchhaltung@schneider-75.example",
+  "contact_person": "Lina Hoffmann",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 76,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00076",
+  "type": "customer",
+  "name": "Müller Technik GmbH",
+  "country": "DE",
+  "vat_id": "DE069430464",
+  "iban": "DE53176878855629315300",
+  "email": "buchhaltung@müller-76.example",
+  "contact_person": "Ben Groß",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 77,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00077",
+  "type": "customer",
+  "name": "Köhler Metall e.K.",
+  "country": "DE",
+  "vat_id": "DE248069633",
+  "iban": "DE29515533679940194706",
+  "email": "buchhaltung@köhler-77.example",
+  "contact_person": "Jonas Meyer",
+  "city": "Görlitz",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 78,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00078",
+  "type": "customer",
+  "name": "Schulz Service GmbH",
+  "country": "DE",
+  "vat_id": "DE707673428",
+  "iban": "DE38986966951719437948",
+  "email": "buchhaltung@schulz-78.example",
+  "contact_person": "Sofia Meyer",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 79,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00079",
+  "type": "customer",
+  "name": "Schneider Technik e.K.",
+  "country": "DE",
+  "vat_id": "DE585035208",
+  "iban": "DE57805387884755152580",
+  "email": "buchhaltung@schneider-79.example",
+  "contact_person": "Emma Schneider",
+  "city": "Würzburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 80,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00080",
+  "type": "customer",
+  "name": "Schneider Technik GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE203925803",
+  "iban": "DE14397183395285531149",
+  "email": "buchhaltung@schneider-80.example",
+  "contact_person": "Lea Wagner",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 81,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00081",
+  "type": "customer",
+  "name": "Becker Handel KG",
+  "country": "DE",
+  "vat_id": "DE566301720",
+  "iban": "DE11476363427126310714",
+  "email": "buchhaltung@becker-81.example",
+  "contact_person": "Lina Hoffmann",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 82,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00082",
+  "type": "customer",
+  "name": "Schmidt Handel GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE475743698",
+  "iban": "DE55897002262094737689",
+  "email": "buchhaltung@schmidt-82.example",
+  "contact_person": "Anna Schneider",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 83,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00083",
+  "type": "customer",
+  "name": "Weber Bau GmbH",
+  "country": "DE",
+  "vat_id": "DE770039084",
+  "iban": "DE28312830879739758219",
+  "email": "buchhaltung@weber-83.example",
+  "contact_person": "Lina Köhler",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 84,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00084",
+  "type": "customer",
+  "name": "Wagner Systeme AG",
+  "country": "DE",
+  "vat_id": "DE512793046",
+  "iban": "DE84239145719291900730",
+  "email": "buchhaltung@wagner-84.example",
+  "contact_person": "Sofia Hoffmann",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 85,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00085",
+  "type": "customer",
+  "name": "Becker Handel AG",
+  "country": "DE",
+  "vat_id": "DE300041279",
+  "iban": "DE57861071741885249140",
+  "email": "buchhaltung@becker-85.example",
+  "contact_person": "Ben Meyer",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 86,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00086",
+  "type": "customer",
+  "name": "Schmidt Bau GmbH",
+  "country": "FR",
+  "vat_id": "FR129020002",
+  "iban": "FR90686336589862112741",
+  "email": "buchhaltung@schmidt-86.example",
+  "contact_person": "Emma Becker",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 87,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00087",
+  "type": "customer",
+  "name": "Weber Systeme AG",
+  "country": "DE",
+  "vat_id": "DE211023752",
+  "iban": "DE76942941907663363880",
+  "email": "buchhaltung@weber-87.example",
+  "contact_person": "Anna Weber",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 88,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00088",
+  "type": "customer",
+  "name": "Meyer Montage KG",
+  "country": "DE",
+  "vat_id": "DE593521880",
+  "iban": "DE14948627679949068924",
+  "email": "buchhaltung@meyer-88.example",
+  "contact_person": "Lea Schneider",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 89,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00089",
+  "type": "customer",
+  "name": "Hoffmann Metall e.K.",
+  "country": "DE",
+  "vat_id": "DE802674105",
+  "iban": "DE79718787608947546124",
+  "email": "buchhaltung@hoffmann-89.example",
+  "contact_person": "Lukas Meyer",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 90,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00090",
+  "type": "customer",
+  "name": "Becker Holz e.K.",
+  "country": "DE",
+  "vat_id": "DE459094901",
+  "iban": "DE75523994874185386276",
+  "email": "buchhaltung@becker-90.example",
+  "contact_person": "Lukas Köhler",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 91,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00091",
+  "type": "customer",
+  "name": "Schneider Montage GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE313821267",
+  "iban": "DE30127363915231266542",
+  "email": "buchhaltung@schneider-91.example",
+  "contact_person": "Noah Hoffmann",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 92,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00092",
+  "type": "customer",
+  "name": "Meyer Logistik GmbH & Co. KG",
+  "country": "FR",
+  "vat_id": "FR856506966",
+  "iban": "FR95475517179222998826",
+  "email": "buchhaltung@meyer-92.example",
+  "contact_person": "Ben Schmidt",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 93,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00093",
+  "type": "customer",
+  "name": "Becker Bau GmbH",
+  "country": "DE",
+  "vat_id": "DE337836928",
+  "iban": "DE93102342916764703326",
+  "email": "buchhaltung@becker-93.example",
+  "contact_person": "Mia Weber",
+  "city": "Görlitz",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 94,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00094",
+  "type": "customer",
+  "name": "Groß Metall e.K.",
+  "country": "DE",
+  "vat_id": "DE299501103",
+  "iban": "DE26434125527874560847",
+  "email": "buchhaltung@groß-94.example",
+  "contact_person": "Mia Schmidt",
+  "city": "Würzburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 95,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00095",
+  "type": "customer",
+  "name": "Fischer Bau GmbH & Co. KG",
+  "country": "PL",
+  "vat_id": "PL339268137",
+  "iban": "PL63669081604372294062",
+  "email": "buchhaltung@fischer-95.example",
+  "contact_person": "Jonas Weber",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 96,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00096",
+  "type": "customer",
+  "name": "Hoffmann Bau e.K.",
+  "country": "DE",
+  "vat_id": "DE706727701",
+  "iban": "DE48511896752847352520",
+  "email": "buchhaltung@hoffmann-96.example",
+  "contact_person": "Ben Schneider",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 97,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00097",
+  "type": "customer",
+  "name": "Köhler Metall e.K.",
+  "country": "AT",
+  "vat_id": "ATU969149586",
+  "iban": "AT81377386400118211256",
+  "email": "buchhaltung@köhler-97.example",
+  "contact_person": "Jonas Hoffmann",
+  "city": null,
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 98,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00098",
+  "type": "customer",
+  "name": "Schulz Montage KG",
+  "country": "DE",
+  "vat_id": "DE332495088",
+  "iban": "DE94110564128690539893",
+  "email": "buchhaltung@schulz-98.example",
+  "contact_person": "Sofia Weber",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 99,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00099",
+  "type": "customer",
+  "name": "Fischer Montage e.K.",
+  "country": "DE",
+  "vat_id": "DE760846810",
+  "iban": "DE31834584629760604290",
+  "email": "buchhaltung@fischer-99.example",
+  "contact_person": "Sofia Meyer",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 100,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00100",
+  "type": "customer",
+  "name": "Wagner Metall KG",
+  "country": "DE",
+  "vat_id": "DE184257075",
+  "iban": "DE34402326279306696505",
+  "email": "buchhaltung@wagner-100.example",
+  "contact_person": "Lea Hoffmann",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 101,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "K00161",
+  "type": "customer",
+  "name": "Hoffmann Service GmbH",
+  "country": "DE",
+  "vat_id": "DE783231757",
+  "iban": "DE66784035631200247506",
+  "email": "buchhaltung@hoffmann-4.example",
+  "contact_person": "Emma Fischer",
+  "city": "Kiel",
+  "flags": [
+   "possible_duplicate"
+  ],
+  "source": {
+   "file": "partners.csv",
+   "row": 162,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00101",
+  "type": "supplier",
+  "name": "Weber Service GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE778976145",
+  "iban": "DE65923461695056139399",
+  "email": "buchhaltung@weber-101.example",
+  "contact_person": "Felix Groß",
+  "city": "Würzburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 102,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00102",
+  "type": "supplier",
+  "name": "Müller Bau e.K.",
+  "country": "DE",
+  "vat_id": "DE884591384",
+  "iban": "DE97135289236169433486",
+  "email": "buchhaltung@müller-102.example",
+  "contact_person": "Sofia Hoffmann",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 103,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00103",
+  "type": "supplier",
+  "name": "Weber Logistik GmbH",
+  "country": "DE",
+  "vat_id": "DE055143434",
+  "iban": "DE70832939084079823819",
+  "email": "buchhaltung@weber-103.example",
+  "contact_person": "Lukas Wagner",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 104,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00104",
+  "type": "supplier",
+  "name": "Wagner Service AG",
+  "country": "DE",
+  "vat_id": "DE821178430",
+  "iban": "DE35134438647959353092",
+  "email": "buchhaltung@wagner-104.example",
+  "contact_person": "Lea Hoffmann",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 105,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00105",
+  "type": "supplier",
+  "name": "Schneider Metall AG",
+  "country": "DE",
+  "vat_id": "DE155085706",
+  "iban": "DE92611064368029949007",
+  "email": "buchhaltung@schneider-105.example",
+  "contact_person": "Lina Meyer",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 106,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00106",
+  "type": "supplier",
+  "name": "Schulz Montage GmbH",
+  "country": "DE",
+  "vat_id": "DE917368401",
+  "iban": "DE71924052011766113953",
+  "email": "buchhaltung@schulz-106.example",
+  "contact_person": "Sofia Groß",
+  "city": "Görlitz",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 107,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00107",
+  "type": "supplier",
+  "name": "Meyer Technik e.K.",
+  "country": "DE",
+  "vat_id": "DE399671496",
+  "iban": "DE94472235061210343351",
+  "email": "buchhaltung@meyer-107.example",
+  "contact_person": "Paul Fischer",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 108,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00108",
+  "type": "supplier",
+  "name": "Schmidt Systeme e.K.",
+  "country": "DE",
+  "vat_id": "DE897298855",
+  "iban": "DE80680624875635277202",
+  "email": "buchhaltung@schmidt-108.example",
+  "contact_person": "Jonas Wagner",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 109,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00109",
+  "type": "supplier",
+  "name": "Becker Werk GmbH",
+  "country": "DE",
+  "vat_id": "DE863301441",
+  "iban": "DE77733554970711049203",
+  "email": "buchhaltung@becker-109.example",
+  "contact_person": "Lea Wagner",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 110,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00110",
+  "type": "supplier",
+  "name": "Schneider Metall AG",
+  "country": "DE",
+  "vat_id": "DE862932625",
+  "iban": "DE87564857625544981340",
+  "email": "buchhaltung@schneider-110.example",
+  "contact_person": "Lina Groß",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 111,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00111",
+  "type": "supplier",
+  "name": "Hoffmann Handel e.K.",
+  "country": "DE",
+  "vat_id": "DE478111932",
+  "iban": "DE54350564673966959895",
+  "email": "buchhaltung@hoffmann-111.example",
+  "contact_person": "Paul Weber",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 112,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00112",
+  "type": "supplier",
+  "name": "Meyer Systeme GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE845238940",
+  "iban": "DE17599296512366537449",
+  "email": "buchhaltung@meyer-112.example",
+  "contact_person": "Anna Groß",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 113,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00113",
+  "type": "supplier",
+  "name": "Hoffmann Handel e.K.",
+  "country": "DE",
+  "vat_id": "DE642221155",
+  "iban": "DE53324846258148285884",
+  "email": "buchhaltung@hoffmann-113.example",
+  "contact_person": "Lea Groß",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 114,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00114",
+  "type": "supplier",
+  "name": "Köhler Montage GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE105438593",
+  "iban": "DE48988480655056053121",
+  "email": "buchhaltung@köhler-114.example",
+  "contact_person": "Jonas Hoffmann",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 115,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00115",
+  "type": "supplier",
+  "name": "Schmidt Systeme GmbH",
+  "country": "DE",
+  "vat_id": "DE795715915",
+  "iban": "DE14620411272247560658",
+  "email": "buchhaltung@schmidt-115.example",
+  "contact_person": "Jonas Hoffmann",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 116,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00116",
+  "type": "supplier",
+  "name": "Hoffmann Logistik GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE728825950",
+  "iban": "DE89801831119031422852",
+  "email": "buchhaltung@hoffmann-116.example",
+  "contact_person": "Noah Hoffmann",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 117,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00117",
+  "type": "supplier",
+  "name": "Weber Service KG",
+  "country": "DE",
+  "vat_id": "DE378740141",
+  "iban": "DE59967035106699740960",
+  "email": "buchhaltung@weber-117.example",
+  "contact_person": "Lina Becker",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 118,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00118",
+  "type": "supplier",
+  "name": "Wagner Werk GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE933580984",
+  "iban": "DE87458644401888358223",
+  "email": "buchhaltung@wagner-118.example",
+  "contact_person": "Lina Schmidt",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 119,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00119",
+  "type": "supplier",
+  "name": "Schmidt Metall KG",
+  "country": "DE",
+  "vat_id": "DE056574800",
+  "iban": "DE52584857478710608124",
+  "email": "buchhaltung@schmidt-119.example",
+  "contact_person": "Sofia Hoffmann",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 120,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00120",
+  "type": "supplier",
+  "name": "Hoffmann Bau GmbH",
+  "country": "DE",
+  "vat_id": "DE438932009",
+  "iban": "DE55643555967177123911",
+  "email": "buchhaltung@hoffmann-120.example",
+  "contact_person": "Mia Weber",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 121,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00121",
+  "type": "supplier",
+  "name": "Wagner Holz GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE111129656",
+  "iban": "DE45003195952465303392",
+  "email": "buchhaltung@wagner-121.example",
+  "contact_person": "Sofia Schulz",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 122,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00122",
+  "type": "supplier",
+  "name": "Groß Systeme e.K.",
+  "country": "DE",
+  "vat_id": "DE026306930",
+  "iban": "DE14658043483623468298",
+  "email": "buchhaltung@groß-122.example",
+  "contact_person": "Ben Köhler",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 123,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00123",
+  "type": "supplier",
+  "name": "Weber Handel AG",
+  "country": "DE",
+  "vat_id": "DE989103283",
+  "iban": "DE31186935533651736408",
+  "email": "buchhaltung@weber-123.example",
+  "contact_person": "Lina Schmidt",
+  "city": "Würzburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 124,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00124",
+  "type": "supplier",
+  "name": "Weber Metall AG",
+  "country": "DE",
+  "vat_id": "DE564120283",
+  "iban": "DE89518615295302134331",
+  "email": "buchhaltung@weber-124.example",
+  "contact_person": "Emma Köhler",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 125,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00125",
+  "type": "supplier",
+  "name": "Weber Logistik KG",
+  "country": "DE",
+  "vat_id": "DE388500580",
+  "iban": "DE38364156727657077716",
+  "email": "buchhaltung@weber-125.example",
+  "contact_person": "Lukas Wagner",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 126,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00126",
+  "type": "supplier",
+  "name": "Köhler Bau GmbH",
+  "country": "DE",
+  "vat_id": "DE281699775",
+  "iban": "DE33599673619853700094",
+  "email": "buchhaltung@köhler-126.example",
+  "contact_person": "Anna Schneider",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 127,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00127",
+  "type": "supplier",
+  "name": "Becker Montage GmbH",
+  "country": "DE",
+  "vat_id": "DE712393622",
+  "iban": "DE76972025883255483579",
+  "email": "buchhaltung@becker-127.example",
+  "contact_person": "Lea Groß",
+  "city": "Würzburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 128,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00128",
+  "type": "supplier",
+  "name": "Schneider Metall GmbH",
+  "country": "DE",
+  "vat_id": "DE861506967",
+  "iban": "DE80639873552292982915",
+  "email": "buchhaltung@schneider-128.example",
+  "contact_person": "Jonas Groß",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 129,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00129",
+  "type": "supplier",
+  "name": "Wagner Montage AG",
+  "country": "DE",
+  "vat_id": "DE899248089",
+  "iban": "DE61575649584114356815",
+  "email": "buchhaltung@wagner-129.example",
+  "contact_person": "Sofia Fischer",
+  "city": "Görlitz",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 130,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00130",
+  "type": "supplier",
+  "name": "Fischer Holz GmbH",
+  "country": "DE",
+  "vat_id": "DE861461069",
+  "iban": "DE20308685976481825211",
+  "email": "buchhaltung@fischer-130.example",
+  "contact_person": "Sofia Schneider",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 131,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00131",
+  "type": "supplier",
+  "name": "Weber Montage KG",
+  "country": "DE",
+  "vat_id": "DE754909691",
+  "iban": "DE73074261272266638908",
+  "email": "buchhaltung@weber-131.example",
+  "contact_person": "Lea Meyer",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 132,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00132",
+  "type": "supplier",
+  "name": "Meyer Metall AG",
+  "country": "DE",
+  "vat_id": "DE625964361",
+  "iban": "DE65931586881195973262",
+  "email": "buchhaltung@meyer-132.example",
+  "contact_person": "Ben Becker",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 133,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00133",
+  "type": "supplier",
+  "name": "Meyer Technik GmbH",
+  "country": "DE",
+  "vat_id": "DE815912560",
+  "iban": "DE22994824274686882271",
+  "email": "buchhaltung@meyer-133.example",
+  "contact_person": "Ben Hoffmann",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 134,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00134",
+  "type": "supplier",
+  "name": "Schmidt Werk GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE714370818",
+  "iban": "DE40011045263086392475",
+  "email": "buchhaltung@schmidt-134.example",
+  "contact_person": "Emma Köhler",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 135,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00135",
+  "type": "supplier",
+  "name": "Schmidt Logistik KG",
+  "country": "DE",
+  "vat_id": "DE236202866",
+  "iban": "DE57066433151299490536",
+  "email": "buchhaltung@schmidt-135.example",
+  "contact_person": "Lukas Becker",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 136,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00136",
+  "type": "supplier",
+  "name": "Fischer Montage KG",
+  "country": "DE",
+  "vat_id": "DE793786922",
+  "iban": "DE13620818392580629371",
+  "email": "buchhaltung@fischer-136.example",
+  "contact_person": "Noah Groß",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 137,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00137",
+  "type": "supplier",
+  "name": "Hoffmann Service GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE677755840",
+  "iban": "DE22485357643142433658",
+  "email": "buchhaltung@hoffmann-137.example",
+  "contact_person": "Paul Köhler",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 138,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00138",
+  "type": "supplier",
+  "name": "Fischer Logistik KG",
+  "country": "DE",
+  "vat_id": "DE425040232",
+  "iban": "DE86047636747964905705",
+  "email": "buchhaltung@fischer-138.example",
+  "contact_person": "Anna Müller",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 139,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00139",
+  "type": "supplier",
+  "name": "Müller Werk GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE778044175",
+  "iban": "DE77902221263495617189",
+  "email": "buchhaltung@müller-139.example",
+  "contact_person": "Lea Müller",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 140,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00140",
+  "type": "supplier",
+  "name": "Becker Holz KG",
+  "country": "DE",
+  "vat_id": "DE271479697",
+  "iban": "DE45419130399793721069",
+  "email": "buchhaltung@becker-140.example",
+  "contact_person": "Ben Weber",
+  "city": "Würzburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 141,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00141",
+  "type": "supplier",
+  "name": "Schneider Holz e.K.",
+  "country": "DE",
+  "vat_id": "DE282102265",
+  "iban": "DE92759692875205074166",
+  "email": "buchhaltung@schneider-141.example",
+  "contact_person": "Noah Schulz",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 142,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00142",
+  "type": "supplier",
+  "name": "Fischer Werk e.K.",
+  "country": "DE",
+  "vat_id": "DE276967536",
+  "iban": "DE22076091350250720399",
+  "email": "buchhaltung@fischer-142.example",
+  "contact_person": "Jonas Müller",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 143,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00143",
+  "type": "supplier",
+  "name": "Schneider Handel e.K.",
+  "country": "DE",
+  "vat_id": "DE942357391",
+  "iban": "DE11827634638571989149",
+  "email": "buchhaltung@schneider-143.example",
+  "contact_person": "Sofia Groß",
+  "city": "Würzburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 144,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00144",
+  "type": "supplier",
+  "name": "Fischer Montage AG",
+  "country": "DE",
+  "vat_id": "DE370112908",
+  "iban": "DE89702836930953374982",
+  "email": "buchhaltung@fischer-144.example",
+  "contact_person": "Paul Schneider",
+  "city": "Ulm",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 145,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00145",
+  "type": "supplier",
+  "name": "Wagner Systeme e.K.",
+  "country": "DE",
+  "vat_id": "DE115024708",
+  "iban": "DE58289240663881863907",
+  "email": "buchhaltung@wagner-145.example",
+  "contact_person": "Lea Becker",
+  "city": "Görlitz",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 146,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00146",
+  "type": "supplier",
+  "name": "Schneider Systeme KG",
+  "country": "DE",
+  "vat_id": "DE931206356",
+  "iban": "DE32919601333002140540",
+  "email": "buchhaltung@schneider-146.example",
+  "contact_person": "Lukas Köhler",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 147,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00147",
+  "type": "supplier",
+  "name": "Wagner Bau GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE796195189",
+  "iban": "DE94363648698559612504",
+  "email": "buchhaltung@wagner-147.example",
+  "contact_person": "Emma Hoffmann",
+  "city": "Dresden",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 148,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00148",
+  "type": "supplier",
+  "name": "Wagner Montage GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE810557903",
+  "iban": "DE38022497407789161055",
+  "email": "buchhaltung@wagner-148.example",
+  "contact_person": "Lukas Köhler",
+  "city": "Hamburg",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 149,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00149",
+  "type": "supplier",
+  "name": "Wagner Montage GmbH",
+  "country": "DE",
+  "vat_id": "DE132578216",
+  "iban": "DE89347351486051317127",
+  "email": "buchhaltung@wagner-149.example",
+  "contact_person": "Mia Fischer",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 150,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00150",
+  "type": "supplier",
+  "name": "Groß Holz GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE115035174",
+  "iban": "DE27513946231678802539",
+  "email": "buchhaltung@groß-150.example",
+  "contact_person": "Felix Groß",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 151,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00151",
+  "type": "supplier",
+  "name": "Meyer Metall GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE387127326",
+  "iban": "DE63522617251710509879",
+  "email": "buchhaltung@meyer-151.example",
+  "contact_person": "Ben Müller",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 152,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00152",
+  "type": "supplier",
+  "name": "Hoffmann Technik GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE482891038",
+  "iban": "DE37667335791006558717",
+  "email": "buchhaltung@hoffmann-152.example",
+  "contact_person": "Ben Meyer",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 153,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00153",
+  "type": "supplier",
+  "name": "Becker Logistik e.K.",
+  "country": "DE",
+  "vat_id": "DE593197027",
+  "iban": "DE28047209043042357218",
+  "email": "buchhaltung@becker-153.example",
+  "contact_person": "Mia Weber",
+  "city": "Bremen",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 154,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00154",
+  "type": "supplier",
+  "name": "Schmidt Systeme GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE094312809",
+  "iban": "DE37145880073625368979",
+  "email": "buchhaltung@schmidt-154.example",
+  "contact_person": "Emma Becker",
+  "city": "Köln",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 155,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00155",
+  "type": "supplier",
+  "name": "Fischer Montage GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE036297007",
+  "iban": "DE60736134480700704052",
+  "email": "buchhaltung@fischer-155.example",
+  "contact_person": "Jonas Weber",
+  "city": "Kiel",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 156,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00156",
+  "type": "supplier",
+  "name": "Fischer Systeme GmbH",
+  "country": "DE",
+  "vat_id": "DE017900448",
+  "iban": "DE94268223845601768910",
+  "email": "buchhaltung@fischer-156.example",
+  "contact_person": "Sofia Weber",
+  "city": "Lübeck",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 157,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00157",
+  "type": "supplier",
+  "name": "Weber Werk GmbH",
+  "country": "DE",
+  "vat_id": "DE093029067",
+  "iban": "DE37656688171071380616",
+  "email": "buchhaltung@weber-157.example",
+  "contact_person": "Sofia Meyer",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 158,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00158",
+  "type": "supplier",
+  "name": "Fischer Handel e.K.",
+  "country": "DE",
+  "vat_id": "DE017541292",
+  "iban": "DE11384441384350646883",
+  "email": "buchhaltung@fischer-158.example",
+  "contact_person": "Anna Hoffmann",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 159,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00159",
+  "type": "supplier",
+  "name": "Becker Montage e.K.",
+  "country": "DE",
+  "vat_id": "DE193828026",
+  "iban": "DE81728384589994427539",
+  "email": "buchhaltung@becker-159.example",
+  "contact_person": "Emma Meyer",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 160,
+   "load": "load-01"
+  }
+ },
+ {
+  "id": "L00160",
+  "type": "supplier",
+  "name": "Weber Metall GmbH & Co. KG",
+  "country": "DE",
+  "vat_id": "DE044073843",
+  "iban": "DE36600540798428856540",
+  "email": "buchhaltung@weber-160.example",
+  "contact_person": "Lukas Weber",
+  "city": "Leipzig",
+  "flags": [],
+  "source": {
+   "file": "partners.csv",
+   "row": 161,
+   "load": "load-01"
+  }
+ }
+]
