@@ -33,7 +33,7 @@ export interface CustomerConfig {
   dateLocale: string;
   dataPath: string;
   words: Record<string, string>;
-  people: Record<RoleId, { displayName: string; greeting: string }>;
+  people: Record<RoleId, { displayName: string; greeting: string; inSentence?: string }>;
   roles: Record<RoleId, RoleConfig>;
   decisionGroups: DecisionGroupConfig[];
   checks: Record<string, boolean>;
@@ -105,4 +105,10 @@ export function parseConfig(raw: unknown): CustomerConfig {
     zeroRatedAccounts: c.zeroRatedAccounts ?? [],
     reviewThreshold: typeof c.reviewThreshold === 'number' ? c.reviewThreshold : 0.8,
   };
+}
+
+/** How a role is named mid-sentence: "your tax advisor", "the finance lead". */
+export function who(cfg: CustomerConfig, role: RoleId): string {
+  const p = cfg.people[role];
+  return p.inSentence ?? p.displayName.charAt(0).toLowerCase() + p.displayName.slice(1);
 }

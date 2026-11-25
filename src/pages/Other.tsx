@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { isResolved, runChecks, type Finding } from '../domain/checks';
 import { groupDecisions, previewEffect, progress } from '../domain/decisions';
 import { totalOf, trialBalance } from '../domain/ledger';
+import { who } from '../domain/config';
 import { computeMetrics } from '../domain/metrics';
 import { toCents, type Cents } from '../domain/money';
 import { Amount, Badge, Callout, Count, DateText, Needs, PageHead, Ref, decidedByLabel } from '../ui/components';
@@ -24,7 +25,7 @@ function ChecksInner() {
     <div className="stack">
       <PageHead title="What we checked">
         Before showing you the result, we recomputed every total from the individual records and looked for things no question covers.
-        {att.length > 0 ? ` ${att.length} need your attention. Better you hear it from us than from your tax advisor.` : ' Nothing needs your attention.'}
+        {att.length > 0 ? ` ${att.length} need your attention. Better you hear it from us than from your ${who(cfg, 'tax_advisor')}.` : ' Nothing needs your attention.'}
       </PageHead>
       {findings.map((f) => <FindingCard key={f.id} f={f} />)}
     </div>
@@ -252,15 +253,15 @@ function HandoverInner() {
 
   return (
     <div className="stack">
-      <PageHead title="Hand over to your tax advisor">
-        When everything below is ticked, sign off. Your tax advisor then gets read-only access to the books, every source row and a log of every answer you gave.
+      <PageHead title={`Hand over to your ${who(cfg, 'tax_advisor')}`}>
+        When everything below is ticked, sign off. Your {who(cfg, 'tax_advisor')} then gets read-only access to the books, every source row and a log of every answer you gave.
       </PageHead>
 
       {signed && (
-        <Callout tone="good" title={<>Signed off by {cfg.people[signed.by].displayName.toLowerCase()} on <DateText iso={signed.at} time /></>}>
-          <p>Answers are locked. {persisted.advisorInvited ? 'Your tax advisor has access.' : 'Invite your tax advisor below.'}</p>
+        <Callout tone="good" title={<>Signed off by the {who(cfg, signed.by)} on <DateText iso={signed.at} time /></>}>
+          <p>Answers are locked. {persisted.advisorInvited ? `Your ${who(cfg, 'tax_advisor')} has access.` : `Invite your ${who(cfg, 'tax_advisor')} below.`}</p>
           <div className="row">
-            <button className="btn small" onClick={() => setRole('tax_advisor')}>See what your advisor sees</button>
+            <button className="btn small" onClick={() => setRole('tax_advisor')}>See what they see</button>
             {cfg.roles[role].canSignOff && <button className="btn small ghost" onClick={() => dispatch({ t: 'reopen', by: role })}>Reopen</button>}
           </div>
         </Callout>
@@ -304,12 +305,12 @@ function HandoverInner() {
       </section>
 
       <section className="card stack-sm">
-        <h2>Your tax advisor's access</h2>
+        <h2>Access for your {who(cfg, 'tax_advisor')}</h2>
         <p>They will see: the books and every posting, source rows and versions, the checks above, and your answers with dates. They will <strong>not</strong> see customers' and suppliers' e-mail addresses, contact names or IBANs, and cannot change anything.</p>
         <div className="row">
           {persisted.advisorInvited
             ? <Badge tone="good">Invitation prepared <DateText iso={persisted.advisorInvited} time /></Badge>
-            : <button className="btn" disabled={!signed} onClick={() => dispatch({ t: 'invite', at: new Date().toISOString() })}>Invite tax advisor (read-only)</button>}
+            : <button className="btn" disabled={!signed} onClick={() => dispatch({ t: 'invite', at: new Date().toISOString() })}>Invite {who(cfg, 'tax_advisor')} (read-only)</button>}
           <button className="btn ghost" onClick={() => setRole('tax_advisor')}>Preview their view</button>
         </div>
         {!signed && <p className="small muted">Invite after sign-off, so they review the final state.</p>}
@@ -344,7 +345,7 @@ function DecisionLogInner() {
   return (
     <div className="stack">
       <PageHead title="Decisions and their effect">
-        Every answer the finance lead gave, when, and what it changed. {p.answered} of {p.total} questions answered
+        Every answer the {who(cfg, 'finance_lead')} gave, when, and what it changed. {p.answered} of {p.total} questions answered
         {persisted.signedOff ? <>; signed off <DateText iso={persisted.signedOff.at} time />.</> : '; not yet signed off.'}
       </PageHead>
       <section className="card">
@@ -402,7 +403,7 @@ function OverviewInner() {
   const signed = persisted.signedOff;
   return (
     <>
-      <Callout tone={signed ? 'good' : 'info'} title={signed ? 'Yes. The migration is signed off.' : 'Yes, the books are in. The finance lead is working through the last questions.'}>
+      <Callout tone={signed ? 'good' : 'info'} title={signed ? 'Yes. The migration is signed off.' : `Yes, the books are in. The ${who(cfg, 'finance_lead')} is working through the last questions.`}>
         <p>
           <Count n={idx.invoices.length} /> invoices and <Count n={idx.bank.length} /> bank transactions loaded; the books balance.
           {' '}{p.answered} of {p.total} questions answered{signed ? '' : `, ${p.blockingOpen} still needed before sign-off`}.
@@ -417,9 +418,9 @@ function OverviewInner() {
         <h2>Does anything need you?</h2>
         {tax.length === 0 ? <p>No. Nothing waits on you.</p> : (
           <>
-            <p>Not to act on, but worth knowing: <strong>{tax.length} VAT points</strong> your tax advisor will look at before the first VAT return.</p>
+            <p>Not to act on, but worth knowing: <strong>{tax.length} VAT points</strong> your {who(cfg, 'tax_advisor')} will look at before the first VAT return.</p>
             <ul>{tax.map((f) => <li key={f.id}>{f.title}{f.amount && <> (<Amount value={f.amount.value} currency={f.amount.currency} />)</>}</li>)}</ul>
-            <p className="small muted">The finance lead has the details.</p>
+            <p className="small muted">The {who(cfg, 'finance_lead')} has the details.</p>
           </>
         )}
       </section>

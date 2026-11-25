@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { STAKE_LABEL } from '../domain/config';
+import { STAKE_LABEL, who } from '../domain/config';
 import { amountOf, groupDecisions, invoiceOf, previewEffect, progress, type DecisionGroup } from '../domain/decisions';
 import { valueSpecFor } from '../domain/inputs';
 import { KEEPS_OPEN } from '../domain/checks';
@@ -52,7 +52,7 @@ function DecisionsInner() {
       {locked && <Callout tone="good" title="Signed off">Answers are locked. Reopen the migration on the hand-over page to change them.</Callout>}
       {p.blockingOpen === 0 && !locked && (
         <Callout tone="good" title="Everything needed for sign-off is answered">
-          <p>The remaining questions can stay open; they are visible to your tax advisor. <button className="link" onClick={() => go('handover')}>Go to hand-over →</button></p>
+          <p>The remaining questions can stay open; they are visible to your {who(cfg, 'tax_advisor')}. <button className="link" onClick={() => go('handover')}>Go to hand-over →</button></p>
         </Callout>
       )}
 
@@ -200,7 +200,7 @@ function DecisionCard({ d, canDecide }: { d: Decision; canDecide: boolean }) {
             <div className="small">
               {opt?.label}{ans.value && <> · <span className="mono">{ans.value}</span></>}
               {KEEPS_OPEN.includes(ans.optionId) && <> <Badge tone="neutral">still open in the books</Badge></>}
-              <span className="muted"> · {ans.bulk ? 'accepted with the group' : 'answered'} by {cfg.people[ans.by].displayName.toLowerCase()}</span>
+              <span className="muted"> · {ans.bulk ? 'accepted with the group' : 'answered'} by {who(cfg, ans.by)}</span>
             </div>
           </div>
           {canDecide && <button className="btn small ghost" onClick={() => dispatch({ t: 'undo', id: d.id, by: role })}>Undo</button>}

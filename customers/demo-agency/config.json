@@ -1,0 +1,185 @@
+{
+  "$schema": "../customer.schema.json",
+  "id": "demo-agency",
+  "company": "Studio Kranich GmbH",
+  "shortName": "Kranich",
+  "industry": "Design and software agency",
+  "numberLocale": "de-DE",
+  "dateLocale": "en-GB",
+  "dataPath": "../nordlicht/engine-output",
+  "words": {
+    "customer": "client",
+    "customers": "clients",
+    "supplier": "supplier",
+    "suppliers": "suppliers",
+    "salesInvoice": "client invoice",
+    "supplierInvoice": "freelancer or vendor bill",
+    "creditNote": "credit note",
+    "oldSystem": "your previous bookkeeping tool"
+  },
+  "people": {
+    "finance_lead": {
+      "displayName": "Head of operations",
+      "greeting": "Hi"
+    },
+    "tax_advisor": {
+      "displayName": "Steuerberaterin",
+      "greeting": "Read-only review",
+      "inSentence": "Steuerberaterin"
+    },
+    "owner": {
+      "displayName": "Founders",
+      "greeting": "Migration status",
+      "inSentence": "founders"
+    }
+  },
+  "roles": {
+    "finance_lead": {
+      "pages": [
+        "arrival",
+        "decisions",
+        "checks",
+        "books",
+        "handover"
+      ],
+      "canDecide": true,
+      "canSignOff": true,
+      "seesPersonalData": true
+    },
+    "tax_advisor": {
+      "pages": [
+        "books",
+        "decisionLog",
+        "checks",
+        "arrival"
+      ],
+      "canDecide": false,
+      "canSignOff": false,
+      "seesPersonalData": false
+    },
+    "owner": {
+      "pages": [
+        "overview",
+        "checks"
+      ],
+      "canDecide": false,
+      "canSignOff": false,
+      "seesPersonalData": false
+    }
+  },
+  "decisionGroups": [
+    {
+      "id": "classification",
+      "title": "Costs we could not place",
+      "why": "Agencies spend on software, freelancers and travel. Decide once what each kind of cost is; it shapes your project margins.",
+      "match": {
+        "type": "uncertain_classification"
+      },
+      "stake": "money",
+      "groupBy": "description",
+      "sortBy": "amount_desc",
+      "blocksSignOff": true
+    },
+    {
+      "id": "vat_zero_rated",
+      "title": "VAT ID missing for a zero-rated EU customer",
+      "why": "You invoiced this customer without German VAT as an intra-EU supply. That is only allowed with a valid VAT ID. Without one, these invoices may owe 19 % VAT.",
+      "match": {
+        "type": "malformed_vat_id",
+        "partnerHasZeroRatedSales": true
+      },
+      "stake": "tax",
+      "blocksSignOff": true
+    },
+    {
+      "id": "country",
+      "title": "A customer without a country",
+      "why": "The country decides whether German VAT applies. Some of this customer's invoices are in USD, which suggests they may not be in Germany.",
+      "match": {
+        "type": "missing_country"
+      },
+      "stake": "tax",
+      "blocksSignOff": true
+    },
+    {
+      "id": "duplicate_partner",
+      "title": "The same customer twice",
+      "why": "Answer this before the payments below: merging changes which customer an open item belongs to.",
+      "match": {
+        "type": "possible_duplicate_partner"
+      },
+      "stake": "who_owes_what",
+      "blocksSignOff": true
+    },
+    {
+      "id": "unmatched_receipt",
+      "title": "Client payments we could not match",
+      "why": "Money arrived and we don't know who paid it or for what. You can leave these open; they stay visible in the bank clearing account.",
+      "match": {
+        "type": "unmatched_receipt"
+      },
+      "stake": "cash",
+      "sortBy": "amount_desc",
+      "blocksSignOff": false
+    },
+    {
+      "id": "unexplained_refund",
+      "title": "Refunds without a credit note",
+      "why": "Money went out to a customer. Each should close one of your open credit notes.",
+      "match": {
+        "type": "unexplained_refund"
+      },
+      "stake": "cash",
+      "sortBy": "amount_desc",
+      "blocksSignOff": false
+    },
+    {
+      "id": "overpayment",
+      "title": "Customers who paid too much",
+      "why": "Small amounts. Keeping them as credit is the usual choice.",
+      "match": {
+        "type": "overpayment"
+      },
+      "stake": "cash",
+      "sortBy": "amount_desc",
+      "bulkAcceptSuggestion": true,
+      "blocksSignOff": true
+    },
+    {
+      "id": "vat_id_domestic",
+      "title": "A German customer's VAT ID looks wrong",
+      "why": "Their invoices carry German VAT, so the books are not affected. Worth fixing for the customer record.",
+      "match": {
+        "type": "malformed_vat_id",
+        "partnerHasZeroRatedSales": false
+      },
+      "stake": "records",
+      "blocksSignOff": false
+    },
+    {
+      "id": "rounding",
+      "title": "One-cent rounding differences",
+      "why": "The old system's gross amount was a cent off net plus VAT. Net plus VAT agrees with the VAT rate. Accept all in one go.",
+      "match": {
+        "type": "rounding_difference"
+      },
+      "stake": "trivial",
+      "bulkAcceptSuggestion": true,
+      "blocksSignOff": true
+    }
+  ],
+  "checks": {
+    "overpaidWithoutDecision": true,
+    "zeroRatedWithoutValidVatId": true,
+    "domesticVatOnForeignCurrency": true,
+    "creditNotesInOpenItems": true,
+    "fxRounding": false,
+    "summaryReconciles": true
+  },
+  "zeroRatedAccounts": [
+    "4125",
+    "4120"
+  ],
+  "reviewThreshold": 0.8,
+  "$comment": "CONFIG-ONLY DEMO. Reuses Nordlicht's engine output (no second dataset was provided) to show what configuration alone changes: words, people, roles, order and wording of decision groups."
+}
