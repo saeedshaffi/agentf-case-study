@@ -79,5 +79,5 @@ Round 3 did not end clean: twelve lower-priority findings were deferred with rea
 
 ## Open items
 
-- **The public dataset (repository, GitHub Pages, Vercel).** The recommended fix is to make the repository private, share it with the reviewer, and take both deployments down, or redeploy them behind access control.
+- **The public dataset (repository, GitHub Pages, Vercel).** The independent audit recommended making the repository private and taking both deployments down. The candidate decided on 26 Nov 2026 to keep them public. The data is synthetic; the case still asks for it to be treated as real, so this is a known deviation from that rule.
 - **The session transcript** is exported separately. It contains personal details unrelated to the case and must be redacted before sharing.
