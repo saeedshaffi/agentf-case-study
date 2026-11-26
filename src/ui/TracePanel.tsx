@@ -5,7 +5,7 @@ import { agreesWithEngine, type MetricId, type TraceTarget } from '../domain/met
 import { abs, sum, toCents, type Cents } from '../domain/money';
 import type { Indexed, Invoice } from '../domain/types';
 import { STATUS_TEXT } from '../pages/Checks';
-import { optionLabel } from '../pages/decisions/shared';
+import { optionLabel, PROTOTYPE_NOTE } from '../pages/decisions/shared';
 import { ACCOUNT_PLAIN, Amount, Count, DateText, Personal, Ref, Status, decidedByLabel, pct, useFocusTrap } from './components';
 import { href } from './router';
 import { useApp, useDerived } from './state';
@@ -124,7 +124,7 @@ function InvoiceRows({ ids, idx, value, valueHead = 'Amount', currency }: { ids:
 
 function MetricView({ id }: { id: MetricId }) {
   const { metrics, idx } = useDerived();
-  const { role } = useApp();
+  const { role, cfg } = useApp();
   const m = metrics[id];
   if (!m) return <NotFound what="This total" />;
   const agree = agreesWithEngine(m);
@@ -140,7 +140,7 @@ function MetricView({ id }: { id: MetricId }) {
       {m.parts.length > 0 && (
         <Section title="How it adds up">
           <table className="table">
-            <tbody>{m.parts.map((p) => <tr key={p.label}><td>{p.label} <span className="muted">({p.count.toLocaleString('en')})</span></td><td className="r">{m.kind === 'money' ? <Amount value={p.value} currency={m.currency!} /> : <Count n={p.count} />}</td></tr>)}</tbody>
+            <tbody>{m.parts.map((p) => <tr key={p.label}><td>{p.label} <span className="muted">({p.count.toLocaleString(cfg.numberLocale)})</span></td><td className="r">{m.kind === 'money' ? <Amount value={p.value} currency={m.currency!} /> : <Count n={p.count} />}</td></tr>)}</tbody>
             {m.parts.length > 1 && <tfoot><tr><td>Total</td><td className="r">{fig(m.value)}</td></tr></tfoot>}
           </table>
         </Section>
@@ -345,7 +345,7 @@ function DecisionView({ id }: { id: string }) {
         {d.options.map((o) => (
           <div key={o.id} style={{ marginBottom: 8 }}>
             <strong>{o.label}</strong> {d.suggested_option === o.id && <span className="tag">Engine suggestion</span>}
-            <div className="cap muted">{previewEffect(d, o.id, idx).text}</div>
+            <div className="cap muted">{previewEffect(d, o.id, idx).text}{PROTOTYPE_NOTE[o.id] && <> {PROTOTYPE_NOTE[o.id]}</>}</div>
           </div>
         ))}
         {d.why_suggested && <p className="cap muted">Why suggested: {d.why_suggested}</p>}

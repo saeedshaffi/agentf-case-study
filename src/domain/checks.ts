@@ -88,8 +88,8 @@ export function runChecks(idx: Indexed, cfg: CustomerConfig): Finding[] {
     const f = loadFunnel(idx);
     out.push({
       id: 'rows_accounted', kind: 'verification', needsAttention: !f.reconciles,
-      title: f.reconciles ? `All ${f.rowsRead.toLocaleString('en')} export rows are accounted for` : 'Some export rows are not accounted for',
-      detail: `${f.rowsRead} rows read, ${f.duplicates} exact duplicates removed, ${f.superseded} replaced by a later version, ${f.rejected} rejected: ${f.loaded} invoices.`,
+      title: f.reconciles ? `All ${f.rowsRead.toLocaleString(cfg.numberLocale)} export rows are accounted for` : 'Some export rows are not accounted for',
+      detail: `${f.rowsRead.toLocaleString(cfg.numberLocale)} rows read, ${f.duplicates} exact duplicates removed, ${f.superseded} replaced by a later version, ${f.rejected} rejected: ${f.loaded.toLocaleString(cfg.numberLocale)} invoices.`,
       items: [{ kind: 'metric', id: 'invoices_loaded' }],
     });
   }

@@ -5,7 +5,7 @@ import type { LogEntry } from '../domain/store';
 import { ACCOUNT_PLAIN, Amount, DateText, Needs, PageHead, Ref, Status } from '../ui/components';
 import { href } from '../ui/router';
 import { useApp, useDerived } from '../ui/state';
-import { optionLabel } from './decisions/shared';
+import { optionLabel, RECORDED_EFFECT } from './decisions/shared';
 
 const ALL = ['summary', 'invoices', 'bank_transactions', 'decisions', 'partners', 'accounts'] as const;
 
@@ -68,7 +68,7 @@ function LogInner() {
                       <td><DateText iso={e.at} time /></td>
                       <td>{who(cfg, e.by)}</td>
                       <td>{what ?? e.action}</td>
-                      <td className="muted">{e.action === 'answered' ? (effectLines ?? eff?.text) : '—'}</td>
+                      <td className="muted">{e.action === 'answered' ? (effectLines ?? RECORDED_EFFECT[e.optionId ?? ''] ?? eff?.text) : '—'}</td>
                     </tr>
                   );
                 })}

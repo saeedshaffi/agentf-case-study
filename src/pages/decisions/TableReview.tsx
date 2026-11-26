@@ -24,7 +24,7 @@ function columnsFor(type: string, idx: Indexed): Col[] {
     case 'rounding_difference':
       return [
         { head: 'Invoice', cell: (d) => { const i = invoiceOf(d, idx); return i ? <Ref target={{ kind: 'invoice', id: i.id }} /> : '—'; } },
-        { head: 'Supplier', cell: (d) => invoiceOf(d, idx)?.partner_name },
+        { head: 'Partner', cell: (d) => invoiceOf(d, idx)?.partner_name },
         { head: 'Net + VAT (booked)', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; return <Amount value={toCents(i.booked.gross.amount)} currency={i.booked.gross.currency} />; } },
         { head: 'Gross in export', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; const h = i.history[i.history.length - 1]; return <Amount value={abs(toCents(h.gross_in_export.amount))} currency={h.gross_in_export.currency} />; } },
         { head: 'Paid via bank', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; const p = paidByBank(i.id, idx); const h = toCents(i.history[i.history.length - 1].gross_in_export.amount); return <span>{p ? <Amount value={p} currency={i.original.gross.currency} /> : '—'} {p && p === abs(h) ? <span className="cap muted">= export</span> : null}</span>; } },
@@ -55,8 +55,8 @@ function Insight({ g, idx }: { g: DecisionGroup; idx: Indexed }) {
   if (!paidExport.length) return null;
   return (
     <p className="measure notice attention" style={{ display: 'block' }}>
-      <strong>Check before accepting the suggestion.</strong> For {paidExport.length} of {rows.length} invoices, the bank shows you paid the export's gross, not net plus VAT.
-      {' '}With “Use net + VAT”, those invoices stay one cent off what you paid. “Use the gross from the export” matches the payment.
+      <strong>Check before accepting the suggestion.</strong> For {paidExport.length} of {rows.length} invoices, the bank shows the export's gross was paid, not net plus VAT.
+      {' '}With “Use net + VAT”, those invoices stay one cent off the payment. “Use the gross from the export” matches the payment.
     </p>
   );
 }
@@ -79,6 +79,8 @@ export function TableReview({ g }: { g: DecisionGroup }) {
     for (const d of g.decisions) for (const o of d.options) if (!valueSpecFor(d, o.id, idx)) ids.set(o.id, o.label);
     return [...ids.entries()];
   }, [g, idx]);
+  // When every open row has the same suggestion, say it once instead of spending a column on it.
+  const oneSuggestion = open.length > 1 && open.every((d) => d.suggested_option === open[0].suggested_option) ? open[0].suggested_option : undefined;
   const chosen = open.filter((d) => selected.has(d.id) && d.options.some((o) => o.id === option));
 
   const apply = () => {
@@ -90,6 +92,7 @@ export function TableReview({ g }: { g: DecisionGroup }) {
   return (
     <div className="work-body stack">
       <Insight g={g} idx={idx} />
+      {oneSuggestion !== undefined && open.length > 0 && <p><strong>Engine suggestion for all {open.length}:</strong> {oneSuggestion ? optionLabel(open[0], oneSuggestion) : 'none'}.</p>}
       {open.length > 0 && (
         <div className="table-wrap" style={{ border: '1px solid var(--line)', borderRadius: 'var(--r-control)' }}>
           <table className="table">
@@ -98,7 +101,7 @@ export function TableReview({ g }: { g: DecisionGroup }) {
               <tr>
                 {canDecide && <th scope="col"><input type="checkbox" aria-label={`Select all ${open.length} open questions`} checked={open.every((d) => selected.has(d.id))} onChange={(e) => setSelected(e.target.checked ? new Set(open.map((d) => d.id)) : new Set())} /></th>}
                 {cols.map((c) => <th key={c.head} scope="col" className={c.right ? 'r' : undefined}>{c.head}</th>)}
-                <th scope="col">Engine suggestion</th>
+                {oneSuggestion === undefined && <th scope="col">Engine suggestion</th>}
                 {canDecide && <th scope="col"><span className="sr-only">Decide one</span></th>}
               </tr>
             </thead>
@@ -108,7 +111,7 @@ export function TableReview({ g }: { g: DecisionGroup }) {
                   <tr className={selected.has(d.id) ? 'selected' : undefined}>
                     {canDecide && <td><input type="checkbox" aria-label={`Select ${d.title}`} checked={selected.has(d.id)} onChange={(e) => setSelected((s) => { const n = new Set(s); if (e.target.checked) n.add(d.id); else n.delete(d.id); return n; })} /></td>}
                     {cols.map((c) => <td key={c.head} className={c.right ? 'r' : undefined}>{c.cell(d)}</td>)}
-                    <td>{d.suggested_option ? optionLabel(d, d.suggested_option) : <span className="muted">None</span>}</td>
+                    {oneSuggestion === undefined && <td>{d.suggested_option ? optionLabel(d, d.suggested_option) : <span className="muted">None</span>}</td>}
                     {canDecide && <td><button type="button" className="btn small" aria-expanded={expanded === d.id} onClick={() => setExpanded(expanded === d.id ? null : d.id)}>{expanded === d.id ? 'Close' : 'Decide'}</button></td>}
                   </tr>
                   {expanded === d.id && (

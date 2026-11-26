@@ -59,7 +59,7 @@ function SignOffInner() {
         )}
         {!signed && canSign && (
           <div className="row">
-            <button type="button" className="btn primary" disabled={!ready} onClick={() => setConfirming('sign')}>Sign off the migration</button>
+            <button type="button" className="btn primary" disabled={!ready} onClick={() => { showToast(null); setConfirming('sign'); }}>Sign off the migration</button>
             {!ready && <span className="disabled-reason">Settle {progress.blockingOpen ? `${progress.blockingOpen} required ${progress.blockingOpen === 1 ? 'decision' : 'decisions'}` : ''}{progress.blockingOpen && blocking.length ? ' and ' : ''}{blocking.length ? `${blocking.length} ${blocking.length === 1 ? 'check' : 'checks'}` : ''} first.</span>}
           </div>
         )}
@@ -118,7 +118,13 @@ function SignOffInner() {
 
       {confirming === 'sign' && (
         <ConfirmDialog title="Sign off the migration?" confirmLabel="Sign off" onCancel={() => setConfirming(null)}
-          onConfirm={() => { dispatch({ t: 'signOff', by: role, openOptional: optionalOpen }); setConfirming(null); showToast({ text: 'Migration signed off. Answers are locked.' }); }}>
+          onConfirm={() => {
+            setConfirming(null);
+            // Readiness is re-checked at the moment of signing: something may have been undone since the dialog opened.
+            if (!ready) { showToast({ text: 'Not signed off: something required is open again.', tone: 'error' }); return; }
+            dispatch({ t: 'signOff', by: role, openOptional: optionalOpen });
+            showToast({ text: 'Migration signed off. Answers are locked.' });
+          }}>
           <p>You confirm that:</p>
           <ul style={{ margin: 0, paddingLeft: 20 }}>
             <li>all {progress.required} required decisions are settled,</li>

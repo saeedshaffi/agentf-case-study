@@ -17,6 +17,15 @@ export const PROTOTYPE_NOTE: Record<string, string> = {
   leave_open: 'The payment stays unassigned and is listed for your tax advisor.',
 };
 
+/** What choosing an option actually did here, for logs and summaries. */
+export const RECORDED_EFFECT: Record<string, string> = {
+  enter: 'VAT ID recorded. Format checked; not verified with the EU VIES service in this prototype.',
+  ask_customer: 'Left open. No request was sent in this prototype.',
+  refund: 'Choice recorded. No payment instruction was created in this prototype.',
+  new_customer: 'Choice recorded. No customer record was created in this prototype.',
+  leave_open: 'Left open; the payment stays unassigned.',
+};
+
 export function optionLabel(d: Decision, optionId: string) {
   return d.options.find((o) => o.id === optionId)?.label ?? optionId;
 }

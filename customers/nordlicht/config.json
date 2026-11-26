@@ -154,8 +154,8 @@
     },
     {
       "id": "rounding",
-      "title": "One-cent differences on supplier invoices",
-      "why": "The old system's gross amount was one cent off net plus VAT. Compare it with what you actually paid before choosing.",
+      "title": "One-cent rounding differences",
+      "why": "The old system's gross amount was one cent off net plus VAT, on sales and supplier invoices. Compare it with what was actually paid before choosing.",
       "match": {
         "type": "rounding_difference"
       },

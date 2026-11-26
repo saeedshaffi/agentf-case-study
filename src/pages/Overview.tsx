@@ -17,7 +17,7 @@ export function Overview() {
       <PageHead title={advisor ? `${cfg.company}: migration` : 'Your books are in Agent F'}>
         {advisor
           ? 'Read-only. What was loaded from the old system, how it was booked, and how sure the engine is.'
-          : `${data.summary?.customer.name ?? cfg.company}'s history from ${cfg.words.oldSystem} has been loaded, booked to ${data.summary?.customer.chart_of_accounts ?? 'the chart of accounts'} and matched against your bank account.`}
+          : `${cfg.company}'s history from ${cfg.words.oldSystem} has been loaded, booked to ${data.summary?.customer.chart_of_accounts ?? 'the chart of accounts'} and matched against your bank account.`}
       </PageHead>
       <Needs eps={[...ALL]}>{() => <Status_ />}</Needs>
       {data.summary && <Loads loads={data.summary.loads} />}
@@ -54,7 +54,9 @@ function Status_() {
           </div>
           <p className="measure" style={{ color: 'var(--ink-2)' }}>
             Everything loaded: {f.rowsRead.toLocaleString(cfg.numberLocale)} rows from the old system became {f.loaded.toLocaleString(cfg.numberLocale)} invoices, none rejected, and {balanced ? 'every booking balances' : 'the bookings do not balance'}.
-            {' '}{progress.required} questions need an answer before sign-off and {progress.optional} can stay open for your {who(cfg, 'tax_advisor')}.
+            {' '}{work.signedOff
+              ? `All ${progress.required} required questions are settled; ${progress.optional - progress.optionalAnswered} optional ones stay open as listed items.`
+              : `${progress.required} questions need an answer before sign-off and ${progress.optional} can stay open${lead ? ` for your ${who(cfg, 'tax_advisor')}` : ''}.`}
           </p>
           {lead && !work.signedOff && (
             <div className="row">

@@ -78,7 +78,7 @@ describe('decision workspace', () => {
 
   it('shows what was actually paid next to the rounding suggestion', async () => {
     renderAs('finance_lead', { hash: '#/decisions/rounding' });
-    expect(await screen.findByText(/For 20 of 24 invoices, the bank shows you paid the export's gross/)).toBeInTheDocument();
+    expect(await screen.findByText(/For 20 of 24 invoices, the bank shows the export's gross was paid/)).toBeInTheDocument();
   });
 
   it('compares the duplicate customers and states that merging moves nothing', async () => {
