@@ -43,7 +43,10 @@ export function App() {
 
   // After an answer, undo, acknowledgement or sign-off, the control that was used often disappears.
   // If that left focus on <body>, put it on the nearest section heading instead.
+  const prevWork = useRef(work);
   useEffect(() => {
+    if (prevWork.current === work) return; // not on first load
+    prevWork.current = work;
     const t = requestAnimationFrame(() => requestAnimationFrame(() => {
       if (document.activeElement && document.activeElement !== document.body) return;
       if (document.querySelector('[role=dialog]')) return;
