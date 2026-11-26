@@ -66,7 +66,7 @@ export function App() {
   }, [work]);
 
   // A toast belongs to the page it was raised on.
-  useEffect(() => { showToast(null); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [page]);
+  useEffect(() => { showToast(null); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [page, sub]);
 
   useEffect(() => { document.title = `${PAGE_LABEL[page]} · ${cfg.shortName} migration`; }, [page, cfg.shortName]);
 

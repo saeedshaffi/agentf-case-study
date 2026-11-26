@@ -24,7 +24,8 @@ function columnsFor(type: string, idx: Indexed): Col[] {
     case 'rounding_difference':
       return [
         { head: 'Invoice', cell: (d) => { const i = invoiceOf(d, idx); return i ? <Ref target={{ kind: 'invoice', id: i.id }} /> : '—'; } },
-        { head: 'Booked', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; return <Amount value={toCents(i.booked.gross.amount)} currency={i.booked.gross.currency} />; } },
+        // In the invoice's own currency, so the three amounts in a row can be compared.
+        { head: 'Net + VAT', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; return <Amount value={toCents(i.original.gross.amount)} currency={i.original.gross.currency} />; } },
         { head: 'Export gross', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; const h = i.history[i.history.length - 1]; return <Amount value={abs(toCents(h.gross_in_export.amount))} currency={h.gross_in_export.currency} />; } },
         { head: 'Paid (bank)', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; const p = paidByBank(i.id, idx); const h = toCents(i.history[i.history.length - 1].gross_in_export.amount); return <span>{p ? <Amount value={p} currency={i.original.gross.currency} /> : '—'} {p && p === abs(h) ? <span className="cap muted">= export</span> : null}</span>; } },
       ];
