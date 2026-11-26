@@ -1,9 +1,12 @@
-import { StrictMode, useEffect, useState } from 'react';
+import { Component, StrictMode, useEffect, useState, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
 import { App } from './App';
-import type { CustomerConfig, RoleId } from './domain/config';
+import type { CustomerConfig } from './domain/config';
 import { fetchConfig } from './domain/load';
-import { AppProvider } from './ui/state';
+import { AppProvider, validRole } from './ui/state';
 import './ui/styles.css';
 
 // URL parameters (prototype only):
@@ -14,19 +17,37 @@ import './ui/styles.css';
 const params = new URLSearchParams(location.search);
 const customerId = params.get('customer') ?? import.meta.env.VITE_CUSTOMER ?? 'nordlicht';
 
+function Failure({ title, detail }: { title: string; detail: string }) {
+  return (
+    <div className="main"><div className="notice blocking" role="alert"><div className="stack-2">
+      <h1 style={{ fontSize: 20, lineHeight: '28px' }}>{title}</h1><p>{detail}</p>
+      <p><a href={location.pathname}>Start again</a></p>
+    </div></div></div>
+  );
+}
+
+/** A render error shows a way out instead of a blank page. Saved work stays in the browser. */
+class Boundary extends Component<{ children: ReactNode }, { error?: Error }> {
+  state: { error?: Error } = {};
+  static getDerivedStateFromError(error: Error) { return { error }; }
+  render() {
+    if (this.state.error) return <Failure title="This page could not be shown" detail={`Your saved answers are not affected. (${this.state.error.message})`} />;
+    return this.props.children;
+  }
+}
+
 function Root() {
   const [cfg, setCfg] = useState<CustomerConfig | null>(null);
   const [err, setErr] = useState<string | null>(null);
   useEffect(() => { fetchConfig(customerId).then(setCfg, (e: Error) => setErr(e.message)); }, []);
-  if (err) return <div className="main"><div className="callout bad"><span className="icon">!</span><div><strong>This workspace could not start</strong><pre style={{ whiteSpace: 'pre-wrap' }}>{err}</pre></div></div></div>;
-  if (!cfg) return <div className="main"><div className="skeleton" style={{ width: 240 }} /></div>;
-  const role = (params.get('role') as RoleId) ?? 'finance_lead';
-  document.title = `${cfg.shortName} · Migration`;
+  if (err) return <Failure title="This workspace could not start" detail={err} />;
+  if (!cfg) return <div className="main" aria-busy="true"><div className="skeleton" style={{ width: 240 }} /></div>;
+  const role = validRole(cfg, params.get('role')) ?? 'finance_lead';
   return (
-    <AppProvider cfg={cfg} initialRole={cfg.roles[role] ? role : 'finance_lead'} latencyMs={Number(params.get('latency') ?? 0)} fail={params.get('fail') ?? undefined}>
+    <AppProvider cfg={cfg} initialRole={role} latencyMs={Number(params.get('latency') ?? 0) || 0} fail={params.get('fail') ?? undefined}>
       <App />
     </AppProvider>
   );
 }
 
-createRoot(document.getElementById('root')!).render(<StrictMode><Root /></StrictMode>);
+createRoot(document.getElementById('root')!).render(<StrictMode><Boundary><Root /></Boundary></StrictMode>);

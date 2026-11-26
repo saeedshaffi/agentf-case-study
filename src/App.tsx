@@ -1,66 +1,82 @@
-import { useMemo } from 'react';
-import type { PageId, RoleId } from './domain/config';
-import { groupDecisions, progress } from './domain/decisions';
-import { isResolved, runChecks } from './domain/checks';
-import { Arrival } from './pages/Arrival';
+import { useEffect, useRef } from 'react';
+import { who, type PageId, type RoleId } from './domain/config';
+import { Overview } from './pages/Overview';
 import { Decisions } from './pages/Decisions';
-import { Books, Checks, DecisionLog, Handover, Overview } from './pages/Other';
+import { Checks } from './pages/Checks';
+import { Records } from './pages/Records';
+import { SignOff } from './pages/SignOff';
+import { DecisionLog } from './pages/DecisionLog';
+import { Summary } from './pages/Summary';
+import { Toast } from './ui/components';
+import { href } from './ui/router';
 import { TracePanel } from './ui/TracePanel';
 import { useApp } from './ui/state';
 
 const PAGE_LABEL: Record<PageId, string> = {
-  arrival: 'Arrival', decisions: 'Your decisions', checks: 'What we checked', books: 'Books',
-  handover: 'Hand-over', decisionLog: 'Decision log', overview: 'Overview',
+  arrival: 'Overview', decisions: 'Decisions', checks: 'Checks', books: 'Records',
+  handover: 'Sign-off', decisionLog: 'Decision log', overview: 'Summary',
 };
 
 export function App() {
-  const { cfg, role, setRole, page, go, data, persisted, toast, showToast } = useApp();
+  const { cfg, role, setRole, page, route, derived, work, storageProblem } = useApp();
   const pages = cfg.roles[role].pages;
-  const counts = useMemo(() => {
-    if (!data.idx) return {} as Partial<Record<PageId, string>>;
-    const p = progress(groupDecisions(data.idx, cfg), persisted.answers);
-    const att = runChecks(data.idx, cfg).filter((f) => f.severity === 'attention' && !isResolved(f, persisted.answers) && !persisted.acknowledged?.[f.id]).length;
-    return { decisions: `${p.total - p.answered}`, checks: att ? `${att}` : '', handover: persisted.signedOff ? '✓' : '' } as Partial<Record<PageId, string>>;
-  }, [data.idx, cfg, persisted]);
+  const first = useRef(true);
+
+  // Move focus to the new page's heading when the page changes, so keyboard and screen-reader users land there.
+  useEffect(() => {
+    if (first.current) { first.current = false; return; }
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => document.getElementById('page-title')?.focus({ preventScroll: true }));
+  }, [page]);
+
+  useEffect(() => { document.title = `${PAGE_LABEL[page]} · ${cfg.shortName} migration`; }, [page, cfg.shortName]);
+
+  const count = (p: PageId): string | null => {
+    if (!derived) return null;
+    if (p === 'decisions') return derived.progress.blockingOpen ? `${derived.progress.blockingOpen} required` : 'Done';
+    if (p === 'checks') return derived.blocking.length ? `${derived.blocking.length} open` : null;
+    if (p === 'handover') return work.signedOff ? 'Signed off' : derived.ready ? 'Ready' : null;
+    return null;
+  };
 
   return (
     <div className="shell">
+      <a className="skip" href="#main">Skip to content</a>
       <aside className="sidebar">
-        <div className="brand">
-          {cfg.company}
-          <small>Migration to Agent F · {cfg.people[role].displayName}</small>
+        <div>
+          <div className="brand-company">{cfg.company}</div>
+          <div className="brand-sub">Migration to Agent F</div>
         </div>
-        <nav className="nav" aria-label="Migration steps">
-          {pages.map((p, i) => (
-            <button key={p} aria-current={page === p ? 'page' : undefined} onClick={() => go(p)}>
-              <span><span className="step">{pages.length > 1 ? i + 1 : ''}</span>{PAGE_LABEL[p]}</span>
-              {counts[p] && <span className="small">{counts[p]}</span>}
-            </button>
+        <nav className="nav" aria-label="Main">
+          {pages.map((p) => (
+            <a key={p} href={href(p)} aria-current={page === p ? 'page' : undefined}>
+              <span>{PAGE_LABEL[p]}</span>
+              {count(p) && <span className="count">{count(p)}</span>}
+            </a>
           ))}
         </nav>
-        <label className="viewas">
-          Prototype: view as
-          <select value={role} onChange={(e) => setRole(e.target.value as RoleId)}>
-            {(Object.keys(cfg.roles) as RoleId[]).map((r) => <option key={r} value={r}>{cfg.people[r].displayName}</option>)}
-          </select>
-        </label>
+        <div className="proto" aria-label="Prototype controls" role="group">
+          <div>Prototype only. In the product, the login decides what you see.</div>
+          <label>
+            <span className="sr-only">View as</span>
+            <select className="select" value={role} onChange={(e) => setRole(e.target.value as RoleId)}>
+              {(Object.keys(cfg.roles) as RoleId[]).map((r) => <option key={r} value={r}>View as {who(cfg, r)}</option>)}
+            </select>
+          </label>
+        </div>
       </aside>
-      <main className="main" id="main">
-        {page === 'arrival' && <Arrival />}
-        {page === 'decisions' && <Decisions />}
-        {page === 'checks' && <Checks />}
-        {page === 'books' && <Books />}
-        {page === 'handover' && <Handover />}
+      <main className={`main ${page === 'decisions' ? 'wide' : ''}`} id="main" tabIndex={-1}>
+        {storageProblem && <div style={{ marginBottom: 16 }} className="notice attention" role="status">{storageProblem}</div>}
+        {page === 'arrival' && <Overview />}
+        {page === 'decisions' && <Decisions groupId={route.params[0]} />}
+        {page === 'checks' && <Checks findingId={route.params[0]} />}
+        {page === 'books' && <Records tab={route.params[0]} />}
+        {page === 'handover' && <SignOff />}
         {page === 'decisionLog' && <DecisionLog />}
-        {page === 'overview' && <Overview />}
+        {page === 'overview' && <Summary />}
       </main>
       <TracePanel />
-      {toast && (
-        <div className="toast" role="status">
-          {toast.text}
-          {toast.undo && <button className="link" onClick={() => { toast.undo!(); showToast(null); }}>Undo</button>}
-        </div>
-      )}
+      <Toast />
     </div>
   );
 }

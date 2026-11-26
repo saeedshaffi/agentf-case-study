@@ -1,4 +1,5 @@
 import { sum, toCents, toDecimalString, type Cents } from './money';
+import { moneyOf } from './decisions';
 import type { Indexed, Invoice } from './types';
 
 /** Anything on screen that can be opened. */
@@ -93,7 +94,7 @@ export function computeMetrics(idx: Indexed): Record<MetricId, Metric> {
       id: 'net_receivables_eur', label: 'Net open receivables (EUR)', kind: 'money', currency: 'EUR',
       value: recOpen.value + cnOpen.value,
       explain: 'What customers owe you, minus what you owe them back on credit notes.',
-      definition: 'Open EUR sales invoices less open EUR credit notes. Corresponds to the open-item balance of account 1200 for EUR items.',
+      definition: 'Open amounts on EUR sales invoices less open amounts on EUR credit notes. Not an account balance: account 1200 also carries settled invoices, because payments are matched but not booked in this export.',
       parts: [recOpen, cnOpen],
     },
     open_payables_eur: {
@@ -112,14 +113,14 @@ export function computeMetrics(idx: Indexed): Record<MetricId, Metric> {
       parts: [part('Open USD invoices', recUsd, openOf)],
     },
     debits: {
-      id: 'debits', label: 'Total debits', kind: 'money', currency: 'EUR',
+      id: 'debits', label: 'Journal debits', kind: 'money', currency: 'EUR',
       value: sum(allPostings.map(({ p }) => toCents(p.debit))),
-      explain: 'Every booking has two sides. This is one side; it must equal the other.',
+      explain: 'The sum of the debit side of every invoice booking. It must equal the credit side. It is a measure of volume, not a balance or an amount of money you hold.',
       definition: 'Sum of debit amounts over all invoice postings, EUR.',
       parts: [], engineValue: s.balance_check.debits_eur,
     },
     credits: {
-      id: 'credits', label: 'Total credits', kind: 'money', currency: 'EUR',
+      id: 'credits', label: 'Journal credits', kind: 'money', currency: 'EUR',
       value: sum(allPostings.map(({ p }) => toCents(p.credit))),
       explain: 'The other side of every booking.',
       definition: 'Sum of credit amounts over all invoice postings, EUR.',
@@ -147,9 +148,9 @@ export function computeMetrics(idx: Indexed): Record<MetricId, Metric> {
     },
     decision_amount: {
       id: 'decision_amount', label: 'Amount affected by open questions', kind: 'money', currency: 'EUR',
-      value: sum(idx.decisions.filter((d) => d.amount_affected?.currency === 'EUR').map((d) => { const c = toCents(d.amount_affected!.amount); return c < 0n ? -c : c; })),
+      value: idx.decisions.reduce((t, d) => { const x = moneyOf(d, idx); return x && x.currency === 'EUR' ? t + x.value : t; }, 0n),
       explain: 'The euros that depend on your answers. Most of it is expense accounts; the rest is cents and small payments.',
-      definition: 'Sum of |amount_affected| over open decisions with a EUR amount.',
+      definition: 'Sum of |amount_affected| over open questions whose records are in EUR. USD questions are excluded.',
       parts: [],
     },
     sales_eur: {

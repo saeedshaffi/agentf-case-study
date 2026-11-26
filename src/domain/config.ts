@@ -51,12 +51,12 @@ export const DEFAULT_WORDS: Record<string, string> = {
 export const STAKE_ORDER: Stake[] = ['tax', 'who_owes_what', 'money', 'cash', 'records', 'trivial'];
 
 export const STAKE_LABEL: Record<Stake, string> = {
-  tax: 'Changes your VAT',
-  who_owes_what: 'Changes who owes what',
-  money: 'Changes your profit and loss',
-  cash: 'Cash not yet explained',
-  records: 'Records only',
-  trivial: 'Cents',
+  tax: 'Affects VAT',
+  who_owes_what: 'Affects balances',
+  money: 'Affects profit and loss',
+  cash: 'Unexplained bank movement',
+  records: 'Record correction',
+  trivial: 'One cent each',
 };
 
 const ROLES: RoleId[] = ['finance_lead', 'tax_advisor', 'owner'];

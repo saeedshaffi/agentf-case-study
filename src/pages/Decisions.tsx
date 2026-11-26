@@ -1,345 +1,137 @@
-import { useEffect, useMemo, useState } from 'react';
-import { STAKE_LABEL, who } from '../domain/config';
-import { amountOf, groupDecisions, invoiceOf, previewEffect, progress, type DecisionGroup } from '../domain/decisions';
-import { valueSpecFor } from '../domain/inputs';
-import { KEEPS_OPEN } from '../domain/checks';
-import { toCents } from '../domain/money';
-import type { Decision } from '../domain/types';
-import { Amount, Badge, Callout, Needs, PageHead, Ref, pct } from '../ui/components';
-import { useApp } from '../ui/state';
+import { useEffect } from 'react';
+import { STAKE_LABEL } from '../domain/config';
+import { isSettled, type DecisionGroup } from '../domain/decisions';
+import { Amount, Needs, Notice, PageHead } from '../ui/components';
+import { href, navigate } from '../ui/router';
+import { useApp, useDerived } from '../ui/state';
+import { ClassificationReview } from './decisions/Classification';
+import { CompareReview } from './decisions/Compare';
+import { SingleReview } from './decisions/Single';
+import { TableReview } from './decisions/TableReview';
 
-export function Decisions() {
-  return (
-    <Needs eps={['summary', 'invoices', 'bank_transactions', 'decisions', 'partners', 'accounts']}>
-      {() => <DecisionsInner />}
-    </Needs>
-  );
+const ALL = ['summary', 'invoices', 'bank_transactions', 'decisions', 'partners', 'accounts'] as const;
+
+/** Which layout fits which kind of question. */
+export function shapeOf(g: DecisionGroup): 'single' | 'compare' | 'classification' | 'table' {
+  const t = g.config.match.type;
+  if (t === 'possible_duplicate_partner') return 'compare';
+  if (t === 'uncertain_classification') return 'classification';
+  if (g.decisions.length > 3) return 'table';
+  return 'single';
 }
 
-function DecisionsInner() {
-  const { data, cfg, persisted, go } = useApp();
-  const idx = data.idx!;
-  const groups = useMemo(() => groupDecisions(idx, cfg), [idx, cfg]);
-  const p = progress(groups, persisted.answers);
-  const firstOpen = groups.findIndex((g) => g.decisions.some((d) => !persisted.answers[d.id]));
-  const [open, setOpen] = useState<string | null>(groups[Math.max(0, firstOpen)]?.config.id ?? null);
-  const locked = !!persisted.signedOff;
-  // When the open group is finished, move on to the next group that still has questions.
-  const openDone = groups.find((g) => g.config.id === open)?.decisions.every((d) => persisted.answers[d.id]);
+export function Decisions({ groupId }: { groupId?: string }) {
+  return <Needs eps={[...ALL]}>{() => <Workspace groupId={groupId} />}</Needs>;
+}
+
+function Workspace({ groupId }: { groupId?: string }) {
+  const { groups, progress } = useDerived();
+  const { work } = useApp();
+  const required = groups.filter((g) => g.config.blocksSignOff);
+  const optional = groups.filter((g) => !g.config.blocksSignOff);
+  const remaining = (g: DecisionGroup) => g.decisions.filter((d) => !isSettled(work.answers[d.id])).length;
+  const firstOpen = required.find((g) => remaining(g) > 0) ?? optional.find((g) => remaining(g) > 0) ?? groups[0];
+  const current = groups.find((g) => g.config.id === groupId);
+
+  // No group in the URL: open the first one that still needs work (replace, so Back is not trapped).
   useEffect(() => {
-    if (!openDone) return;
-    const i = groups.findIndex((g) => g.config.id === open);
-    const next = groups.slice(i + 1).find((g) => g.decisions.some((d) => !persisted.answers[d.id]));
-    if (next) setOpen(next.config.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openDone]);
+    if (!current && firstOpen) history.replaceState(null, '', href('decisions', firstOpen.config.id));
+    if (!current && firstOpen) window.dispatchEvent(new HashChangeEvent('hashchange'));
+  }, [current, firstOpen]);
+
+  const pctDone = progress.required ? Math.round((progress.requiredSettled / progress.required) * 100) : 100;
 
   return (
-    <div className="stack">
+    <div>
       <PageHead
-        title="Your decisions"
+        title="Decisions"
         aside={
-          <div style={{ textAlign: 'right' }}>
-            <div className="num" style={{ fontSize: 22, fontWeight: 650 }}>{p.answered} / {p.total}</div>
-            <div className="small muted">answered · {p.blockingOpen} still needed for sign-off</div>
+          <div style={{ minWidth: 260 }} aria-live="polite">
+            <div className="spread"><strong>{progress.requiredSettled} of {progress.required} required</strong><span className="muted cap">{pctDone} %</span></div>
+            <div className="meter" style={{ margin: '6px 0' }} aria-hidden><span style={{ width: `${pctDone}%` }} /></div>
+            <div className="cap muted">{progress.optional - progress.optionalAnswered} optional can stay open</div>
           </div>
         }
       >
-        {p.total} questions only you can answer, sorted into {groups.length} groups by what they change: VAT first, cents last.
-        Each answer shows its effect before it is booked, and you can undo it until you sign off.
+        The engine could not decide {progress.total} things on its own. {progress.required} must be settled before you can sign off; {progress.optional} can stay open and go to your tax advisor as open items.
       </PageHead>
 
-      {locked && <Callout tone="good" title="Signed off">Answers are locked. Reopen the migration on the hand-over page to change them.</Callout>}
-      {p.blockingOpen === 0 && !locked && (
-        <Callout tone="good" title="Everything needed for sign-off is answered">
-          <p>The remaining questions can stay open; they are visible to your {who(cfg, 'tax_advisor')}. <button className="link" onClick={() => go('handover')}>Go to hand-over →</button></p>
-        </Callout>
-      )}
+      {work.signedOff && <div style={{ marginBottom: 16 }}><Notice tone="settled" title="Signed off">Answers are locked. Reopen the migration on the sign-off page to change them.</Notice></div>}
 
-      <div>
-        {groups.map((g, i) => (
-          <Group key={g.config.id} n={i + 1} g={g} open={open === g.config.id} onToggle={() => setOpen(open === g.config.id ? null : g.config.id)} locked={locked} />
-        ))}
+      <div className="workspace">
+        <nav className="panel queue" aria-label="Decision groups">
+          <QueueSection title="Needed for sign-off" groups={required} current={current} remaining={remaining} />
+          <QueueSection title="Can stay open" groups={optional} current={current} remaining={remaining} />
+        </nav>
+        <div>{current ? <GroupWork key={current.config.id} g={current} /> : null}</div>
       </div>
     </div>
   );
 }
 
-function Group({ g, n, open, onToggle, locked }: { g: DecisionGroup; n: number; open: boolean; onToggle: () => void; locked: boolean }) {
-  const { persisted, dispatch, role, cfg, showToast } = useApp();
-  const answered = g.decisions.filter((d) => persisted.answers[d.id]).length;
-  const done = answered === g.decisions.length;
-  const openWithSuggestion = g.decisions.filter((d) => !persisted.answers[d.id] && d.suggested_option);
-  const canDecide = cfg.roles[role].canDecide && !locked;
-
-  const acceptAll = (ds: Decision[]) => {
-    const ids = ds.map((d) => d.id);
-    dispatch({ t: 'answer', ids, optionId: (id) => ds.find((d) => d.id === id)!.suggested_option!, by: role, bulk: true });
-    showToast({ text: `Accepted the suggestion for ${ids.length} questions.`, undo: () => ids.forEach((id) => dispatch({ t: 'undo', id, by: role })) });
-  };
-
+function QueueSection({ title, groups, current, remaining }: { title: string; groups: DecisionGroup[]; current?: DecisionGroup; remaining: (g: DecisionGroup) => number }) {
+  const { work } = useApp();
+  const total = groups.reduce((n, g) => n + g.decisions.length, 0);
+  const left = groups.reduce((n, g) => n + remaining(g), 0);
+  if (!groups.length) return null;
   return (
-    <section className={`group ${done ? 'done' : ''}`} aria-labelledby={`g-${g.config.id}`}>
-      <header onClick={onToggle}>
-        <span className="n" aria-hidden>{done ? '✓' : n}</span>
-        <div className="stack-sm">
-          <div className="row">
-            <h3 id={`g-${g.config.id}`}>
-              <button className="sr-only" aria-expanded={open} onClick={(e) => { e.stopPropagation(); onToggle(); }}>{open ? 'Collapse' : 'Expand'}</button>
-              {g.config.title}
-            </h3>
-            <Badge tone={g.config.stake === 'tax' ? 'bad' : g.config.stake === 'trivial' || g.config.stake === 'records' ? 'neutral' : 'warn'}>{STAKE_LABEL[g.config.stake]}</Badge>
-            {!g.config.blocksSignOff && <Badge tone="neutral">can stay open</Badge>}
-          </div>
-          <p className="small muted">{g.config.why}</p>
-        </div>
-        <div style={{ textAlign: 'right' }} className="stack-sm">
-          <div className="small"><strong>{answered}</strong> of {g.decisions.length}</div>
-          {g.amount > 0n && g.currency && <div className="small muted"><Amount value={g.amount} currency={g.currency} /></div>}
-          <div className="progress" aria-hidden><span style={{ width: `${(answered / g.decisions.length) * 100}%` }} /></div>
-        </div>
-      </header>
-      {open && (
-        <div className="body stack">
-          {g.config.bulkAcceptSuggestion && openWithSuggestion.length > 1 && canDecide && (
-            <div className="callout info">
-              <span className="icon" aria-hidden>i</span>
-              <div className="spread" style={{ flex: 1 }}>
-                <span>Every question here has the same kind of suggestion. Read one or two, then accept the rest together.</span>
-                <button className="btn primary small" onClick={() => acceptAll(openWithSuggestion)}>Accept all {openWithSuggestion.length} suggestions</button>
-              </div>
-            </div>
-          )}
-          {g.clusters.map((c) => (
-            <Cluster key={c.key} g={g} label={c.label} decisions={c.decisions} amount={c.amount} canDecide={canDecide} onAcceptAll={acceptAll} />
-          ))}
-        </div>
-      )}
+    <section aria-label={title}>
+      <h2>{title} · {left ? `${left} of ${total} left` : 'all done'}</h2>
+      <ul>
+        {groups.map((g) => {
+          const r = remaining(g);
+          const deferred = g.decisions.filter((d) => work.answers[d.id] && !isSettled(work.answers[d.id])).length;
+          return (
+            <li key={g.config.id}>
+              <a href={href('decisions', g.config.id)} aria-current={current === g ? 'true' : undefined} className={r === 0 ? 'complete' : undefined}>
+                <span className="q-title">{g.config.title}</span>
+                <span className="q-count num">{r === 0 ? '✓ Done' : `${r} left`}</span>
+                <span className="q-meta">
+                  {STAKE_LABEL[g.config.stake]} · {g.decisions.length} {g.decisions.length === 1 ? 'question' : 'questions'}
+                  {deferred > 0 && ` · ${deferred} waiting`}
+                </span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }
 
-function Cluster({ g, label, decisions, amount, canDecide, onAcceptAll }: {
-  g: DecisionGroup; label: string; decisions: Decision[]; amount: bigint; canDecide: boolean; onAcceptAll: (d: Decision[]) => void;
-}) {
-  const { persisted, data } = useApp();
-  const [showAll, setShowAll] = useState(false);
-  const openOnes = decisions.filter((d) => !persisted.answers[d.id]);
-  const withSugg = openOnes.filter((d) => d.suggested_option);
-  const cap = 6;
-  // Answered questions sink to the bottom so the next one is always on top.
-  const ordered = [...openOnes, ...decisions.filter((d) => persisted.answers[d.id])];
-  const shown = showAll ? ordered : ordered.slice(0, cap);
-  const suggestionSpread = useMemo(() => {
-    const m = new Map<string, number>();
-    for (const d of withSugg) m.set(d.suggested_option!, (m.get(d.suggested_option!) ?? 0) + 1);
-    return [...m.entries()].sort((a, b) => b[1] - a[1]);
-  }, [withSugg]);
-
+function GroupWork({ g }: { g: DecisionGroup }) {
+  const { groups } = useDerived();
+  const { work } = useApp();
+  const shape = shapeOf(g);
+  const settled = g.decisions.filter((d) => isSettled(work.answers[d.id])).length;
+  const nextGroup = groups.find((x) => x !== g && x.config.blocksSignOff && x.decisions.some((d) => !isSettled(work.answers[d.id])))
+    ?? groups.find((x) => x !== g && x.decisions.some((d) => !work.answers[d.id]));
   return (
-    <div className="stack-sm">
-      {label && (
-        <div className="stack-sm" style={{ padding: '4px 0' }}>
-          <div>
-            <strong>“{label}”</strong> <span className="muted small">· {decisions.length} invoices · <Amount value={amount} currency="EUR" /></span>
-            {suggestionSpread.length > 0 && (
-              <div className="small muted">
-                Suggested: {suggestionSpread.map(([acc, n]) => `${acc} ${data.idx!.accountById.get(acc)?.name ?? ''} (${n})`).join(', ')}
-              </div>
-            )}
+    <section className="panel" aria-labelledby="group-title">
+      <header className="work-head stack-2">
+        <div className="row" style={{ justifyContent: 'space-between' }}>
+          <h2 id="group-title">{g.config.title}</h2>
+          <div className="row">
+            {g.config.blocksSignOff ? <span className="tag required">Required for sign-off</span> : <span className="tag">Can stay open</span>}
+            <span className="tag">{STAKE_LABEL[g.config.stake]}</span>
           </div>
-          {suggestionSpread.length > 1 && (
-            <p className="small" style={{ color: 'var(--warn)' }}>
-              The model suggested {suggestionSpread.length} different accounts for this description, even for the same supplier.
-              Its suggestions are not reliable here; decide what this kind of cost is once, and book them all the same way.
-            </p>
-          )}
-          {canDecide && openOnes.length > 1 && (
-            suggestionSpread.length > 1
-              ? <OneAccountForAll decisions={openOnes} />
-              : !g.config.bulkAcceptSuggestion && withSugg.length > 1 && <div><button className="btn small" onClick={() => onAcceptAll(withSugg)}>Accept each suggestion ({withSugg.length})</button></div>
-          )}
+        </div>
+        <p className="measure" style={{ color: 'var(--ink-2)' }}>{g.config.why}</p>
+        <p className="cap muted">
+          {settled} of {g.decisions.length} settled
+          {[...g.amounts.entries()].map(([cur, v]) => <span key={cur}> · <Amount value={v} currency={cur} /> {g.config.match.type === 'uncertain_classification' ? 'net' : ''} affected</span>)}
+        </p>
+      </header>
+      {shape === 'single' && <SingleReview g={g} />}
+      {shape === 'compare' && <CompareReview g={g} />}
+      {shape === 'classification' && <ClassificationReview g={g} />}
+      {shape === 'table' && <TableReview g={g} />}
+      {settled === g.decisions.length && nextGroup && (
+        <div className="action-bar">
+          <span>This group is settled.</span>
+          <button type="button" className="btn accent" onClick={() => navigate('decisions', nextGroup.config.id)}>Next: {nextGroup.config.title}</button>
         </div>
       )}
-      {shown.map((d) => <DecisionCard key={d.id} d={d} canDecide={canDecide} />)}
-      {ordered.length > cap && (
-        <button className="link small" onClick={() => setShowAll(!showAll)}>
-          {showAll ? 'Show fewer' : `Show all ${ordered.length} (${openOnes.length} open)`}
-        </button>
-      )}
-    </div>
-  );
-}
-
-function DecisionCard({ d, canDecide }: { d: Decision; canDecide: boolean }) {
-  const { persisted, dispatch, role, data, cfg, showToast } = useApp();
-  const idx = data.idx!;
-  const ans = persisted.answers[d.id];
-  const [choice, setChoice] = useState<string | null>(ans?.optionId ?? d.suggested_option);
-  const [value, setValue] = useState<string>(ans?.value ?? '');
-  const inv = invoiceOf(d, idx);
-  const spec = choice ? valueSpecFor(d, choice, idx) : null;
-  const err = spec?.kind === 'text' && value ? spec.validate(value) : null;
-  const needsValue = !!spec;
-  const ready = !!choice && (!needsValue || (value && !err));
-  const effect = choice ? previewEffect(d, choice, idx) : null;
-
-  const confirm = () => {
-    if (!choice) return;
-    dispatch({ t: 'answer', ids: [d.id], optionId: () => choice, value: value || undefined, by: role });
-    showToast({ text: `${d.id} answered.`, undo: () => dispatch({ t: 'undo', id: d.id, by: role }) });
-  };
-
-  if (ans) {
-    const opt = d.options.find((o) => o.id === ans.optionId);
-    return (
-      <article className="decision answered" id={`d-${d.id}`}>
-        <div className="spread">
-          <div>
-            <Badge tone="good">✓</Badge> <strong>{d.title}</strong>
-            <div className="small">
-              {opt?.label}{ans.value && <> · <span className="mono">{ans.value}</span></>}
-              {KEEPS_OPEN.includes(ans.optionId) && <> <Badge tone="neutral">still open in the books</Badge></>}
-              <span className="muted"> · {ans.bulk ? 'accepted with the group' : 'answered'} by {who(cfg, ans.by)}</span>
-            </div>
-          </div>
-          {canDecide && <button className="btn small ghost" onClick={() => dispatch({ t: 'undo', id: d.id, by: role })}>Undo</button>}
-        </div>
-      </article>
-    );
-  }
-
-  return (
-    <article className="decision" id={`d-${d.id}`} aria-labelledby={`dt-${d.id}`}>
-      <div className="spread">
-        <strong id={`dt-${d.id}`}>{d.title}</strong>
-        <span className="small muted">
-          {d.amount_affected && <Amount value={amountOf(d)} currency={d.amount_affected.currency} />}
-          {d.confidence !== undefined && <> · model {pct(d.confidence)} sure</>}
-        </span>
-      </div>
-      <p className="small" style={{ marginTop: 4 }}>{d.question}</p>
-      <p className="small muted" style={{ marginTop: 4 }}>
-        Evidence:{' '}
-        {d.references.map((r, k) => (
-          <span key={k}>
-            {k > 0 && ', '}
-            {'invoice' in r && <Ref target={{ kind: 'invoice', id: r.invoice }} />}
-            {'transaction' in r && <Ref target={{ kind: 'tx', id: r.transaction }} />}
-            {'partner' in r && <Ref target={{ kind: 'partner', id: r.partner }}>{idx.partnerById.get(r.partner)?.name}</Ref>}
-          </span>
-        ))}
-        {inv && <> · currently on {inv.classification.account} {inv.classification.account_name}</>}
-      </p>
-      <PartnerStake d={d} />
-
-      <fieldset className="options" disabled={!canDecide} style={{ border: 0, padding: 0, margin: '12px 0 0' }}>
-        <legend className="sr-only">{d.question}</legend>
-        {d.options.map((o) => (
-          <label key={o.id} className={`opt ${choice === o.id ? 'selected' : ''}`}>
-            <input type="radio" name={d.id} aria-label={o.label} checked={choice === o.id} onChange={() => { setChoice(o.id); setValue(''); }} />
-            <span>
-              {o.label} {d.suggested_option === o.id && <Badge tone="accent">suggested</Badge>}
-              <div className="eff">{o.effect}</div>
-            </span>
-          </label>
-        ))}
-      </fieldset>
-      {d.why_suggested && <p className="small muted" style={{ marginTop: 6 }}>Why suggested: {d.why_suggested}</p>}
-      {!d.suggested_option && <p className="small muted" style={{ marginTop: 6 }}>We have no suggestion here: this needs information only you have.</p>}
-
-      {spec && (
-        <div style={{ marginTop: 10 }}>
-          <label className="small"><strong>{spec.label}</strong><br />
-            {spec.kind === 'select' ? (
-              spec.options.length ? (
-                <select value={value} onChange={(e) => setValue(e.target.value)} style={{ marginTop: 4, padding: 6, maxWidth: '100%' }}>
-                  <option value="">Choose…</option>
-                  {spec.options.map((o) => <option key={o.value} value={o.value}>{o.label}{o.hint ? ` (${o.hint})` : ''}</option>)}
-                </select>
-              ) : <span className="muted">{spec.empty}</span>
-            ) : (
-              <input value={value} onChange={(e) => setValue(e.target.value)} placeholder={spec.placeholder} aria-invalid={!!err} style={{ marginTop: 4, padding: 6, width: 260 }} />
-            )}
-          </label>
-          {err && <p className="small" style={{ color: 'var(--bad)' }} role="alert">{err}</p>}
-          {spec.kind === 'select' && value && <p className="small"><Ref target={{ kind: 'invoice', id: value }}>Open {value}</Ref></p>}
-        </div>
-      )}
-
-      {effect && (effect.lines.length > 0 || choice !== d.suggested_option) && (
-        <div className="effect">
-          <strong>What changes:</strong> {effect.lines.length === 0 ? effect.text : (
-            <>
-              {effect.lines.map((l, k) => (
-                <span key={k}>{k > 0 && ' · '}{l.account} {idx.accountById.get(l.account)?.name} <Amount value={l.delta} currency="EUR" signed /></span>
-              ))}
-              <span className="muted"> · total unchanged</span>
-            </>
-          )}
-        </div>
-      )}
-
-      {canDecide && (
-        <div className="row" style={{ marginTop: 12 }}>
-          <button className="btn primary small" disabled={!ready} onClick={confirm}>
-            {choice && choice === d.suggested_option ? 'Accept suggestion' : 'Confirm answer'}
-          </button>
-          {d.amount_affected && toCents(d.amount_affected.amount) === 0n && <span className="small muted">No amount affected.</span>}
-        </div>
-      )}
-    </article>
-  );
-}
-
-
-/** For partner questions: what is riding on the answer, from the partner's invoices. */
-function PartnerStake({ d }: { d: Decision }) {
-  const { data, cfg } = useApp();
-  const idx = data.idx!;
-  const ref = d.references.find((r) => 'partner' in r) as { partner: string } | undefined;
-  if (!ref) return null;
-  const invs = (idx.invoicesByPartner.get(ref.partner) ?? []);
-  if (!invs.length) return <p className="small muted" style={{ marginTop: 4 }}>No invoices for this partner.</p>;
-  const zero = invs.filter((i) => i.direction === 'receivable' && cfg.zeroRatedAccounts.includes(i.classification.account));
-  const usd = invs.filter((i) => i.original.gross.currency !== 'EUR');
-  const net = zero.reduce((t, i) => t + toCents(i.booked.net.amount), 0n);
-  return (
-    <p className="small" style={{ marginTop: 4 }}>
-      <strong>Riding on this:</strong> {invs.length} invoices
-      {zero.length > 0 && <>, {zero.length} booked tax-free (net <Amount value={net} currency="EUR" />)</>}
-      {usd.length > 0 && <>, {usd.length} in {usd[0].original.gross.currency}</>}.
-    </p>
-  );
-}
-
-/** Book every open question in a cluster to the same option (e.g. one expense account), with a preview. */
-function OneAccountForAll({ decisions }: { decisions: Decision[] }) {
-  const { dispatch, role, data, showToast } = useApp();
-  const idx = data.idx!;
-  const options = useMemo(() => {
-    const m = new Map<string, string>();
-    for (const d of decisions) for (const o of d.options) m.set(o.id, o.label);
-    return [...m.entries()];
-  }, [decisions]);
-  const [acc, setAcc] = useState('');
-  const moving = acc ? decisions.filter((d) => invoiceOf(d, idx)?.classification.account !== acc) : [];
-  const moved = moving.reduce((t, d) => t + amountOf(d), 0n);
-  const apply = () => {
-    const ids = decisions.map((d) => d.id);
-    dispatch({ t: 'answer', ids, optionId: () => acc, by: role, bulk: true });
-    showToast({ text: `Booked ${ids.length} invoices to ${acc}.`, undo: () => ids.forEach((id) => dispatch({ t: 'undo', id, by: role })) });
-  };
-  return (
-    <div className="row" style={{ background: 'var(--sunk)', padding: 10, borderRadius: 6 }}>
-      <label className="small">Book all {decisions.length} to{' '}
-        <select value={acc} onChange={(e) => setAcc(e.target.value)} style={{ padding: 4 }}>
-          <option value="">choose an account…</option>
-          {options.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
-        </select>
-      </label>
-      {acc && <span className="small muted">{moving.length} invoices move (<Amount value={moved} currency="EUR" /> net); the total is unchanged.</span>}
-      <button className="btn small primary" disabled={!acc} onClick={apply}>Book all {decisions.length}</button>
-    </div>
+    </section>
   );
 }

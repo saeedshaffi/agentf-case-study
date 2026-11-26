@@ -2,12 +2,28 @@ import { STAKE_ORDER, type CustomerConfig, type DecisionGroupConfig, type RoleId
 import { abs, sum, toCents, type Cents } from './money';
 import type { Decision, Indexed, Invoice } from './types';
 
-export interface Answer { optionId: string; value?: string; by: RoleId; at: string; bulk?: boolean }
+export interface Answer {
+  optionId: string; value?: string; by: RoleId; at: string;
+  /** Set when the answer was given as part of one bulk action; the whole batch undoes together. */
+  batch?: string; bulk?: boolean;
+}
 export type Answers = Record<string, Answer>;
 
 export interface LogEntry {
   at: string; by: RoleId; decisionId: string;
-  action: 'answered' | 'undone'; optionId?: string; value?: string; bulk?: boolean;
+  action: 'answered' | 'undone'; optionId?: string; value?: string; bulk?: boolean; batch?: string;
+}
+
+/** Options that record a choice but leave the underlying item open ("ask the customer", "leave open"). */
+export const KEEPS_OPEN = ['ask_customer', 'leave_open'];
+
+/** Answered with an option that actually settles the question. Deferring is not settling. */
+export function isSettled(a: Answer | undefined): boolean {
+  return !!a && !KEEPS_OPEN.includes(a.optionId);
+}
+
+export function isDeferred(a: Answer | undefined): boolean {
+  return !!a && KEEPS_OPEN.includes(a.optionId);
 }
 
 export interface DecisionGroup {
@@ -15,8 +31,8 @@ export interface DecisionGroup {
   decisions: Decision[];
   /** Sub-groups (e.g. by invoice description) in display order. */
   clusters: { key: string; label: string; decisions: Decision[]; amount: Cents }[];
-  amount: Cents;
-  currency: string | null;
+  /** Affected amounts per currency (never mixed). */
+  amounts: Map<string, Cents>;
 }
 
 const OTHER_GROUP: DecisionGroupConfig = {
@@ -78,15 +94,8 @@ export function groupDecisions(idx: Indexed, cfg: CustomerConfig): DecisionGroup
     .map((g) => {
       let ds = buckets.get(g.id)!;
       if (g.sortBy === 'amount_desc') ds = [...ds].sort((a, b) => (amountOf(b) > amountOf(a) ? 1 : amountOf(b) < amountOf(a) ? -1 : 0));
-      const currencies = new Set(ds.map((d) => d.amount_affected?.currency).filter(Boolean));
       const clusters = cluster(g, ds, idx);
-      return {
-        config: g,
-        decisions: ds,
-        clusters,
-        amount: sum(ds.map(amountOf)),
-        currency: currencies.size === 1 ? [...currencies][0]! : null,
-      };
+      return { config: g, decisions: ds, clusters, amounts: totalsByCurrency(ds, idx) };
     });
 }
 
@@ -103,16 +112,59 @@ function cluster(g: DecisionGroupConfig, ds: Decision[], idx: Indexed) {
     .sort((a, b) => (b.amount > a.amount ? 1 : b.amount < a.amount ? -1 : 0));
 }
 
-export interface Progress { total: number; answered: number; blockingOpen: number }
+export interface Progress {
+  total: number;
+  /** Any answer, including deferrals. */
+  answered: number;
+  required: number;
+  requiredSettled: number;
+  /** Required questions not settled (open or deferred): these block sign-off. */
+  blockingOpen: number;
+  /** Required questions answered with a deferral: they still block. */
+  requiredDeferred: number;
+  optional: number;
+  optionalAnswered: number;
+}
 
 export function progress(groups: DecisionGroup[], answers: Answers): Progress {
-  let total = 0, answered = 0, blockingOpen = 0;
+  const p: Progress = { total: 0, answered: 0, required: 0, requiredSettled: 0, blockingOpen: 0, requiredDeferred: 0, optional: 0, optionalAnswered: 0 };
   for (const g of groups) for (const d of g.decisions) {
-    total++;
-    if (answers[d.id]) answered++;
-    else if (g.config.blocksSignOff) blockingOpen++;
+    const a = answers[d.id];
+    p.total++;
+    if (a) p.answered++;
+    if (g.config.blocksSignOff) {
+      p.required++;
+      if (isSettled(a)) p.requiredSettled++;
+      else { p.blockingOpen++; if (a) p.requiredDeferred++; }
+    } else {
+      p.optional++;
+      if (a) p.optionalAnswered++;
+    }
   }
-  return { total, answered, blockingOpen };
+  return p;
+}
+
+/**
+ * The amount a question is about, in the currency of the records it refers to.
+ * The engine labels a few USD amounts as EUR; the referenced transaction or invoice is the better witness.
+ */
+export function moneyOf(d: Decision, idx: Indexed): { value: Cents; currency: string; engineCurrency: string; mismatch: boolean } | null {
+  if (!d.amount_affected) return null;
+  const engineCurrency = d.amount_affected.currency;
+  let recordCurrency: string | undefined;
+  for (const r of d.references) {
+    if ('transaction' in r) recordCurrency ??= idx.txById.get(r.transaction)?.currency;
+    if ('invoice' in r) recordCurrency ??= idx.invoiceById.get(r.invoice)?.original.gross.currency;
+  }
+  const currency = recordCurrency ?? engineCurrency;
+  return { value: abs(toCents(d.amount_affected.amount)), currency, engineCurrency, mismatch: currency !== engineCurrency };
+}
+
+/** Sum of amounts per currency, never mixing currencies. */
+export function totalsByCurrency(ds: Decision[], idx: Indexed): Map<string, Cents> {
+  const m = new Map<string, Cents>();
+  for (const d of ds) { const x = moneyOf(d, idx); if (x) m.set(x.currency, (m.get(x.currency) ?? 0n) + x.value); }
+  return m;
 }
 
 /** One line of change to an account, in EUR cents. Positive = debit increases. */

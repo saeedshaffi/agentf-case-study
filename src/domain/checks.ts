@@ -1,103 +1,118 @@
 import type { CustomerConfig } from './config';
+import { isSettled, moneyOf, type Answers } from './decisions';
 import { agreesWithEngine, computeMetrics, type TraceTarget } from './metrics';
 import { abs, sum, toCents, type Cents } from './money';
 import type { Indexed, Invoice } from './types';
 
-// Checks the front end runs over the engine's output before showing it to a customer.
-// They do not change any number. They make sure the customer hears about a problem from us
-// before their tax advisor finds it.
+// Checks the front end runs over the engine's output. They never change a number.
+// Two kinds:
+//  - verifications: something we recomputed and confirmed (or could not confirm);
+//  - findings: something in the result a person should know about before signing off.
 
-export type Severity = 'attention' | 'info' | 'passed';
+export type CheckKind = 'verification' | 'finding';
+
+/**
+ * Status of a check for this customer, right now.
+ *  passed       – a verification that holds
+ *  failed       – a verification that does not hold
+ *  open         – a finding nobody has dealt with
+ *  acknowledged – read and accepted as an open item; the underlying problem is NOT fixed
+ *  resolved     – the questions that settle it have been answered
+ *  info         – context only; nothing to do
+ */
+export type CheckStatus = 'passed' | 'failed' | 'open' | 'acknowledged' | 'resolved' | 'info';
 
 export interface Finding {
   id: string;
-  severity: Severity;
+  kind: CheckKind;
+  /** Only findings with this set must be resolved or acknowledged before sign-off. */
+  needsAttention: boolean;
   title: string;
+  /** What is wrong, in one or two sentences. */
   detail: string;
-  /** Who should act, in plain words. */
+  /** Why it matters to this person. */
+  why?: string;
+  /** The single next step. */
   next?: string;
-  amount?: { value: Cents; currency: string };
+  amount?: { value: Cents; currency: string; label: string };
+  affected?: { count: number; noun: string };
   items: TraceTarget[];
-  /** Questions whose answers settle this finding. Empty: it needs reading, not answering. */
+  /** Questions whose settled answers resolve this finding. */
   decisionIds?: string[];
+  /** Decision group to open from this finding. */
+  groupId?: string;
 }
 
-/** Options that record a choice but leave the underlying problem open. */
-export const KEEPS_OPEN = ['ask_customer', 'leave_open'];
+export interface Acknowledgement { at: string; by: string }
 
-export function isResolved(f: Finding, answers: Record<string, { optionId: string }>): boolean {
-  if (!f.decisionIds?.length) return false;
-  return f.decisionIds.every((id) => answers[id] && !KEEPS_OPEN.includes(answers[id].optionId));
+export function checkStatus(f: Finding, answers: Answers, acks: Record<string, Acknowledgement | string> | undefined): CheckStatus {
+  if (f.kind === 'verification') return f.needsAttention ? 'failed' : 'passed';
+  if (!f.needsAttention) return 'info';
+  if (f.decisionIds?.length && f.decisionIds.every((id) => isSettled(answers[id]))) return 'resolved';
+  if (acks?.[f.id]) return 'acknowledged';
+  return 'open';
+}
+
+/** Findings that still stand between the finance lead and sign-off. */
+export function blockingFindings(fs: Finding[], answers: Answers, acks: Record<string, Acknowledgement | string> | undefined) {
+  return fs.filter((f) => ['open', 'failed'].includes(checkStatus(f, answers, acks)));
 }
 
 export function runChecks(idx: Indexed, cfg: CustomerConfig): Finding[] {
   const on = (k: string) => cfg.checks[k] !== false;
   const out: Finding[] = [];
   const inv = idx.invoices;
+  const groupOf = (type: string) => cfg.decisionGroups.find((g) => g.match.type === type)?.id;
 
-  if (on('overpaidWithoutDecision')) {
-    const xs = inv.filter((i) => i.payment.status === 'overpaid').filter((i) => {
-      const txs = idx.txByInvoice.get(i.id) ?? [];
-      return !i.decision_ids.length && !txs.some((t) => t.decision_ids?.length);
+  // --- Verifications -------------------------------------------------------------------------
+  if (on('summaryReconciles')) {
+    const ms = computeMetrics(idx);
+    const compared = Object.values(ms).filter((m) => m.engineValue !== undefined);
+    const bad = compared.filter((m) => agreesWithEngine(m) === false);
+    out.push({
+      id: 'summary_reconciles', kind: 'verification', needsAttention: bad.length > 0,
+      title: bad.length ? `${bad.length} engine totals differ from the records` : `${compared.length} engine totals match the records`,
+      detail: bad.length
+        ? `Recomputed from the individual records, these come out differently: ${bad.map((m) => m.label).join(', ')}.`
+        : 'Counts, gross amounts per currency, open items, and journal debits and credits were recomputed from the individual records. Each agrees to the cent with the engine.',
+      items: (bad.length ? bad : compared).map((m) => ({ kind: 'metric', id: m.id })),
     });
-    if (xs.length) {
-      const extra = sum(xs.map((i) => toCents(i.payment.paid.amount) - toCents(i.original.gross.amount)));
-      out.push({
-        id: 'overpaid_without_decision', severity: 'attention',
-        title: `${xs.length} overpayments have no question attached`,
-        detail: `These invoices are marked "overpaid", but the bank payment was matched as a normal full payment and no question was raised. The other ${inv.filter((i) => i.payment.status === 'overpaid').length - xs.length} overpayments each have one. Together they are`,
-        next: 'Open each one and decide like the other overpayments: keep as credit, refund, or book as income. What customers owe you is not affected; this is about the extra money they paid.',
-        amount: { value: extra, currency: 'EUR' },
-        items: xs.map((i) => ({ kind: 'invoice', id: i.id })),
-      });
-    }
+    const s = idx.summary.balance_check;
+    const ok = s.balanced && s.debits_eur === s.credits_eur && agreesWithEngine(ms.debits) !== false && agreesWithEngine(ms.credits) !== false;
+    out.push({
+      id: 'balanced', kind: 'verification', needsAttention: !ok,
+      title: ok ? 'Journal debits equal credits' : 'Journal debits and credits differ',
+      detail: 'Every invoice was booked with equal debits and credits, and the totals agree. This covers invoice bookings; bank payments are matched to invoices, not booked, in this export.',
+      items: [{ kind: 'metric', id: 'debits' }, { kind: 'metric', id: 'credits' }],
+    });
+    const f = loadFunnel(idx);
+    out.push({
+      id: 'rows_accounted', kind: 'verification', needsAttention: !f.reconciles,
+      title: f.reconciles ? `All ${f.rowsRead.toLocaleString('en')} export rows are accounted for` : 'Some export rows are not accounted for',
+      detail: `${f.rowsRead} rows read, ${f.duplicates} exact duplicates removed, ${f.superseded} replaced by a later version, ${f.rejected} rejected: ${f.loaded} invoices.`,
+      items: [{ kind: 'metric', id: 'invoices_loaded' }],
+    });
   }
 
-  if (on('inconsistentSuggestions')) {
-    // Same description + same supplier = same model input. Different suggestions for the same input mean the
-    // suggestions should not be accepted one by one.
-    const byInput = new Map<string, Set<string>>();
-    const ids = new Map<string, string[]>();
-    const decs = new Map<string, string[]>();
-    for (const d of idx.decisions.filter((d) => d.type === 'uncertain_classification' && d.suggested_option)) {
-      const ref = d.references.find((r) => 'invoice' in r) as { invoice: string } | undefined;
-      const i = ref && idx.invoiceById.get(ref.invoice);
-      if (!i) continue;
-      const k = `${i.partner_id}|${i.description}`;
-      (byInput.get(k) ?? byInput.set(k, new Set()).get(k)!).add(d.suggested_option!);
-      (ids.get(k) ?? ids.set(k, []).get(k)!).push(i.id);
-      (decs.get(k) ?? decs.set(k, []).get(k)!).push(d.id);
-    }
-    const bad = [...byInput.entries()].filter(([, v]) => v.size > 1);
-    if (bad.length) {
-      const n = bad.reduce((t, [k]) => t + ids.get(k)!.length, 0);
-      out.push({
-        id: 'inconsistent_suggestions', severity: 'attention',
-        title: 'The model gave different answers to the same question',
-        detail: `For ${bad.length} combinations of supplier and description, the model suggested more than one expense account, although that is all it sees. This affects ${n} invoices. All of them are currently booked on the suggestion, pending your review.`,
-        next: 'Decide once per description what this cost is, and book them all the same way. The questions page offers this.',
-        items: bad.flatMap(([k]) => ids.get(k)!.map((id) => ({ kind: 'invoice', id }) as TraceTarget)),
-        decisionIds: bad.flatMap(([k]) => decs.get(k)!),
-      });
-    }
-  }
-
+  // --- Findings that need the finance lead ---------------------------------------------------
   if (on('zeroRatedWithoutValidVatId')) {
     for (const p of idx.partners.filter((p) => p.flags.includes('malformed_vat_id'))) {
       const xs = (idx.invoicesByPartner.get(p.id) ?? []).filter(
         (i) => i.direction === 'receivable' && cfg.zeroRatedAccounts.includes(i.classification.account),
       );
       if (!xs.length) continue;
-      const net = sumBooked(xs);
       const cn = xs.filter((i) => i.type === 'credit_note').length;
       out.push({
-        id: `zero_rated_no_vat_id:${p.id}`, severity: 'attention',
-        title: `${xs.length} tax-free EU sales to a customer without a valid VAT ID`,
-        detail: `${p.name} (${p.country ?? 'no country'}) has VAT ID "${p.vat_id}". ${xs.length - cn} invoices${cn ? ` and ${cn} credit note${cn > 1 ? 's' : ''}` : ''} were booked as tax-free intra-EU supplies, which requires a valid VAT ID. Net amount booked tax-free:`,
-        next: 'Answer the VAT ID question first. Your tax advisor will ask about this before the VAT return.',
-        amount: { value: net, currency: 'EUR' },
+        id: `zero_rated_no_vat_id:${p.id}`, kind: 'finding', needsAttention: true,
+        title: `Tax-free EU sales to ${p.name}, whose VAT ID is "${p.vat_id}"`,
+        detail: `${xs.length - cn} invoices${cn ? ` and ${cn} credit note` : ''} to this ${p.country ?? ''} customer were booked as tax-free intra-EU supplies. The engine's own rule for that requires a valid VAT ID.`,
+        why: 'Without a valid VAT ID these sales may be taxable in Germany. Your tax advisor will check this before the first VAT return.',
+        next: 'Enter the customer\'s VAT ID in the decision for this customer.',
+        amount: { value: sumNet(xs), currency: 'EUR', label: 'net booked tax-free' },
+        affected: { count: xs.length, noun: cn ? 'invoices and credit notes' : 'invoices' },
         items: [{ kind: 'partner', id: p.id }, ...xs.map((i) => ({ kind: 'invoice', id: i.id }) as TraceTarget)],
         decisionIds: (idx.decisionsByPartner.get(p.id) ?? []).map((d) => d.id),
+        groupId: cfg.decisionGroups.find((g) => g.match.type === 'malformed_vat_id' && g.match.partnerHasZeroRatedSales)?.id,
       });
     }
   }
@@ -107,13 +122,67 @@ export function runChecks(idx: Indexed, cfg: CustomerConfig): Finding[] {
       const xs = (idx.invoicesByPartner.get(p.id) ?? []).filter((i) => i.original.gross.currency !== 'EUR' && i.original.vat_rate_percent > 0);
       if (!xs.length) continue;
       out.push({
-        id: `foreign_currency_with_de_vat:${p.id}`, severity: 'attention',
-        title: `German VAT charged on ${xs.length} USD invoices to a customer with no country`,
-        detail: `${p.name} has no country on record. ${xs.length} of their invoices are in USD and carry ${xs[0].original.vat_rate_percent} % German VAT. If they are outside Germany, these may need re-booking. VAT booked on them:`,
-        next: 'Answer the country question in your decisions. If the customer is abroad, the engine says these invoices may need re-booking.',
-        amount: { value: sum(xs.map((i) => toCents(i.booked.vat.amount))), currency: 'EUR' },
+        id: `foreign_currency_with_de_vat:${p.id}`, kind: 'finding', needsAttention: true,
+        title: `German VAT on ${xs.length} USD invoices to ${p.name}, who has no country`,
+        detail: `${xs.length} of this customer's invoices are in US dollars and carry ${xs[0].original.vat_rate_percent} % German VAT. The customer record has no country.`,
+        why: 'If the customer is outside Germany, German VAT may not apply to these invoices.',
+        next: 'Set the customer\'s country in the decision for this customer.',
+        amount: { value: sum(xs.map((i) => toCents(i.booked.vat.amount))), currency: 'EUR', label: 'German VAT booked' },
+        affected: { count: xs.length, noun: 'invoices' },
         items: [{ kind: 'partner', id: p.id }, ...xs.map((i) => ({ kind: 'invoice', id: i.id }) as TraceTarget)],
         decisionIds: (idx.decisionsByPartner.get(p.id) ?? []).map((d) => d.id),
+        groupId: groupOf('missing_country'),
+      });
+    }
+  }
+
+  if (on('inconsistentSuggestions')) {
+    const byInput = new Map<string, { accounts: Set<string>; ids: string[]; decs: string[] }>();
+    for (const d of idx.decisions.filter((d) => d.type === 'uncertain_classification' && d.suggested_option)) {
+      const ref = d.references.find((r) => 'invoice' in r) as { invoice: string } | undefined;
+      const i = ref && idx.invoiceById.get(ref.invoice);
+      if (!i) continue;
+      const k = `${i.partner_id}|${i.description}`;
+      const e = byInput.get(k) ?? byInput.set(k, { accounts: new Set(), ids: [], decs: [] }).get(k)!;
+      e.accounts.add(d.suggested_option!); e.ids.push(i.id); e.decs.push(d.id);
+    }
+    const bad = [...byInput.values()].filter((v) => v.accounts.size > 1);
+    if (bad.length) {
+      const n = bad.reduce((t, v) => t + v.ids.length, 0);
+      out.push({
+        id: 'inconsistent_suggestions', kind: 'finding', needsAttention: true,
+        title: 'The model suggested different accounts for identical inputs',
+        detail: `The model sees only an invoice's description and the supplier category. For ${bad.length} of ${byInput.size} supplier-and-description pairs it still suggested more than one account. ${n} invoices are affected and are booked on those suggestions until you decide.`,
+        why: 'Accepting the suggestions one by one would book the same kind of cost from the same supplier to different lines of your profit and loss.',
+        next: 'Decide once per description which account it is, and book them together.',
+        affected: { count: n, noun: 'invoices' },
+        items: bad.flatMap((v) => v.ids.map((id) => ({ kind: 'invoice', id }) as TraceTarget)),
+        decisionIds: bad.flatMap((v) => v.decs),
+        groupId: groupOf('uncertain_classification'),
+      });
+    }
+  }
+
+  if (on('overpaidWithoutDecision')) {
+    const overpaid = inv.filter((i) => i.payment.status === 'overpaid');
+    const xs = overpaid.filter((i) => {
+      const txs = idx.txByInvoice.get(i.id) ?? [];
+      return !i.decision_ids.length && !txs.some((t) => t.decision_ids?.length);
+    });
+    if (xs.length) {
+      const extra = sum(xs.map((i) => toCents(i.payment.paid.amount) - toCents(i.original.gross.amount)));
+      const corrected = xs.filter((i) => i.history.length > 1 && toCents(i.history[0].gross_in_export.amount) === toCents(i.payment.paid.amount));
+      out.push({
+        id: 'overpaid_without_decision', kind: 'finding', needsAttention: true,
+        title: `${xs.length} invoices were lowered after the customer had paid them`,
+        detail: corrected.length === xs.length
+          ? `Each customer paid the first version of the invoice in full. A later export corrected the invoice to a lower amount, so the books now show more paid than owed. The engine raised no question for these, unlike the other ${overpaid.length - xs.length} overpayments.`
+          : `These invoices show more paid than owed, and the engine raised no question for them, unlike the other ${overpaid.length - xs.length} overpayments.`,
+        why: 'The difference is money these customers are owed back, or a credit against their next invoice.',
+        next: 'Decide with each customer whether to refund the difference or keep it as credit. There is no question in the product for this yet.',
+        amount: { value: extra, currency: 'EUR', label: 'paid above the corrected invoices' },
+        affected: { count: xs.length, noun: 'invoices' },
+        items: xs.map((i) => ({ kind: 'invoice', id: i.id })),
       });
     }
   }
@@ -124,57 +193,56 @@ export function runChecks(idx: Indexed, cfg: CustomerConfig): Finding[] {
     const settled = inv.filter((i) => i.type === 'credit_note' && i.payment.status !== 'open_credit');
     if (cn.parts[0]?.count) {
       out.push({
-        id: 'credit_notes_in_open_items', severity: 'attention',
+        id: 'credit_notes_in_open_items', kind: 'finding', needsAttention: true,
         title: `Open receivables leave out ${cn.parts[0].count} open credit notes`,
-        detail: `The engine's open receivables count sales invoices only. ${cn.parts[0].count} credit notes are also open${settled.length ? '' : ' (none of them has been refunded or set against an invoice yet)'}, which means you owe these customers money back. What customers owe you, net of credit notes, is lower by`,
-        next: 'Check the refunds without a credit note: some of them probably settle these.',
-        amount: { value: cn.value as Cents, currency: 'EUR' },
+        detail: `The engine's open receivables count sales invoices only. ${cn.parts[0].count} credit notes are open as well${settled.length ? '' : '; none has been refunded or set against an invoice'}. That is money you owe these customers.`,
+        why: 'What customers owe you, net of credit notes, is lower than the open receivables figure suggests.',
+        next: 'Use the net figure when you report what customers owe. Settling the credit notes happens after the migration.',
+        amount: { value: cn.value as Cents, currency: 'EUR', label: 'owed back on credit notes' },
+        affected: { count: cn.parts[0].count, noun: 'credit notes' },
         items: [{ kind: 'metric', id: 'net_receivables_eur' }, { kind: 'metric', id: 'open_credit_notes_eur' }],
       });
     }
   }
 
+  // --- Context only --------------------------------------------------------------------------
+  const mislabelled = idx.decisions.filter((d) => moneyOf(d, idx)?.mismatch);
+  if (mislabelled.length) {
+    out.push({
+      id: 'decision_currency', kind: 'finding', needsAttention: false,
+      title: `${mislabelled.length} questions carry the wrong currency in the engine's data`,
+      detail: `The engine labels these amounts EUR, but the records they refer to are in ${[...new Set(mislabelled.map((d) => moneyOf(d, idx)!.currency))].join(', ')}. They are shown in the records' currency and are never added to euro totals.`,
+      items: mislabelled.map((d) => ({ kind: 'decision', id: d.id })),
+    });
+  }
+
   if (on('fxRounding')) {
-    const xs = inv.filter((i) => i.fx).filter((i) => {
-      const r = Number(i.fx!.rate_usd_per_eur);
-      const expect = Math.round((Number(i.original.gross.amount) / r) * 100);
-      return abs(BigInt(expect) - toCents(i.booked.gross.amount)) === 1n;
-    });
+    const fx = inv.filter((i) => i.fx);
+    const oneCent = fx.filter((i) => abs(convertCents(i) - toCents(i.booked.gross.amount)) === 1n);
     const weekend = inv.filter((i) => i.flags.includes('fx_rate_from_previous_business_day'));
+    const ids = [...new Set([...weekend, ...oneCent].map((i) => i.id))];
     out.push({
-      id: 'fx', severity: 'info',
-      title: 'Currency conversion',
-      detail: `${inv.filter((i) => i.fx).length} USD invoices were converted at the reference rate of the invoice date. ${weekend.length} fell on a day without a published rate and used the previous business day. ${xs.length ? `${xs.length} differ by one cent from a straight division, which is normal rounding.` : ''}`,
-      items: [...weekend, ...xs].map((i) => ({ kind: 'invoice', id: i.id })),
+      id: 'fx', kind: 'finding', needsAttention: false,
+      title: `${fx.length} USD invoices converted to euros`,
+      detail: `Each used the reference rate of its invoice date. ${weekend.length} fell on a day without a published rate and used the previous business day's rate.${oneCent.length ? ` ${oneCent.length} differ by one cent from a straight division, from rounding.` : ''}`,
+      items: ids.map((id) => ({ kind: 'invoice', id })),
     });
   }
 
-  if (on('summaryReconciles')) {
-    const ms = computeMetrics(idx);
-    const compared = Object.values(ms).filter((m) => m.engineValue !== undefined);
-    const bad = compared.filter((m) => agreesWithEngine(m) === false);
-    out.push({
-      id: 'summary_reconciles', severity: bad.length ? 'attention' : 'passed',
-      title: bad.length ? `${bad.length} engine totals do not match the underlying records` : `All ${compared.length} engine totals match the underlying records`,
-      detail: bad.length
-        ? `We recomputed these from the individual records and got a different figure: ${bad.map((m) => m.label).join(', ')}.`
-        : 'We recomputed every total the engine reports (counts, gross by currency, open items, debits and credits) from the individual records. They agree to the cent.',
-      items: (bad.length ? bad : compared).map((m) => ({ kind: 'metric', id: m.id })),
-    });
-    const s = idx.summary.balance_check;
-    out.push({
-      id: 'balanced', severity: s.balanced && s.debits_eur === s.credits_eur ? 'passed' : 'attention',
-      title: s.balanced ? 'The books balance' : 'The books do not balance',
-      detail: 'Every invoice posting has equal debits and credits, and so does the total.',
-      items: [{ kind: 'metric', id: 'debits' }, { kind: 'metric', id: 'credits' }],
-    });
-  }
-
-  const order: Record<Severity, number> = { attention: 0, info: 1, passed: 2 };
-  return out.sort((a, b) => order[a.severity] - order[b.severity]);
+  const order = (f: Finding) => (f.kind === 'finding' && f.needsAttention ? 0 : f.kind === 'verification' ? 1 : 2);
+  return out.sort((a, b) => order(a) - order(b));
 }
 
-function sumBooked(xs: Invoice[]): Cents { return sum(xs.map((i) => toCents(i.booked.net.amount))); }
+/** Exact conversion gross / rate, rounded half-up to cents, without floating point. */
+function convertCents(i: Invoice): bigint {
+  const [w, f = ''] = i.fx!.rate_usd_per_eur.split('.');
+  const scale = 10n ** BigInt(f.length);
+  const rate = BigInt(w + f);
+  const gross = toCents(i.original.gross.amount);
+  return (gross * scale * 2n + rate) / (2n * rate);
+}
+
+function sumNet(xs: Invoice[]): Cents { return sum(xs.map((i) => toCents(i.booked.net.amount))); }
 
 /** How rows from the old system became invoices. Every step is a number from the data. */
 export function loadFunnel(idx: Indexed) {

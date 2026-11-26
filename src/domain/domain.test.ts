@@ -1,4 +1,4 @@
-import { runChecks, loadFunnel } from './checks';
+import { blockingFindings, checkStatus, loadFunnel, runChecks } from './checks';
 import { groupDecisions, previewEffect, progress } from './decisions';
 import { agreesWithEngine, computeMetrics } from './metrics';
 import { toDecimalString } from './money';
@@ -44,8 +44,8 @@ describe('decision groups', () => {
   });
   it('puts tax first and cents last', () => {
     expect(groups.map((g) => g.config.id)).toEqual([
-      'vat_zero_rated', 'country', 'duplicate_partner', 'classification',
-      'unmatched_receipt', 'unexplained_refund', 'overpayment', 'vat_id_domestic', 'rounding',
+      'vat_zero_rated', 'country', 'classification',
+      'unmatched_receipt', 'unexplained_refund', 'overpayment', 'duplicate_partner', 'vat_id_domestic', 'rounding',
     ]);
   });
   it('sends the zero-rated EU customer to the tax group and the German one to records', () => {
@@ -91,27 +91,80 @@ describe('effects', () => {
 describe('checks', () => {
   const f = runChecks(idx, cfg);
   const byId = (p: string) => f.find((x) => x.id.startsWith(p));
-  it('finds overpayments the engine raised no question for', () => {
+  // Expected values below were recomputed independently in Python from the raw JSON (audit/harness/di-recompute.py),
+  // not with the functions under test.
+  it('explains the 4 overpayments as invoices lowered after payment', () => {
     const x = byId('overpaid_without_decision')!;
     expect(x.items).toHaveLength(4);
     expect(toDecimalString(x.amount!.value)).toBe('4365.62');
+    expect(x.title).toMatch(/lowered after the customer had paid/);
+    expect(x.next).not.toMatch(/income/);
   });
-  it('flags zero-rated sales to the customer with VAT ID "n/a"', () => {
+  it('flags zero-rated sales to the customer with VAT ID "n/a", counting the credit note separately', () => {
     const x = byId('zero_rated_no_vat_id:K00059')!;
-    expect(x.severity).toBe('attention');
+    expect(x.needsAttention).toBe(true);
     expect(x.items.filter((i) => i.kind === 'invoice')).toHaveLength(11);
+    expect(x.detail).toMatch(/^10 invoices and 1 credit note/);
+    expect(toDecimalString(x.amount!.value)).toBe('81660.65');
+    expect(x.decisionIds).toEqual(['D0168']);
   });
   it('flags German VAT on USD invoices for the customer without a country', () => {
-    expect(byId('foreign_currency_with_de_vat:K00018')!.items.filter((i) => i.kind === 'invoice')).toHaveLength(5);
+    const x = byId('foreign_currency_with_de_vat:K00018')!;
+    expect(x.items.filter((i) => i.kind === 'invoice')).toHaveLength(5);
+    expect(toDecimalString(x.amount!.value)).toBe('9072.80');
   });
-  it('notices the model suggests different accounts for identical inputs', () => {
+  it('counts inconsistent model suggestions exactly: 10 of 11 pairs, 88 invoices', () => {
     const x = byId('inconsistent_suggestions')!;
-    expect(x.severity).toBe('attention');
-    expect(x.items.length).toBeGreaterThan(50);
+    expect(x.detail).toMatch(/For 10 of 11 supplier-and-description pairs/);
+    expect(x.affected!.count).toBe(88);
   });
-  it('confirms the engine totals and the balance', () => {
-    expect(byId('summary_reconciles')!.severity).toBe('passed');
-    expect(byId('balanced')!.severity).toBe('passed');
+  it('labels the three USD questions the engine marks as EUR', () => {
+    const x = byId('decision_currency')!;
+    expect(x.items.map((i) => i.id).sort()).toEqual(['D0109', 'D0123', 'D0143']);
+  });
+  it('lists each FX invoice once', () => {
+    const ids = byId('fx')!.items.map((i) => i.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+  it('verifies the engine totals, the journal and the row count', () => {
+    for (const id of ['summary_reconciles', 'balanced', 'rows_accounted']) expect(checkStatus(byId(id)!, {}, {})).toBe('passed');
+  });
+});
+
+describe('finding states', () => {
+  const f = runChecks(idx, cfg);
+  const vat = f.find((x) => x.id === 'zero_rated_no_vat_id:K00059')!;
+  const cn = f.find((x) => x.id === 'credit_notes_in_open_items')!;
+  const a = (optionId: string) => ({ optionId, by: 'finance_lead' as const, at: '' });
+  it('an answer that defers does not resolve a finding', () => {
+    expect(checkStatus(vat, { D0168: a('ask_customer') }, {})).toBe('open');
+    expect(checkStatus(vat, { D0168: { ...a('enter'), value: 'FR40303265045' } }, {})).toBe('resolved');
+  });
+  it('acknowledging is never shown as resolved', () => {
+    expect(checkStatus(cn, {}, { credit_notes_in_open_items: { at: '', by: 'finance_lead' } })).toBe('acknowledged');
+    expect(blockingFindings(f, {}, { credit_notes_in_open_items: { at: '', by: 'finance_lead' } }).map((x) => x.id)).not.toContain('credit_notes_in_open_items');
+  });
+  it('blocks sign-off on the five open findings at the start', () => {
+    expect(blockingFindings(f, {}, {}).map((x) => x.id).sort()).toEqual([
+      'credit_notes_in_open_items', 'foreign_currency_with_de_vat:K00018', 'inconsistent_suggestions', 'overpaid_without_decision', 'zero_rated_no_vat_id:K00059',
+    ]);
+  });
+});
+
+describe('progress', () => {
+  const groups = groupDecisions(idx, cfg);
+  it('separates 116 required from 52 optional', () => {
+    const p = progress(groups, {});
+    expect(p).toMatchObject({ total: 168, required: 116, optional: 52, blockingOpen: 116, requiredSettled: 0 });
+  });
+  it('keeps a deferred required answer blocking', () => {
+    const p = progress(groups, { D0168: { optionId: 'ask_customer', by: 'finance_lead', at: '' } });
+    expect(p).toMatchObject({ answered: 1, requiredSettled: 0, blockingOpen: 116, requiredDeferred: 1 });
+  });
+  it('never mixes USD into euro group totals', () => {
+    const over = groups.find((g) => g.config.id === 'overpayment')!;
+    expect(toDecimalString(over.amounts.get('EUR')!)).toBe('160.00');
+    expect(toDecimalString(over.amounts.get('USD')!)).toBe('20.01');
   });
 });
 
