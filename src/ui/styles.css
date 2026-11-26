@@ -289,3 +289,4 @@ html { scroll-padding-bottom: 96px; }
 /* programmatic focus targets: no ring for mouse users, ring kept for keyboard via :focus-visible only */
 h1[tabindex='-1']:focus, h2[tabindex='-1']:focus, main:focus { outline: none; }
 .code, .link.code { white-space: nowrap; }
+strong, b, th { font-weight: var(--w-strong); }

@@ -2,6 +2,8 @@
 
 *Written before building. Press release + FAQ. Nordlicht Werkzeuge GmbH is the first customer; everything customer-specific lives in configuration.*
 
+*Kept as first written, apart from the two corrections marked in the text. The product was later audited and redesigned; where this document and the product differ (page names, how questions are grouped, bulk answers), [design-rationale.md](design-rationale.md) describes the current state. One statement here needs a caveat: who sees what is enforced on screen only in this prototype, not by a server.*
+
 ---
 
 ## Press release
