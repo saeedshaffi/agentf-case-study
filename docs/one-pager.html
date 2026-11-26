@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>One-pager · The migration experience</title>
+<style>
+@page { size: A4; margin: 13mm 14mm; }
+* { box-sizing: border-box; }
+body { font: 9.4pt/1.42 -apple-system, 'Helvetica Neue', Arial, sans-serif; color: #1d1c19; margin: 0; }
+h1 { font-size: 17pt; margin: 0 0 2px; letter-spacing: -.01em; }
+.sub { color: #6b6658; margin: 0 0 9px; font-size: 9pt; }
+h2 { font-size: 9pt; text-transform: uppercase; letter-spacing: .08em; color: #c2491d; margin: 10px 0 4px; }
+p { margin: 0 0 5px; }
+ol, ul { margin: 0; padding-left: 15px; }
+li { margin: 0 0 3px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.journey { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin: 4px 0 2px; }
+.step { border: 1px solid #e0dccf; border-radius: 5px; padding: 5px 6px; font-size: 8.3pt; }
+.step b { display: block; font-size: 8.8pt; }
+.n { color: #c2491d; font-weight: 700; }
+.box { background: #f6f4ee; border-radius: 5px; padding: 6px 8px; }
+strong { font-weight: 650; }
+.foot { margin-top: 8px; font-size: 8pt; color: #6b6658; border-top: 1px solid #e0dccf; padding-top: 5px; }
+</style></head><body>
+<h1>The migration experience</h1>
+<p class="sub">Product Design Engineer case · Saeed Shaffi · Nordlicht Werkzeuge GmbH, from first login to sign-off · <code>npm start</code></p>
+
+<h2>The journey I designed</h2>
+<div class="journey">
+  <div class="step"><span class="n">1</span><b>Arrival</b>What loaded, in order, including the bank load that timed out and was retried. Rows read → duplicates → versions → 1,770 invoices. How sure we are.</div>
+  <div class="step"><span class="n">2</span><b>Your decisions</b>168 questions in 9 groups, ordered by what they change: VAT first, cents last. Effect shown before booking; undo until sign-off.</div>
+  <div class="step"><span class="n">3</span><b>What we checked</b>Every engine total recomputed from the records, plus 5 findings no question covers.</div>
+  <div class="step"><span class="n">4</span><b>Books</b>Any number opens: total → invoices → postings → source row → versions → bank payment.</div>
+  <div class="step"><span class="n">5</span><b>Hand-over</b>Checklist, sign-off, read-only access for the advisor with a log of every answer.</div>
+</div>
+<p>Same data, three people: the <strong>finance lead</strong> gets plain words first; the <strong>tax advisor</strong> gets account numbers, definitions and the decision log, read-only, with contact data masked; the <strong>managing director</strong> gets one screen: did it work, does anything need me?</p>
+
+<div class="cols">
+<div>
+<h2>Decisions that mattered</h2>
+<ol>
+  <li><strong>Order by consequence, not by count.</strong> A missing VAT ID on a customer we invoiced tax-free is not a one-cent rounding difference. Group stakes are fixed (VAT always first); wording, grouping and blocking are per-customer config.</li>
+  <li><strong>Read the data before designing the bulk action.</strong> For 10 of 11 supplier/description pairs the model suggested different accounts for identical inputs (88 of 89 invoices). So: "book all 37 to one account" with a preview, not "accept all suggestions".</li>
+  <li><strong>Every number is a button.</strong> One trace panel with a trail, in two registers: plain for the finance lead, accounting for the advisor.</li>
+  <li><strong>Recompute, and say where we disagree.</strong> This caught a real gap: the engine's €5,216,558.36 open receivables exclude 40 open credit notes (€560,940.33). Net: €4,655,618.03.</li>
+  <li><strong>Missing beats wrong.</strong> Each endpoint loads and fails on its own; no total is shown from partial data.</li>
+  <li><strong>A new customer is a folder, not a fork.</strong> <code>customers/&lt;id&gt;/config.json</code>: words, people, roles, groups, checks. <code>npm run new-customer</code>; tests validate every customer against its data.</li>
+</ol>
+</div>
+<div>
+<h2>What the screens surface that the engine did not ask</h2>
+<div class="box"><ul>
+  <li>4 overpayments (€4,365.62) matched as normal payments, no question raised</li>
+  <li>11 tax-free EU sales (net €81,660.65) to a French customer whose VAT ID is "n/a"</li>
+  <li>5 USD invoices with 19 % German VAT to a customer with no country</li>
+  <li>Open credit notes missing from open receivables</li>
+  <li>Inconsistent model suggestions</li>
+</ul></div>
+
+<h2>What I left out</h2>
+<ul>
+  <li>Bank postings (not in the export, so not invented)</li>
+  <li>Real VIES checks and invitations (stubbed)</li>
+  <li>Server persistence and several users at once</li>
+  <li>Full translation and a WCAG audit</li>
+  <li>Mobile-first layout</li>
+</ul>
+
+<h2>How I would measure success</h2>
+<ul>
+  <li><strong>Faster:</strong> time and sessions from first login to sign-off (median and slowest quartile); drop-off per group.</li>
+  <li><strong>Trust:</strong> trace opens per session falling over time; undo rate; migrations reopened after sign-off; advisor follow-up questions; corrections within 90 days.</li>
+  <li><strong>Less help:</strong> migration support contacts per customer, by topic.</li>
+  <li><strong>Guardrail:</strong> VAT corrections after the first return.</li>
+</ul>
+</div>
+</div>
+<p class="foot">Built with an AI coding agent (log and transcript in the repository). Domain logic tested against the real data: 32 tests, money in integer cents, every engine total recomputed. Runs from a clean checkout with one command.</p>
+</body></html>
