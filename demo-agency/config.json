@@ -1,0 +1,183 @@
+{
+  "$schema": "../customer.schema.json",
+  "id": "demo-agency",
+  "company": "Studio Kranich GmbH",
+  "shortName": "Kranich",
+  "industry": "Design and software agency",
+  "numberLocale": "de-DE",
+  "dateLocale": "en-GB",
+  "dataPath": "../nordlicht/engine-output",
+  "words": {
+    "customer": "client",
+    "customers": "clients",
+    "supplier": "supplier",
+    "suppliers": "suppliers",
+    "salesInvoice": "client invoice",
+    "supplierInvoice": "freelancer or vendor bill",
+    "creditNote": "credit note",
+    "oldSystem": "your previous bookkeeping tool"
+  },
+  "people": {
+    "finance_lead": {
+      "displayName": "Head of operations",
+      "greeting": "Hi"
+    },
+    "tax_advisor": {
+      "displayName": "Steuerberaterin",
+      "greeting": "Read-only review",
+      "inSentence": "Steuerberaterin"
+    },
+    "owner": {
+      "displayName": "Founders",
+      "greeting": "Migration status",
+      "inSentence": "founders"
+    }
+  },
+  "roles": {
+    "finance_lead": {
+      "pages": [
+        "arrival",
+        "decisions",
+        "checks",
+        "books",
+        "handover"
+      ],
+      "canDecide": true,
+      "canSignOff": true,
+      "seesPersonalData": true
+    },
+    "tax_advisor": {
+      "pages": [
+        "books",
+        "decisionLog",
+        "checks",
+        "arrival"
+      ],
+      "canDecide": false,
+      "canSignOff": false,
+      "seesPersonalData": false
+    },
+    "owner": {
+      "pages": [
+        "overview",
+        "checks"
+      ],
+      "canDecide": false,
+      "canSignOff": false,
+      "seesPersonalData": false
+    }
+  },
+  "decisionGroups": [
+    {
+      "id": "vat_zero_rated",
+      "title": "VAT ID for a client you sold to tax-free",
+      "why": "These sales were booked without German VAT as intra-EU supplies. That needs a valid VAT ID. Without one, they may be taxable in Germany.",
+      "match": {
+        "type": "malformed_vat_id",
+        "partnerHasZeroRatedSales": true
+      },
+      "stake": "tax",
+      "blocksSignOff": true
+    },
+    {
+      "id": "country",
+      "title": "Client without a country",
+      "why": "The country decides whether German VAT applies. Some of this client's invoices are in US dollars and carry German VAT.",
+      "match": {
+        "type": "missing_country"
+      },
+      "stake": "tax",
+      "blocksSignOff": true
+    },
+    {
+      "id": "duplicate_partner",
+      "title": "Possible duplicate client",
+      "why": "Two client records share name, VAT ID, IBAN and e-mail. Merging keeps one record and the history of both.",
+      "match": {
+        "type": "possible_duplicate_partner"
+      },
+      "stake": "records",
+      "blocksSignOff": true
+    },
+    {
+      "id": "classification",
+      "title": "Costs to place",
+      "why": "The model was not sure which expense account these freelancer and vendor bills belong to. The account decides which line of your profit and loss they appear on.",
+      "match": {
+        "type": "uncertain_classification"
+      },
+      "stake": "money",
+      "groupBy": "description",
+      "sortBy": "amount_desc",
+      "blocksSignOff": true
+    },
+    {
+      "id": "unmatched_receipt",
+      "title": "Money in that matches no invoice",
+      "why": "Payments arrived that the engine could not link to an invoice. They can stay unassigned for now; your tax advisor will see them.",
+      "match": {
+        "type": "unmatched_receipt"
+      },
+      "stake": "cash",
+      "sortBy": "amount_desc",
+      "blocksSignOff": false
+    },
+    {
+      "id": "unexplained_refund",
+      "title": "Money out to clients with no credit note",
+      "why": "Payments went out to clients without a matching credit note. None of the amounts equals an open credit note exactly.",
+      "match": {
+        "type": "unexplained_refund"
+      },
+      "stake": "cash",
+      "sortBy": "amount_desc",
+      "blocksSignOff": false
+    },
+    {
+      "id": "overpayment",
+      "title": "Clients who paid slightly too much",
+      "why": "The extra amounts are small. Keeping them as credit for the client's next invoice is the usual choice.",
+      "match": {
+        "type": "overpayment"
+      },
+      "stake": "cash",
+      "sortBy": "amount_desc",
+      "blocksSignOff": true
+    },
+    {
+      "id": "vat_id_domestic",
+      "title": "German client with a malformed VAT ID",
+      "why": "Their invoices carry German VAT, so the tax treatment does not change. The client record should still be corrected.",
+      "match": {
+        "type": "malformed_vat_id",
+        "partnerHasZeroRatedSales": false
+      },
+      "stake": "records",
+      "blocksSignOff": false
+    },
+    {
+      "id": "rounding",
+      "title": "One-cent rounding differences",
+      "why": "The old system's gross amount was one cent off net plus VAT, on sales and supplier invoices. Compare it with what was actually paid before choosing.",
+      "match": {
+        "type": "rounding_difference"
+      },
+      "stake": "trivial",
+      "blocksSignOff": true
+    }
+  ],
+  "checks": {
+    "overpaidWithoutDecision": true,
+    "zeroRatedWithoutValidVatId": true,
+    "domesticVatOnForeignCurrency": true,
+    "creditNotesInOpenItems": true,
+    "fxRounding": false,
+    "summaryReconciles": true
+  },
+  "zeroRatedAccounts": [
+    "4125",
+    "4120"
+  ],
+  "reviewThreshold": 0.8,
+  "$comment": "CONFIG-ONLY DEMO. Reuses Nordlicht's engine output (no second dataset was provided) to show what configuration alone changes: words, people, roles, order and wording of decision groups."
+}
