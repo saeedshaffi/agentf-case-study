@@ -50,6 +50,19 @@ What round 1 caught in the redesign:
 | The page heading took focus on first load, in development only | Harness K-01; React StrictMode runs effects twice |
 | My own expected count was wrong (93 instead of 92) | Harness J-09; the app was right, the test was fixed |
 
+What rounds 2 and 3 caught that round 1 had passed:
+
+| What was wrong | Who caught it |
+|---|---|
+| Sign-off could complete after a finding was reopened through a lingering Undo | UX reviewer |
+| Answering "another country" turned a VAT finding green, although the invoices may still need re-booking | Accounting reviewer |
+| The decision log told the tax advisor a VAT ID was "validated against VIES"; nothing was | Hiring reviewer |
+| Focus fell to the page body after every action; a toast could hide the focused control | Accessibility reviewer, who rejected the build until it was fixed |
+| A VAT ID that only passed a format check showed its finding as resolved | Round-3 verifier |
+| The bottom toast covered the "Next" button on tablets and small laptops | Final re-check |
+
+Round 3 did not end clean: twelve lower-priority findings were deferred with reasons, and the last four small fixes were checked by the implementer only. The tracker says which.
+
 ## What the agents got wrong that a person had to catch
 
 - **An invented justification.** An agent configured the demo customer with a made-up rationale ("R&D tax credit"). It was reverted.
