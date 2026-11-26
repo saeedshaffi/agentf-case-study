@@ -36,3 +36,14 @@ The goal from the brief: customers get through the migration **faster** and **tr
 ## How
 
 Events from the front end (`group_opened`, `answer_given {bulk}`, `answer_undone`, `trace_opened {kind, depth}`, `check_acknowledged`, `signed_off`, `reopened`), keyed by customer and role, with no amounts or names. For the first 10 customers: watch the sessions with the customer team, because the numbers will not explain *why*. Baseline: the current manual migration process. How long it takes today and how many e-mails it generates are the first things to establish.
+
+## Targets and what we would do
+
+| Measure | Target for the first 10 customers | If missed |
+|---|---|---|
+| Median working time, first login → sign-off | < 1 working day | Watch three sessions; find the group where time goes; fix that layout first |
+| Groups open > 48 h without progress | < 1 per migration | Rewrite that group's explanation or add the missing evidence to its table |
+| Reopened after sign-off | < 5 % of migrations | Read the decision log of each reopen; the change made after reopening shows what was unclear |
+| Advisor follow-up questions before approval | < 3 per migration | Each question becomes a check, a column or a sentence in the record panel |
+| Bulk actions undone within the session | < 10 % | Preview is not clear enough; test the preview copy with customers |
+| VAT corrections traced to migration answers | 0 | Treat as an incident: review the VAT questions' wording and evidence |

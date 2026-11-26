@@ -14,19 +14,21 @@ npm start
 That is the only command. On a clean checkout it installs dependencies first (Node 20+), then opens http://localhost:5173.
 
 ```bash
-npm test          # 32 tests: money, every total recomputed against the engine, grouping, checks, UI journey, roles, error states, every customer config
+npm test          # unit + integration: money, every engine total recomputed, grouping, checks and their states, the work store (undo, batches, sign-off lock), the UI journey, roles, error states, every customer config
 ```
 
 Useful URL parameters (prototype only):
 
 | Parameter | Effect |
 |---|---|
-| `?role=tax_advisor` / `?role=owner` | View as the tax advisor or managing director. In production this comes from the login; here a "view as" switch sits at the bottom of the sidebar |
+| `?role=tax_advisor` / `?role=owner` | View as the tax advisor or managing director. In production this comes from the login; here a "view as" control sits at the bottom of the sidebar, marked as a prototype control |
 | `?latency=600` | Simulate a slow API so the loading states are visible |
 | `?fail=invoices` | Make one endpoint fail once, to show the error state and retry |
 | `?customer=demo-agency` | A second customer, configured differently (see below) |
 
-Answers are stored in the browser (localStorage) per customer. Clear site data to start again.
+Pages have their own addresses (`#/overview`, `#/decisions/<group>`, `#/checks/<finding>`, `#/records/accounts|invoices|bank`, `#/sign-off`), so Back, refresh and shared links work.
+
+Answers are stored in the browser (localStorage) per customer, versioned and validated on load. Clear site data to start again.
 
 ## What is where
 
