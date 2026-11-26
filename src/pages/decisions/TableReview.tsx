@@ -25,9 +25,9 @@ function columnsFor(type: string, idx: Indexed): Col[] {
       return [
         { head: 'Invoice', cell: (d) => { const i = invoiceOf(d, idx); return i ? <Ref target={{ kind: 'invoice', id: i.id }} /> : '—'; } },
         { head: 'Partner', cell: (d) => invoiceOf(d, idx)?.partner_name },
-        { head: 'Net + VAT (booked)', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; return <Amount value={toCents(i.booked.gross.amount)} currency={i.booked.gross.currency} />; } },
-        { head: 'Gross in export', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; const h = i.history[i.history.length - 1]; return <Amount value={abs(toCents(h.gross_in_export.amount))} currency={h.gross_in_export.currency} />; } },
-        { head: 'Paid via bank', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; const p = paidByBank(i.id, idx); const h = toCents(i.history[i.history.length - 1].gross_in_export.amount); return <span>{p ? <Amount value={p} currency={i.original.gross.currency} /> : '—'} {p && p === abs(h) ? <span className="cap muted">= export</span> : null}</span>; } },
+        { head: 'Booked', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; return <Amount value={toCents(i.booked.gross.amount)} currency={i.booked.gross.currency} />; } },
+        { head: 'Export gross', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; const h = i.history[i.history.length - 1]; return <Amount value={abs(toCents(h.gross_in_export.amount))} currency={h.gross_in_export.currency} />; } },
+        { head: 'Paid (bank)', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; const p = paidByBank(i.id, idx); const h = toCents(i.history[i.history.length - 1].gross_in_export.amount); return <span>{p ? <Amount value={p} currency={i.original.gross.currency} /> : '—'} {p && p === abs(h) ? <span className="cap muted">= export</span> : null}</span>; } },
       ];
     case 'overpayment':
       return [

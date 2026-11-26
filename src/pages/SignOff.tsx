@@ -47,7 +47,7 @@ function SignOffInner() {
 
       <section className="panel panel-pad stack" aria-labelledby="readiness">
         <div className="spread">
-          <h2 id="readiness">{headline}</h2>
+          <h2 id="readiness" tabIndex={-1}>{headline}</h2>
           {signed
             ? <Status kind="settled">Signed off by the {who(cfg, signed.by)}, <DateText iso={signed.at} time /></Status>
             : ready ? <Status kind="settled">Everything required is settled</Status> : <Status kind="blocking">Sign-off blocked</Status>}

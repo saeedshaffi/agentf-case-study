@@ -63,7 +63,7 @@ export function Notice({ tone, title, children, role }: { tone: 'attention' | 'b
   return (
     <div className={`notice ${tone === 'plain' ? '' : tone}`} role={role}>
       <div className="stack-2">
-        {title && <h3 style={{ fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)' }}>{title}</h3>}
+        {title && <p className="strong">{title}</p>}
         {children}
       </div>
     </div>
@@ -178,6 +178,25 @@ export function ConfirmDialog({ title, children, confirmLabel, onConfirm, onCanc
 export function Toast() {
   const { toast, showToast } = useApp();
   const [paused, setPaused] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+  // A new toast starts unpaused, even if the previous one was dismissed while hovered or focused.
+  useEffect(() => { setPaused(false); }, [toast]);
+  // Focus must never sit underneath the toast (WCAG 2.4.11): scroll the focused control clear of it,
+  // and if the page cannot scroll further, dismiss the toast. Undo stays available on the item itself.
+  useEffect(() => {
+    if (!toast) return;
+    const onFocus = (e: FocusEvent) => {
+      const el = e.target as HTMLElement | null;
+      const t = box.current;
+      if (!el || !t || t.contains(el)) return;
+      const hidden = () => { const a = el.getBoundingClientRect(), b = t.getBoundingClientRect(); return a.bottom > b.top && a.top < b.bottom && a.right > b.left && a.left < b.right; };
+      if (!hidden()) return;
+      window.scrollBy(0, el.getBoundingClientRect().bottom - t.getBoundingClientRect().top + 16);
+      requestAnimationFrame(() => { if (hidden()) showToast(null); });
+    };
+    document.addEventListener('focusin', onFocus);
+    return () => document.removeEventListener('focusin', onFocus);
+  }, [toast, showToast]);
   useEffect(() => {
     if (!toast || paused) return;
     const t = setTimeout(() => showToast(null), 10000);
@@ -185,7 +204,7 @@ export function Toast() {
   }, [toast, paused, showToast]);
   if (!toast) return null;
   return (
-    <div className="toast" role="status" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
+    <div ref={box} className="toast" role="status" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
       <span>{toast.text}</span>
       {toast.undo && <button type="button" onClick={() => { toast.undo!(); showToast(null); }}>{toast.undoLabel ?? 'Undo'}</button>}
       <button type="button" className="dismiss" aria-label="Dismiss" onClick={() => showToast(null)}>✕</button>

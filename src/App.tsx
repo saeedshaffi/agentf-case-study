@@ -18,7 +18,7 @@ const PAGE_LABEL: Record<PageId, string> = {
 };
 
 export function App() {
-  const { cfg, role, setRole, page, route, derived, work, storageProblem } = useApp();
+  const { cfg, role, setRole, page, route, derived, work, storageProblem, showToast } = useApp();
   const pages = cfg.roles[role].pages;
   const prevPage = useRef(page);
 
@@ -30,6 +30,30 @@ export function App() {
     window.scrollTo(0, 0);
     requestAnimationFrame(() => document.getElementById('page-title')?.focus({ preventScroll: true }));
   }, [page]);
+
+  // Moving between groups or findings inside a page: focus the new section's heading.
+  const sub = route.params[0];
+  const prevSub = useRef(sub);
+  useEffect(() => {
+    const from = prevSub.current;
+    prevSub.current = sub;
+    if (from === undefined || from === sub || prevPage.current !== page) return;
+    requestAnimationFrame(() => (document.getElementById('group-title') ?? document.getElementById('finding-title'))?.focus({ preventScroll: true }));
+  }, [sub, page]);
+
+  // After an answer, undo, acknowledgement or sign-off, the control that was used often disappears.
+  // If that left focus on <body>, put it on the nearest section heading instead.
+  useEffect(() => {
+    const t = requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (document.activeElement && document.activeElement !== document.body) return;
+      if (document.querySelector('[role=dialog]')) return;
+      (document.getElementById('group-title') ?? document.getElementById('finding-title') ?? document.getElementById('readiness') ?? document.getElementById('page-title'))?.focus({ preventScroll: true });
+    }));
+    return () => cancelAnimationFrame(t);
+  }, [work]);
+
+  // A toast belongs to the page it was raised on.
+  useEffect(() => { showToast(null); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [page]);
 
   useEffect(() => { document.title = `${PAGE_LABEL[page]} · ${cfg.shortName} migration`; }, [page, cfg.shortName]);
 

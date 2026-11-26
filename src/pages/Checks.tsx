@@ -91,7 +91,7 @@ function CheckDetail({ f }: { f: Finding }) {
     <article className="panel" aria-labelledby="finding-title">
       <header className="work-head stack-2">
         <Status kind={kind}>{text}</Status>
-        <h2 id="finding-title">{f.title}</h2>
+        <h2 id="finding-title" tabIndex={-1}>{f.title}</h2>
         {f.amount && <p><strong><Amount value={f.amount.value} currency={f.amount.currency} /></strong> <span className="muted">{f.amount.label}</span>{f.affected && <span className="muted"> · {f.affected.count} {f.affected.noun}</span>}</p>}
       </header>
       <div className="work-body stack">

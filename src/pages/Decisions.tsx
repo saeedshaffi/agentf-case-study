@@ -110,7 +110,7 @@ function GroupWork({ g }: { g: DecisionGroup }) {
     <section className="panel" aria-labelledby="group-title">
       <header className="work-head stack-2">
         <div className="row" style={{ justifyContent: 'space-between' }}>
-          <h2 id="group-title">{g.config.title}</h2>
+          <h2 id="group-title" tabIndex={-1}>{g.config.title}</h2>
           <div className="row">
             {g.config.blocksSignOff ? <span className="tag required">Required for sign-off</span> : <span className="tag">Can stay open</span>}
             <span className="tag">{STAKE_LABEL[g.config.stake]}</span>

@@ -146,7 +146,7 @@ export function DecisionForm({ d, onDone }: { d: Decision; onDone?: () => void }
       {canDecide && (
         <div className="row">
           <button type="submit" className="btn primary" aria-describedby={`${uid}-why`}>Confirm answer</button>
-          <span id={`${uid}-why`} className="disabled-reason">{touched && missing ? missing : ''}</span>
+          <span id={`${uid}-why`} className="disabled-reason" role={touched && missing ? 'alert' : undefined}>{touched && missing ? missing : ''}</span>
         </div>
       )}
     </form>
