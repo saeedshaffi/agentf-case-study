@@ -161,6 +161,17 @@ export function AppProvider(props: {
     return { ...base, progress: p, status, blocking, ready: p.blockingOpen === 0 && blocking.length === 0 };
   }, [base, work.answers, work.acks]);
 
+  // Saved work is checked against the data once it is loaded: answers must name a real question and one of its
+  // options, and a saved sign-off must still be earned by the saved work.
+  useEffect(() => {
+    if (!data.idx) return;
+    const bad = Object.entries(work.answers).filter(([id, a]) => !data.idx!.decisionById.get(id)?.options.some((o) => o.id === a.optionId)).map(([id]) => id);
+    if (bad.length) dispatch({ t: 'prune', ids: bad });
+  }, [data.idx, work.answers]);
+  useEffect(() => {
+    if (derived && work.signedOff && !derived.ready) dispatch({ t: 'reopen', by: work.signedOff.by, note: 'The saved sign-off did not match the saved work and was withdrawn.' });
+  }, [derived, work.signedOff]);
+
   const setRole = (r: RoleId) => {
     setRoleState(r);
     setTrace([]);

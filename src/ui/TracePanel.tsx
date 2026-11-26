@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { previewEffect } from '../domain/decisions';
+import { isDeferred, isSettled, previewEffect } from '../domain/decisions';
 import { postingsAfter, trialBalance } from '../domain/ledger';
 import { agreesWithEngine, type MetricId, type TraceTarget } from '../domain/metrics';
 import { abs, sum, toCents, type Cents } from '../domain/money';
@@ -239,7 +239,7 @@ function InvoiceView({ id }: { id: string }) {
       </Section>
       {questions.length > 0 && (
         <Section title="Questions about this invoice">
-          {questions.map((d) => <p key={d.id}><Ref target={{ kind: 'decision', id: d.id }} /> {d.title} {work.answers[d.id] && <Status kind="settled">Answered</Status>}</p>)}
+          {questions.map((d) => <p key={d.id}><Ref target={{ kind: 'decision', id: d.id }} /> {d.title} {isSettled(work.answers[d.id]) && <Status kind="settled">Answered</Status>}</p>)}
         </Section>
       )}
     </>
@@ -311,7 +311,8 @@ function AccountView({ id }: { id: string }) {
   const row = useMemo(() => trialBalance(idx, work.answers).find((r) => r.account === id), [idx, work.answers, id]);
   const a = idx.accountById.get(id);
   if (!row && !a) return <NotFound what={`Account ${id}`} />;
-  const posted = (i: Invoice) => sum(postingsAfter(i.id, idx, work.answers).filter((p) => p.account === id).map((p) => toCents(p.debit) - toCents(p.credit)));
+  // As booked by the engine, so the list adds up to the balance shown; the effect of answers is the separate line above.
+  const posted = (i: Invoice) => sum(i.postings.filter((p) => p.account === id).map((p) => toCents(p.debit) - toCents(p.credit)));
   return (
     <>
       <Title sub={<>{a?.type} account · SKR04{role !== 'tax_advisor' && ACCOUNT_PLAIN[id] ? ` · ${ACCOUNT_PLAIN[id]}` : ''}</>}><span className="code">{id}</span> <span lang="de">{a?.name}</span></Title>
@@ -325,7 +326,7 @@ function AccountView({ id }: { id: string }) {
           </dl>
         </Section>
       )}
-      {row && <Section title={`Postings to this account (${row.invoiceIds.length} invoices)`}><InvoiceRows ids={row.invoiceIds} idx={idx} valueHead="Posted (debit − credit)" value={posted} currency={() => 'EUR'} /></Section>}
+      {row && <Section title={`Booked to this account by the engine (${row.invoiceIds.length} invoices)`}><InvoiceRows ids={row.invoiceIds} idx={idx} valueHead="Posted (debit − credit)" value={posted} currency={() => 'EUR'} /></Section>}
     </>
   );
 }
@@ -340,7 +341,7 @@ function DecisionView({ id }: { id: string }) {
   return (
     <>
       <Title sub={<>{d.title} · question {d.id}</>}>{d.question}</Title>
-      <p>{ans ? <Status kind="settled">Answered: {optionLabel(d, ans.optionId)}</Status> : <Status kind="open">Open</Status>}</p>
+      <p>{!ans ? <Status kind="open">Open</Status> : isDeferred(ans) ? <Status kind="open">Waiting: {optionLabel(d, ans.optionId)}</Status> : <Status kind="settled">Answered: {optionLabel(d, ans.optionId)}</Status>}</p>
       <Section title="Options">
         {d.options.map((o) => (
           <div key={o.id} style={{ marginBottom: 8 }}>

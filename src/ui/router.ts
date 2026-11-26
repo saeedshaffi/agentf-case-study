@@ -13,7 +13,8 @@ const PATH_PAGE = Object.fromEntries(Object.entries(PAGE_PATH).map(([k, v]) => [
 export interface Route { page: PageId | null; params: string[] }
 
 export function parseHash(hash: string): Route {
-  const parts = hash.replace(/^#\/?/, '').split('?')[0].split('/').filter(Boolean).map(decodeURIComponent);
+  const safe = (s: string) => { try { return decodeURIComponent(s); } catch { return ''; } };
+  const parts = hash.replace(/^#\/?/, '').split('?')[0].split('/').filter(Boolean).map(safe);
   return { page: PATH_PAGE[parts[0] ?? ''] ?? null, params: parts.slice(1) };
 }
 

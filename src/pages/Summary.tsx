@@ -38,7 +38,7 @@ function Inner() {
       <div className="panel facts">
         <div className="fact"><div className="label">Customers owe you, net of credit notes</div><div className="value"><Amount value={metrics.net_receivables_eur.value as Cents} currency="EUR" trace={{ kind: 'metric', id: 'net_receivables_eur' }} label="net receivables" /></div><div className="foot">plus <Amount value={metrics.open_receivables_usd.value as Cents} currency="USD" /> in US dollars</div></div>
         <div className="fact"><div className="label">You owe suppliers</div><div className="value"><Amount value={metrics.open_payables_eur.value as Cents} currency="EUR" trace={{ kind: 'metric', id: 'open_payables_eur' }} label="open payables" /></div></div>
-        <div className="fact"><div className="label">Questions left before sign-off</div><div className="value num">{progress.blockingOpen}</div><div className="foot">{progress.optional - progress.optionalAnswered} more can stay open</div></div>
+        <div className="fact"><div className="label">Questions left before sign-off</div><div className="value num">{progress.blockingOpen}</div><div className="foot">{progress.optionalOpen} more can stay open</div></div>
       </div>
       <section className="panel panel-pad stack-2" aria-labelledby="needs">
         <h2 id="needs">Does anything need you?</h2>

@@ -49,7 +49,7 @@ function Workspace({ groupId }: { groupId?: string }) {
           <div style={{ minWidth: 260 }} aria-live="polite">
             <div className="spread"><strong>{progress.requiredSettled} of {progress.required} required</strong><span className="muted cap">{pctDone} %</span></div>
             <div className="meter" style={{ margin: '6px 0' }} aria-hidden><span style={{ width: `${pctDone}%` }} /></div>
-            <div className="cap muted">{progress.optional - progress.optionalAnswered} optional can stay open</div>
+            <div className="cap muted">{progress.optionalOpen} optional open; they can stay open</div>
           </div>
         }
       >

@@ -41,6 +41,10 @@ export interface Finding {
   decisionIds?: string[];
   /** Decision group to open from this finding. */
   groupId?: string;
+  /** Extra condition on the answers: settling the question is not always the same as fixing the problem. */
+  resolved?: (answers: Answers) => boolean;
+  /** Shown when the questions are settled but the problem is not fixed. */
+  followUp?: string;
 }
 
 export interface Acknowledgement { at: string; by: string }
@@ -48,9 +52,14 @@ export interface Acknowledgement { at: string; by: string }
 export function checkStatus(f: Finding, answers: Answers, acks: Record<string, Acknowledgement | string> | undefined): CheckStatus {
   if (f.kind === 'verification') return f.needsAttention ? 'failed' : 'passed';
   if (!f.needsAttention) return 'info';
-  if (f.decisionIds?.length && f.decisionIds.every((id) => isSettled(answers[id]))) return 'resolved';
+  if (f.decisionIds?.length && f.decisionIds.every((id) => isSettled(answers[id])) && (f.resolved ? f.resolved(answers) : true)) return 'resolved';
   if (acks?.[f.id]) return 'acknowledged';
   return 'open';
+}
+
+/** A finding can be carried as an open item when no question settles it, or its questions are settled and it still stands. */
+export function canAcknowledge(f: Finding, answers: Answers): boolean {
+  return !f.decisionIds?.length || f.decisionIds.every((id) => isSettled(answers[id]));
 }
 
 /** Findings that still stand between the finance lead and sign-off. */
@@ -78,7 +87,8 @@ export function runChecks(idx: Indexed, cfg: CustomerConfig): Finding[] {
       items: (bad.length ? bad : compared).map((m) => ({ kind: 'metric', id: m.id })),
     });
     const s = idx.summary.balance_check;
-    const ok = s.balanced && s.debits_eur === s.credits_eur && agreesWithEngine(ms.debits) !== false && agreesWithEngine(ms.credits) !== false;
+    const eachBalances = inv.every((i) => sum(i.postings.map((p) => toCents(p.debit))) === sum(i.postings.map((p) => toCents(p.credit))));
+    const ok = eachBalances && s.balanced && s.debits_eur === s.credits_eur && agreesWithEngine(ms.debits) !== false && agreesWithEngine(ms.credits) !== false;
     out.push({
       id: 'balanced', kind: 'verification', needsAttention: !ok,
       title: ok ? 'Journal debits equal credits' : 'Journal debits and credits differ',
@@ -132,6 +142,9 @@ export function runChecks(idx: Indexed, cfg: CustomerConfig): Finding[] {
         items: [{ kind: 'partner', id: p.id }, ...xs.map((i) => ({ kind: 'invoice', id: i.id }) as TraceTarget)],
         decisionIds: (idx.decisionsByPartner.get(p.id) ?? []).map((d) => d.id),
         groupId: groupOf('missing_country'),
+        // Answering "another country" settles the question but not the VAT: the invoices may need re-booking.
+        resolved: (a) => (idx.decisionsByPartner.get(p.id) ?? []).every((d) => a[d.id]?.optionId !== 'other'),
+        followUp: 'You answered that this customer is outside Germany. The engine says these invoices may need re-booking, and that has not happened here. Acknowledge it to carry it as an open item for your tax advisor.',
       });
     }
   }
@@ -159,6 +172,9 @@ export function runChecks(idx: Indexed, cfg: CustomerConfig): Finding[] {
         items: bad.flatMap((v) => v.ids.map((id) => ({ kind: 'invoice', id }) as TraceTarget)),
         decisionIds: bad.flatMap((v) => v.decs),
         groupId: groupOf('uncertain_classification'),
+        // Resolved only when identical inputs end up on one account.
+        resolved: (a) => bad.every((v) => new Set(v.decs.map((id) => a[id]?.optionId)).size === 1),
+        followUp: 'Invoices with the same supplier and description are still booked to different accounts. Book them the same way, or acknowledge the difference as an open item.',
       });
     }
   }

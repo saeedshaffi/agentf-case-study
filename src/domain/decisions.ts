@@ -124,10 +124,12 @@ export interface Progress {
   requiredDeferred: number;
   optional: number;
   optionalAnswered: number;
+  /** Optional questions not settled (unanswered or left open on purpose). */
+  optionalOpen: number;
 }
 
 export function progress(groups: DecisionGroup[], answers: Answers): Progress {
-  const p: Progress = { total: 0, answered: 0, required: 0, requiredSettled: 0, blockingOpen: 0, requiredDeferred: 0, optional: 0, optionalAnswered: 0 };
+  const p: Progress = { total: 0, answered: 0, required: 0, requiredSettled: 0, blockingOpen: 0, requiredDeferred: 0, optional: 0, optionalAnswered: 0, optionalOpen: 0 };
   for (const g of groups) for (const d of g.decisions) {
     const a = answers[d.id];
     p.total++;
@@ -139,6 +141,7 @@ export function progress(groups: DecisionGroup[], answers: Answers): Progress {
     } else {
       p.optional++;
       if (a) p.optionalAnswered++;
+      if (!isSettled(a)) p.optionalOpen++;
     }
   }
   return p;

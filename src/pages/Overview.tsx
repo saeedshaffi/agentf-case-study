@@ -55,7 +55,7 @@ function Status_() {
           <p className="measure" style={{ color: 'var(--ink-2)' }}>
             Everything loaded: {f.rowsRead.toLocaleString(cfg.numberLocale)} rows from the old system became {f.loaded.toLocaleString(cfg.numberLocale)} invoices, none rejected, and {balanced ? 'every booking balances' : 'the bookings do not balance'}.
             {' '}{work.signedOff
-              ? `All ${progress.required} required questions are settled; ${progress.optional - progress.optionalAnswered} optional ones stay open as listed items.`
+              ? `All ${progress.required} required questions are settled; ${progress.optionalOpen} optional ones stay open as listed items.`
               : `${progress.required} questions need an answer before sign-off and ${progress.optional} can stay open${lead ? ` for your ${who(cfg, 'tax_advisor')}` : ''}.`}
           </p>
           {lead && !work.signedOff && (

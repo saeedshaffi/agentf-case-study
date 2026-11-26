@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { CheckStatus, Finding } from '../domain/checks';
+import { canAcknowledge, type CheckStatus, type Finding } from '../domain/checks';
 import { who } from '../domain/config';
 import { toCents } from '../domain/money';
 import { optionLabel } from './decisions/shared';
@@ -104,7 +104,7 @@ function CheckDetail({ f }: { f: Finding }) {
             {s === 'passed' && 'Verified from the records. Nothing to do.'}
             {s === 'failed' && 'This verification failed. Sign-off is blocked until it is explained.'}
             {s === 'info' && 'Context only. It does not block sign-off.'}
-            {s === 'open' && (f.decisionIds?.length ? 'Open. It is resolved when the related decision is settled.' : 'Open. Acknowledge it to carry it as an open item; it is not fixed by doing so.')}
+            {s === 'open' && (!canAcknowledge(f, work.answers) ? 'Open. It is resolved when the related decision is settled.' : f.decisionIds?.length ? (f.followUp ?? 'Open.') : 'Open. Acknowledge it to carry it as an open item; it is not fixed by doing so.')}
             {s === 'acknowledged' && ack && <>Acknowledged by the {who(cfg, ack.by)} on <DateText iso={ack.at} time />. The underlying issue is <strong>still open</strong> and will be listed for your tax advisor.</>}
             {s === 'resolved' && <>Resolved by your answers{decided.length === 1 && <>: {optionLabel(idx.decisionById.get(decided[0][0])!, decided[0][1]!.optionId)}{decided[0][1]!.value && <> (<span className="code">{decided[0][1]!.value}</span>)</>}</>}{decided.length > 1 && ` to ${decided.length} questions`}.</>}
           </dd>
@@ -113,7 +113,7 @@ function CheckDetail({ f }: { f: Finding }) {
         <div className="row">
           {group && s !== 'resolved' && <a className="btn primary" href={href('decisions', group.config.id)}>Open the decision: {group.config.title}</a>}
           {group && s === 'resolved' && <a className="btn" href={href('decisions', group.config.id)}>Review the answers</a>}
-          {canAct && !f.decisionIds?.length && f.needsAttention && f.kind === 'finding' && (
+          {canAct && canAcknowledge(f, work.answers) && s !== 'resolved' && f.needsAttention && f.kind === 'finding' && (
             ack
               ? <button type="button" className="btn" onClick={() => { dispatch({ t: 'ack', id: f.id, on: false, by: role }); showToast({ text: 'Acknowledgement withdrawn. The finding needs you again.' }); }}>Withdraw acknowledgement</button>
               : <button type="button" className="btn primary" onClick={() => { dispatch({ t: 'ack', id: f.id, on: true, by: role }); showToast({ text: 'Acknowledged. It stays open and is listed for your tax advisor.', undo: () => dispatch({ t: 'ack', id: f.id, on: false, by: role }) }); }}>Acknowledge as an open item</button>

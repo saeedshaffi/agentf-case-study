@@ -43,6 +43,7 @@ export type Action =
   | { t: 'signOff'; by: RoleId; openOptional: number; at?: string }
   | { t: 'reopen'; by: RoleId; note?: string; at?: string }
   | { t: 'invite'; by: RoleId; at?: string }
+  | { t: 'prune'; ids: string[] }
   | { t: 'reset' };
 
 export function reduce(s: WorkState, a: Action): WorkState {
@@ -84,6 +85,14 @@ export function reduce(s: WorkState, a: Action): WorkState {
     case 'invite':
       if (!s.signedOff || s.advisorInvited) return s;
       return { ...s, advisorInvited: at, log: [...s.log, { at, by: a.by, action: 'invited' }] };
+    case 'prune': {
+      // Saved answers that no longer match a question or one of its options are dropped; a sign-off built on them falls.
+      const ids = a.ids.filter((id) => s.answers[id]);
+      if (!ids.length) return s;
+      const answers = { ...s.answers };
+      for (const id of ids) delete answers[id];
+      return { ...s, answers, signedOff: undefined, advisorInvited: undefined };
+    }
     case 'reset':
       return emptyState();
   }
@@ -119,7 +128,7 @@ export function parseStored(raw: string | null): { state: WorkState; problem?: s
   const acks: WorkState['acks'] = {};
   const rawAcks = isObj(x.acks) ? x.acks : isObj(x.acknowledged) ? x.acknowledged : {};
   for (const [k, v] of Object.entries(rawAcks)) acks[k] = isObj(v) ? { at: String(v.at ?? ''), by: (ROLES.includes(String(v.by)) ? v.by : 'finance_lead') as RoleId } : { at: String(v), by: 'finance_lead' };
-  const log: LogEntry[] = Array.isArray(x.log) ? (x.log.filter((e) => isObj(e) && typeof e.action === 'string' && typeof e.at === 'string') as unknown as LogEntry[]) : [];
+  const log: LogEntry[] = Array.isArray(x.log) ? (x.log.filter((e) => isObj(e) && typeof e.action === 'string' && typeof e.at === 'string' && ROLES.includes(String(e.by))) as unknown as LogEntry[]) : [];
   // A sign-off is only honoured if it has the version-2 shape; anything else must be signed again.
   const so = isObj(x.signedOff) && x.v === STORE_VERSION && typeof x.signedOff.at === 'string' && ROLES.includes(String(x.signedOff.by)) ? (x.signedOff as unknown as SignOff) : undefined;
   return { state: { v: STORE_VERSION, answers, acks, log, signedOff: so, advisorInvited: so && typeof x.advisorInvited === 'string' ? x.advisorInvited : undefined } };

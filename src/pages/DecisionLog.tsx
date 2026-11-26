@@ -32,7 +32,7 @@ function LogInner() {
   return (
     <div className="stack-6">
       <PageHead title="Decision log">
-        Every answer the {lead} gave, when, and what it changed in the books. {progress.answered} of {progress.total} questions answered{work.signedOff ? <>; signed off <DateText iso={work.signedOff.at} time />.</> : '; not signed off yet.'}
+        Every answer the {lead} gave, when, and what it changed in the books. {progress.requiredSettled} of {progress.required} required questions settled, {progress.optionalOpen} optional open{work.signedOff ? <>; signed off <DateText iso={work.signedOff.at} time />.</> : '; not signed off yet.'}
       </PageHead>
       {openItems.length > 0 && (
         <section className="panel panel-pad stack-2" aria-labelledby="carried">

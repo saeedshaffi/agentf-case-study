@@ -1,4 +1,4 @@
-import { blockingFindings, checkStatus, loadFunnel, runChecks } from './checks';
+import { blockingFindings, canAcknowledge, checkStatus, loadFunnel, runChecks } from './checks';
 import { groupDecisions, previewEffect, progress } from './decisions';
 import { agreesWithEngine, computeMetrics } from './metrics';
 import { toDecimalString } from './money';
@@ -139,6 +139,19 @@ describe('finding states', () => {
   it('an answer that defers does not resolve a finding', () => {
     expect(checkStatus(vat, { D0168: a('ask_customer') }, {})).toBe('open');
     expect(checkStatus(vat, { D0168: { ...a('enter'), value: 'FR40303265045' } }, {})).toBe('resolved');
+  });
+  it('"another country" settles the question but not the VAT finding', () => {
+    const fx = f.find((x) => x.id === 'foreign_currency_with_de_vat:K00018')!;
+    expect(checkStatus(fx, { D0166: { ...a('other'), value: 'US' } }, {})).toBe('open');
+    expect(canAcknowledge(fx, { D0166: { ...a('other'), value: 'US' } })).toBe(true);
+    expect(checkStatus(fx, { D0166: a('DE') }, {})).toBe('resolved');
+  });
+  it('inconsistent suggestions resolve only when identical inputs share one account', () => {
+    const inc = f.find((x) => x.id === 'inconsistent_suggestions')!;
+    const same = Object.fromEntries(inc.decisionIds!.map((id) => [id, a('6825')]));
+    expect(checkStatus(inc, same, {})).toBe('resolved');
+    const mixed = { ...same, [inc.decisionIds![0]]: a('6300') };
+    expect(checkStatus(inc, mixed, {})).toBe('open');
   });
   it('acknowledging is never shown as resolved', () => {
     expect(checkStatus(cn, {}, { credit_notes_in_open_items: { at: '', by: 'finance_lead' } })).toBe('acknowledged');
