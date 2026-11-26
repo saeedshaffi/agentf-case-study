@@ -1,5 +1,5 @@
 import { loadFunnel } from '../domain/checks';
-import { who } from '../domain/config';
+import { who, type PageId } from '../domain/config';
 import { isSettled } from '../domain/decisions';
 import type { Cents } from '../domain/money';
 import type { Load } from '../domain/types';
@@ -26,7 +26,7 @@ export function Overview() {
 }
 
 function Status_() {
-  const { idx, metrics, progress, blocking, ready, groups } = useDerived();
+  const { idx, metrics, progress, blocking, ready, groups, findings, status } = useDerived();
   const { cfg, role, work } = useApp();
   const lead = cfg.roles[role].canDecide;
   const f = loadFunnel(idx);
@@ -43,17 +43,26 @@ function Status_() {
   const nextGroup = groups.find((g) => g.config.blocksSignOff && g.decisions.some((d) => !isSettled(work.answers[d.id])));
   const balanced = idx.summary.balance_check.balanced;
 
+  const pages = cfg.roles[role].pages;
+  const verif = findings.filter((x) => x.kind === 'verification');
+  const verifPassed = verif.filter((x) => status(x) === 'passed').length;
+  const pctDone = progress.required ? Math.round((progress.requiredSettled / progress.required) * 100) : 100;
+  const headline = work.signedOff ? 'Signed off and handed over' : ready ? 'Ready for sign-off'
+    : `${progress.blockingOpen} required ${progress.blockingOpen === 1 ? 'decision' : 'decisions'}${blocking.length ? ` and ${blocking.length} ${blocking.length === 1 ? 'check' : 'checks'}` : ''} before sign-off`;
+  const tiles: { page: PageId; sub?: string; label: string; value: string; unit: string; detail: string; cta: string }[] = [
+    { page: 'decisions', label: 'Decisions', value: String(progress.blockingOpen), unit: 'required open', detail: `${progress.requiredSettled} of ${progress.required} settled · ${progress.optionalOpen} can stay open`, cta: 'Open decisions' },
+    { page: 'checks', label: 'Checks', value: `${verifPassed} / ${verif.length}`, unit: 'verified', detail: blocking.length ? `${blocking.length} ${blocking.length === 1 ? 'finding needs' : 'findings need'} ${lead ? 'you' : 'the finance lead'}` : 'No finding blocks sign-off', cta: 'Open checks' },
+    { page: 'books', label: 'Records', value: inv.length.toLocaleString(cfg.numberLocale), unit: 'invoices', detail: `${bank.length.toLocaleString(cfg.numberLocale)} bank payments · ${idx.partners.length} partners`, cta: 'Browse records' },
+    { page: 'handover', label: 'Sign-off', value: work.signedOff ? 'Done' : ready ? 'Ready' : `${pctDone} %`, unit: work.signedOff || ready ? '' : 'of required decisions', detail: work.signedOff ? 'Handed over to your tax advisor' : ready ? 'Nothing blocks sign-off' : `${progress.blockingOpen + blocking.length} items block sign-off`, cta: 'Review sign-off' },
+  ];
+
   return (
     <>
-      <section className="panel" aria-labelledby="status-h">
-        <div className="panel-pad stack">
-          <div className="spread">
-            <h2 id="status-h">
-              {work.signedOff ? 'Signed off and handed over' : ready ? 'Ready for sign-off' : `${progress.blockingOpen} required ${progress.blockingOpen === 1 ? 'decision' : 'decisions'}${blocking.length ? ` and ${blocking.length} ${blocking.length === 1 ? 'check' : 'checks'}` : ''} before sign-off`}
-            </h2>
-            {work.signedOff ? <Status kind="settled">Signed off <DateText iso={work.signedOff.at} /></Status> : ready ? <Status kind="settled">Ready</Status> : <Status kind="open">In progress</Status>}
-          </div>
-          <p className="measure" style={{ color: 'var(--ink-2)' }}>
+      <section className="hero" aria-labelledby="status-h">
+        <div className="hero-main">
+          <p className="hero-eyebrow">{work.signedOff ? 'Migration complete' : 'Where the migration stands'}</p>
+          <h2 id="status-h">{headline}</h2>
+          <p className="hero-text">
             Everything loaded: {f.rowsRead.toLocaleString(cfg.numberLocale)} rows from the old system became {f.loaded.toLocaleString(cfg.numberLocale)} invoices, none rejected, and {balanced ? 'every booking balances' : 'the bookings do not balance'}.
             {' '}{work.signedOff
               ? `All ${progress.required} required questions are settled; ${progress.optionalOpen} optional ones stay open as listed items.`
@@ -61,22 +70,51 @@ function Status_() {
           </p>
           {lead && !work.signedOff && (
             <div className="row">
+              {nextGroup && <span className="hero-eyebrow" style={{ flexBasis: '100%' }}>Recommended next step</span>}
               {nextGroup
-                ? <a className="btn primary" href={href('decisions', nextGroup.config.id)}>{progress.requiredSettled ? 'Continue' : 'Start'}: {nextGroup.config.title}</a>
-                : <a className="btn primary" href={href('handover')}>Go to sign-off</a>}
-              {blocking.length > 0 && <a className="btn" href={href('checks', blocking[0].id)}>See the {blocking.length} {blocking.length === 1 ? 'check' : 'checks'} that need you</a>}
+                ? <a className="btn on-dark" href={href('decisions', nextGroup.config.id)}>{progress.requiredSettled ? 'Continue' : 'Start'}: {nextGroup.config.title}</a>
+                : <a className="btn on-dark" href={href('handover')}>Go to sign-off</a>}
+              {blocking.length > 0 && <a className="hero-link" href={href('checks', blocking[0].id)}>See the {blocking.length} {blocking.length === 1 ? 'check' : 'checks'} that need you</a>}
             </div>
           )}
         </div>
-        <div className="facts" style={{ borderTop: '1px solid var(--line)' }}>
-          <div className="fact"><div className="label">Invoices loaded</div><div className="value"><Count n={inv.length} trace={{ kind: 'metric', id: 'invoices_loaded' }} label="invoices loaded" /></div><div className="foot">{idx.partners.length} customers and suppliers</div></div>
-          <div className="fact"><div className="label">Journal debits = credits</div><div className="value"><Amount value={metrics.debits.value as Cents} currency="EUR" trace={{ kind: 'metric', id: 'debits' }} label="journal debits" /></div><div className="foot">{balanced ? '✓ Balanced. A total of all bookings, not money held.' : 'Not balanced'}</div></div>
-          <div className="fact"><div className="label">Bank payments explained</div><div className="value"><Count n={bank.length - unmatched} trace={{ kind: 'metric', id: 'bank_matched' }} label="bank payments explained" /></div><div className="foot">of {bank.length.toLocaleString(cfg.numberLocale)}; <Count n={unmatched} trace={{ kind: 'metric', id: 'bank_unmatched' }} label="payments not yet explained" /> not yet</div></div>
+        <div className="hero-side">
+          <div className="hero-figure"><span className="num">{progress.requiredSettled}</span><span className="of"> / {progress.required}</span></div>
+          <div>Required decisions settled</div>
+          <div className="hero-meter" aria-hidden><span style={{ width: `${pctDone}%` }} /></div>
+          <div className="hero-sub">{work.signedOff ? 'Signed off' : ready ? 'Ready for sign-off' : `${progress.optionalOpen} optional can stay open${blocking.length ? ` · ${blocking.length} ${blocking.length === 1 ? 'check needs' : 'checks need'} ${lead ? 'you' : 'review'}` : ''}`}</div>
+        </div>
+      </section>
+
+      <nav aria-label="Migration status">
+        <ul className="tiles">
+          {tiles.filter((t) => pages.includes(t.page)).map((t) => (
+            <li key={t.page}>
+              <a className="tile" href={href(t.page)} aria-label={`${t.label}: ${t.value} ${t.unit}. ${t.detail}. ${t.cta}`}>
+                <span className="tile-label">{t.label}<span className="tile-arrow" aria-hidden>↗</span></span>
+                <span className="tile-value"><strong className="num">{t.value}</strong> {t.unit}</span>
+                <span className="tile-detail">{t.detail}</span>
+                <span className="tile-cta">{t.cta} <span aria-hidden>→</span></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <section aria-labelledby="arrived-h">
+        <div className="section-head">
+          <h2 id="arrived-h">What arrived in your books</h2>
+          <p className="muted">Select any figure to see the records behind it.</p>
+        </div>
+        <div className="facts cards">
+          <div className="fact"><div className="label">Invoices in your books</div><div className="value"><Count n={inv.length} trace={{ kind: 'metric', id: 'invoices_loaded' }} label="invoices loaded" /></div><div className="foot">{idx.partners.length} customers and suppliers</div></div>
+          <div className="fact"><div className="label">The books balance</div><div className="value"><Amount value={metrics.debits.value as Cents} currency="EUR" trace={{ kind: 'metric', id: 'debits' }} label="journal debits" /></div><div className="foot">{balanced ? <><span className="tag settled">✓ debits = credits</span> A total of all bookings, not money held.</> : 'Not balanced'}</div></div>
+          <div className="fact"><div className="label">Bank payments explained</div><div className="value"><Count n={bank.length - unmatched} trace={{ kind: 'metric', id: 'bank_matched' }} label="bank payments explained" /></div><div className="foot">of {bank.length.toLocaleString(cfg.numberLocale)}; <Count n={unmatched} trace={{ kind: 'metric', id: 'bank_unmatched' }} label="payments not yet explained" /> wait for {lead ? 'you' : 'review'}</div></div>
           <div className="fact"><div className="label">Customers owe you, net</div><div className="value"><Amount value={metrics.net_receivables_eur.value as Cents} currency="EUR" trace={{ kind: 'metric', id: 'net_receivables_eur' }} label="net receivables" /></div><div className="foot">after open credit notes; plus <Amount value={metrics.open_receivables_usd.value as Cents} currency="USD" /></div></div>
         </div>
       </section>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))', gap: 24, alignItems: 'start' }}>
+      <div className="grid-2">
         <section className="panel" aria-labelledby="recon">
           <header className="panel-head"><h3 id="recon">From export rows to invoices</h3>{f.reconciles ? <Status kind="settled">Adds up</Status> : <Status kind="blocking">Does not add up</Status>}</header>
           <table className="table">
@@ -92,7 +130,7 @@ function Status_() {
         </section>
 
         <section className="panel panel-pad stack" aria-labelledby="conf">
-          <h3 id="conf">How entries were decided</h3>
+          <h3 id="conf">How sure we are</h3>
           <Distribution title="Invoices booked" total={inv.length} parts={[
             ['By a fixed rule', byRule, '#1E5B47'],
             [`By the model, ${Math.round(cfg.reviewThreshold * 100)} % sure or more`, byModel, '#7FA394'],

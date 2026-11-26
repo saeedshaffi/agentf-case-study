@@ -3,7 +3,7 @@ import { invoiceOf, isSettled, moneyOf, type DecisionGroup } from '../../domain/
 import { sum, toCents } from '../../domain/money';
 import { batchOf } from '../../domain/store';
 import type { Decision } from '../../domain/types';
-import { ACCOUNT_PLAIN, Amount, DateText, Ref, pct } from '../../ui/components';
+import { ACCOUNT_PLAIN, Amount, ConfirmDialog, DateText, Ref, pct } from '../../ui/components';
 import { useApp } from '../../ui/state';
 import { useAnswerActions } from './shared';
 
@@ -17,10 +17,11 @@ export function ClassificationReview({ g }: { g: DecisionGroup }) {
 }
 
 function Cluster({ label, decisions }: { label: string; decisions: Decision[] }) {
-  const { work, data, cfg, role } = useApp();
+  const { work, data, cfg, role, dispatch, showToast } = useApp();
   const { answer } = useAnswerActions();
   const idx = data.idx!;
   const uid = useId();
+  const [confirmAll, setConfirmAll] = useState(false);
   const canDecide = cfg.roles[role].canDecide && !work.signedOff;
   const rows = useMemo(() => decisions.map((d) => ({ d, inv: invoiceOf(d, idx)!, net: moneyOf(d, idx)?.value ?? 0n })), [decisions, idx]);
   const open = rows.filter((r) => !isSettled(work.answers[r.d.id]));
@@ -65,6 +66,22 @@ function Cluster({ label, decisions }: { label: string; decisions: Decision[] })
     setSelected(new Set()); setAccount('');
   };
 
+  // Take the model's own suggestion for every open invoice: one booking per suggested account, one undo.
+  const acceptable = open.filter((r) => r.d.suggested_option && r.d.options.some((o) => o.id === r.d.suggested_option));
+  const acceptSpread = [...new Set(acceptable.map((r) => r.d.suggested_option!))];
+  const acceptAll = () => {
+    setConfirmAll(false);
+    if (!acceptable.length) return;
+    const stamp = Date.now();
+    for (const acc of acceptSpread) {
+      const items = acceptable.filter((r) => r.d.suggested_option === acc).map((r) => ({ id: r.d.id, optionId: acc }));
+      dispatch({ t: 'answer', items, by: role, batch: items.length > 1 ? `${stamp}-${acc}` : undefined });
+    }
+    const ids = acceptable.map((r) => r.d.id);
+    showToast({ text: `Accepted the model's suggestion for ${ids.length} “${label}” invoices.`, undo: () => dispatch({ t: 'undo', ids, by: role }) });
+    setSelected(new Set()); setAccount('');
+  };
+
   const batches = useMemo(() => {
     const seen = new Map<string, { ids: string[]; account: string }>();
     for (const { d } of rows) {
@@ -91,6 +108,22 @@ function Cluster({ label, decisions }: { label: string; decisions: Decision[] })
           </p>
         )}
       </div>
+
+      {canDecide && acceptable.length > 1 && (
+        <div className="accept-all">
+          <p>
+            <strong>Accept what the model suggested for all {acceptable.length} open invoices.</strong>{' '}
+            {acceptSpread.length > 1 ? `They would go to ${acceptSpread.length} different accounts, as listed above.` : `They all go to ${acceptSpread[0]} ${ACCOUNT_PLAIN[acceptSpread[0]] ?? ''}.`} Can be undone in one step.
+          </p>
+          <button type="button" className={acceptSpread.length > 1 ? 'btn' : 'btn primary'} onClick={() => setConfirmAll(true)}>Accept all {acceptable.length} suggestions</button>
+        </div>
+      )}
+      {confirmAll && (
+        <ConfirmDialog title={`Accept ${acceptable.length} suggestions?`} confirmLabel={`Accept ${acceptable.length} suggestions`} onConfirm={acceptAll} onCancel={() => setConfirmAll(false)}>
+          <p>Each invoice is booked to the account the model suggested for it: {acceptSpread.map((acc, k) => <span key={acc}>{k > 0 && ', '}{acceptable.filter((r) => r.d.suggested_option === acc).length} to {acc} {ACCOUNT_PLAIN[acc] ?? ''}</span>)}.</p>
+          {acceptSpread.length > 1 && <p>The same description would then sit on {acceptSpread.length} accounts. If this is one kind of cost, choose one account for all of them instead.</p>}
+        </ConfirmDialog>
+      )}
 
       {batches.length > 0 && (
         <ul className="stack-2" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
@@ -120,7 +153,7 @@ function Cluster({ label, decisions }: { label: string; decisions: Decision[] })
                     <td><DateText iso={inv.date} /></td>
                     <td className="r"><Amount value={net} currency="EUR" /></td>
                     <td>{inv.classification.account} {ACCOUNT_PLAIN[inv.classification.account] ?? inv.classification.account_name}</td>
-                    <td className="r">{d.confidence !== undefined ? pct(d.confidence) : '—'}</td>
+                    <td className="r">{d.confidence !== undefined ? <span className="conf"><i aria-hidden><b style={{ width: `${Math.round(d.confidence * 100)}%` }} /></i>{pct(d.confidence)}</span> : '—'}</td>
                   </tr>
                 ))}
               </tbody>

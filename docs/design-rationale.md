@@ -69,6 +69,15 @@ The verifications (engine totals, journal balance, every export row accounted fo
 
 The first version's warm cream with a terracotta accent was replaced: it is the most common look of generated interfaces.
 
+## Visual pass after the candidate's review (26 Nov)
+
+The candidate compared three builds side by side: the first version, the redesign, and a separately generated mock-up with invented data. The decision was to keep the real-data app as the product and take only the look and the navigation ideas from the mock-up.
+
+- **Overview** now leads with one status card (what is left, the recommended next step) and four status tiles that open Decisions, Checks, Records and Sign-off. The arrival figures stay directly below (invoices in the books, the books balance, bank payments explained, net receivables), each still opening the records behind it, followed by "From export rows to invoices" and "How sure we are". Status tiles answer "what do I do"; arrival figures answer "can I trust it". Removing either would drop a need named in the brief.
+- **Accept all suggestions** is back. The redesign had replaced it with "select all, then apply", which cost a step on the groups where the engine's suggestion is uniform. On expense accounts, where the model's suggestions disagree for the same description, the action is secondary and a dialog states how many accounts the invoices would land on before anything is saved. Every bulk accept is one undo.
+- **Confidence** is shown as a number with a small bar per invoice, and in the suggestion text for single questions.
+- **Checks** starts with four tiles (need you, acknowledged and still open, verified or resolved, for information) that jump to the first finding of each kind.
+
 ## Considered and rejected
 
 - **One inbox of 168 cards:** equal weight for unequal problems.

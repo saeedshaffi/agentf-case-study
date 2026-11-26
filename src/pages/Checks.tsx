@@ -32,6 +32,19 @@ function ChecksInner({ findingId }: { findingId?: string }) {
   const current = findings.find((f) => f.id === findingId) ?? blocking[0] ?? attention[0] ?? findings[0];
   const counts = (fs: Finding[], s: CheckStatus) => fs.filter((f) => status(f) === s).length;
 
+  const needs = attention.filter((f) => ['open', 'failed'].includes(status(f)));
+  const failedVerif = verified.filter((f) => status(f) === 'failed');
+  const acked = attention.filter((f) => status(f) === 'acknowledged');
+  const resolved = attention.filter((f) => status(f) === 'resolved');
+  const passed = verified.filter((f) => status(f) === 'passed');
+  const actNow = [...failedVerif, ...needs];
+  const summary: { label: string; n: number; tone: string; hint: string; cta: string; first?: Finding }[] = [
+    { label: lead ? 'Need you' : 'Need the finance lead', n: actNow.length, tone: 'blocking', hint: actNow.length ? `${blocking.length} block sign-off` : 'Nothing is waiting', cta: 'Open the first one', first: actNow[0] },
+    { label: 'Acknowledged, still open', n: acked.length, tone: 'attention', hint: acked.length ? 'Seen, not fixed; listed for the tax advisor' : 'None carried as open items', cta: 'Review', first: acked[0] },
+    { label: 'Verified or resolved', n: passed.length + resolved.length, tone: 'settled', hint: `${passed.length} totals recomputed from records${resolved.length ? `, ${resolved.length} resolved by your answers` : ''}`, cta: 'See how it was checked', first: passed[0] ?? resolved[0] },
+    { label: 'For information', n: info.length, tone: '', hint: 'Context only; does not block sign-off', cta: 'Read', first: info[0] },
+  ];
+
   useEffect(() => {
     if (findingId && !findings.some((f) => f.id === findingId)) history.replaceState(null, '', href('checks'));
   }, [findingId, findings]);
@@ -42,6 +55,21 @@ function ChecksInner({ findingId }: { findingId?: string }) {
         Every total the engine reports was recomputed from the individual records, and the result was checked for problems no question covers.
         {' '}{verified.length - counts(verified, 'failed')} of {verified.length} verifications passed; {blocking.length ? `${blocking.length} findings ${lead ? 'need you' : `are open for the ${who(cfg, 'finance_lead')}`} before sign-off.` : 'no finding blocks sign-off.'}
       </PageHead>
+      <nav aria-label="Checks by status" style={{ marginBottom: 24 }}>
+        <ul className="tiles">
+          {summary.map((t) => {
+            const body = (
+              <>
+                <span className="tile-label">{t.label}{t.first && <span className="tile-arrow" aria-hidden>↗</span>}</span>
+                <span className={`tile-value ${t.n ? t.tone : ''}`}><strong className="num">{t.n}</strong> of {findings.length}</span>
+                <span className="tile-detail">{t.hint}</span>
+                {t.first && <span className="tile-cta">{t.cta} <span aria-hidden>→</span></span>}
+              </>
+            );
+            return <li key={t.label}>{t.first ? <a className="tile" href={href('checks', t.first.id)} aria-label={`${t.label}: ${t.n} of ${findings.length}. ${t.hint}. ${t.cta}`}>{body}</a> : <div className="tile static">{body}</div>}</li>;
+          })}
+        </ul>
+      </nav>
       <div className="workspace">
         <nav className="panel queue" aria-label="Checks">
           <CheckList title={lead ? 'Need you before sign-off' : 'Findings'} fs={attention} current={current} />

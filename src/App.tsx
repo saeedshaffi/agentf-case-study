@@ -17,6 +17,8 @@ const PAGE_LABEL: Record<PageId, string> = {
   handover: 'Sign-off', decisionLog: 'Decision log', overview: 'Summary',
 };
 
+const JOURNEY: PageId[] = ['arrival', 'decisions', 'checks', 'handover'];
+
 export function App() {
   const { cfg, role, setRole, page, route, derived, work, storageProblem, showToast } = useApp();
   const pages = cfg.roles[role].pages;
@@ -87,16 +89,24 @@ export function App() {
     <div className="shell">
       <a className="skip" href="#main">Skip to content</a>
       <aside className="sidebar">
-        <div>
-          <div className="brand-company">{cfg.company}</div>
-          <div className="brand-sub">Migration to Agent F</div>
+        <div className="brand">
+          <span className="brand-mark" aria-hidden>a.</span>
+          <div>
+            <div className="brand-company">Agent F</div>
+            <div className="brand-sub">Migration</div>
+          </div>
         </div>
         <nav className="nav" aria-label="Main">
-          {pages.map((p) => (
-            <a key={p} href={href(p)} aria-current={page === p ? 'page' : undefined}>
-              <span>{PAGE_LABEL[p]}</span>
-              {count(p) && <span className="count">{count(p)}</span>}
-            </a>
+          {[['Migration journey', pages.filter((p) => JOURNEY.includes(p))], ['Supporting', pages.filter((p) => !JOURNEY.includes(p))]].map(([title, list]) => (list as PageId[]).length > 0 && (
+            <div key={title as string} className="nav-group">
+              <div className="nav-title">{title as string}</div>
+              {(list as PageId[]).map((p) => (
+                <a key={p} href={href(p)} aria-current={page === p ? 'page' : undefined}>
+                  <span>{PAGE_LABEL[p]}</span>
+                  {count(p) && <span className="count">{count(p)}</span>}
+                </a>
+              ))}
+            </div>
           ))}
         </nav>
         <div className="proto" aria-label="Prototype controls" role="group">
@@ -109,6 +119,18 @@ export function App() {
           </label>
         </div>
       </aside>
+      <div className="content">
+      <header className="topbar">
+        <div>
+          <div className="topbar-company">{cfg.company}</div>
+          <div className="brand-sub">Migration to Agent F</div>
+        </div>
+        {derived && pages.includes('handover') && (
+          <a className="readiness" href={href('handover')}>
+            {work.signedOff ? 'Signed off' : derived.ready ? 'Ready for sign-off' : `Sign-off · ${derived.progress.requiredSettled} of ${derived.progress.required} required`} <span aria-hidden>↗</span>
+          </a>
+        )}
+      </header>
       <main className={`main ${page === 'decisions' ? 'wide' : ''}`} id="main" tabIndex={-1}>
         {storageProblem && <div style={{ marginBottom: 16 }} className="notice attention" role="status">{storageProblem}</div>}
         {page === 'arrival' && <Overview />}
@@ -119,6 +141,7 @@ export function App() {
         {page === 'decisionLog' && <DecisionLog />}
         {page === 'overview' && <Summary />}
       </main>
+      </div>
       <TracePanel />
       <Toast />
     </div>

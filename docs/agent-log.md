@@ -63,6 +63,12 @@ What rounds 2 and 3 caught that round 1 had passed:
 
 Round 3 did not end clean: twelve lower-priority findings were deferred with reasons, and the last four small fixes were checked by the implementer only. The tracker says which.
 
+## Phase 4: visual pass on the candidate's direction (26 Nov)
+
+The candidate had a second tool generate a mock-up and preferred its look, then noticed that it had lost the arrival figures, the click-through to records and the confidence figures of the first version. The agent's recommendation, which the candidate accepted: the mock-up uses invented data and cannot be submitted, so its look was ported onto the real-data app instead. Changed: app shell, Overview, Checks summary tiles, accept-all on grouped decisions. Verified with the 59 tests, the 41-check browser harness (one regression found and fixed: the new top bar pushed the page heading below 300 px on phones) and an axe scan at 1440 and 375 px.
+
+A forked session edited the same checkout at the same time. The two were made to work on separate files once the overlap was noticed; the table-review accept-all came from the fork.
+
 ## What the agents got wrong that a person had to catch
 
 - **An invented justification.** An agent configured the demo customer with a made-up rationale ("R&D tax credit"). It was reverted.
