@@ -5,7 +5,7 @@ import { abs, sum, toCents } from '../../domain/money';
 import type { BankTransaction, Decision, Indexed } from '../../domain/types';
 import { Amount, DateText, Ref } from '../../ui/components';
 import { useApp } from '../../ui/state';
-import { AnsweredLine, DecisionForm, optionLabel, PROTOTYPE_NOTE, useAnswerActions } from './shared';
+import { AnsweredLine, DecisionForm, optionLabel, PROTOTYPE_NOTE, Suggestion, useAnswerActions } from './shared';
 
 interface Col { head: string; right?: boolean; cell: (d: Decision) => ReactNode }
 
@@ -83,6 +83,14 @@ export function TableReview({ g }: { g: DecisionGroup }) {
   const oneSuggestion = open.length > 1 && open.every((d) => d.suggested_option === open[0].suggested_option) ? open[0].suggested_option : undefined;
   const chosen = open.filter((d) => selected.has(d.id) && d.options.some((o) => o.id === option));
 
+  // One click for the whole table: each row gets its own engine suggestion. Rows whose suggestion needs a typed value stay open.
+  const acceptable = open.filter((d) => d.suggested_option && !valueSpecFor(d, d.suggested_option, idx));
+  const acceptAll = () => {
+    if (!acceptable.length) return;
+    answer(acceptable.map((d) => ({ id: d.id, optionId: d.suggested_option! })), `Engine suggestion accepted for ${acceptable.length} ${acceptable.length === 1 ? 'item' : 'items'}.`, acceptable.length > 1 ? `${Date.now()}-suggested` : undefined);
+    setSelected(new Set()); setOption(''); setExpanded(null);
+  };
+
   const apply = () => {
     if (!option || !chosen.length) return;
     answer(chosen.map((d) => ({ id: d.id, optionId: option })), `${optionLabel(chosen[0], option)}: saved for ${chosen.length} ${chosen.length === 1 ? 'item' : 'items'}.`, chosen.length > 1 ? `${Date.now()}-${option}` : undefined);
@@ -93,6 +101,12 @@ export function TableReview({ g }: { g: DecisionGroup }) {
     <div className="work-body stack">
       <Insight g={g} idx={idx} />
       {oneSuggestion !== undefined && open.length > 0 && <p><strong>Engine suggestion for all {open.length}:</strong> {oneSuggestion ? optionLabel(open[0], oneSuggestion) : 'none'}.</p>}
+      {canDecide && acceptable.length > 1 && (
+        <div className="row">
+          <button type="button" className="btn" onClick={acceptAll}>Accept the engine suggestion for all {acceptable.length}</button>
+          <span className="cap muted">{acceptable.length < open.length ? `${open.length - acceptable.length} need a typed answer and stay open. ` : ''}You can undo this, or answer rows one by one below.</span>
+        </div>
+      )}
       {open.length > 0 && (
         <div className="table-wrap" style={{ border: '1px solid var(--line)', borderRadius: 'var(--r-control)' }}>
           <table className="table">
@@ -118,7 +132,7 @@ export function TableReview({ g }: { g: DecisionGroup }) {
                     <tr><td colSpan={cols.length + 3} style={{ background: 'var(--surface-2)' }}>
                       <div style={{ padding: 8 }} className="stack-2">
                         <p><strong>{d.question}</strong></p>
-                        {d.why_suggested && <p className="muted">Engine: {d.why_suggested}</p>}
+                        <Suggestion d={d} />
                         <DecisionForm d={d} onDone={() => setExpanded(null)} />
                       </div>
                     </td></tr>
