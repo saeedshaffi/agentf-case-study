@@ -67,7 +67,7 @@ export function reduce(s: WorkState, a: Action): WorkState {
       if (!ids.length) return s;
       const answers = { ...s.answers };
       for (const id of ids) delete answers[id];
-      return { ...s, answers, log: [...s.log, ...ids.map((id) => ({ at, by: a.by, action: 'undone' as const, decisionId: id }))] };
+      return { ...s, answers, log: [...s.log, ...ids.map((id) => ({ at, by: a.by, action: 'undone' as const, decisionId: id, batch: s.answers[id].batch }))] };
     }
     case 'ack': {
       if (s.signedOff || !!s.acks[a.id] === a.on) return s;

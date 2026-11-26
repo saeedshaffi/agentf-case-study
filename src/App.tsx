@@ -20,11 +20,13 @@ const PAGE_LABEL: Record<PageId, string> = {
 export function App() {
   const { cfg, role, setRole, page, route, derived, work, storageProblem } = useApp();
   const pages = cfg.roles[role].pages;
-  const first = useRef(true);
+  const prevPage = useRef(page);
 
-  // Move focus to the new page's heading when the page changes, so keyboard and screen-reader users land there.
+  // Move focus to the new page's heading when the page changes (not on first load), so keyboard and
+  // screen-reader users land there.
   useEffect(() => {
-    if (first.current) { first.current = false; return; }
+    if (prevPage.current === page) return;
+    prevPage.current = page;
     window.scrollTo(0, 0);
     requestAnimationFrame(() => document.getElementById('page-title')?.focus({ preventScroll: true }));
   }, [page]);

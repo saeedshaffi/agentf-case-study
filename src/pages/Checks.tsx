@@ -24,6 +24,8 @@ export function Checks({ findingId }: { findingId?: string }) {
 
 function ChecksInner({ findingId }: { findingId?: string }) {
   const { findings, status, blocking } = useDerived();
+  const { cfg, role } = useApp();
+  const lead = cfg.roles[role].canDecide;
   const attention = findings.filter((f) => f.kind === 'finding' && f.needsAttention);
   const verified = findings.filter((f) => f.kind === 'verification');
   const info = findings.filter((f) => f.kind === 'finding' && !f.needsAttention);
@@ -38,11 +40,11 @@ function ChecksInner({ findingId }: { findingId?: string }) {
     <div>
       <PageHead title="Checks">
         Every total the engine reports was recomputed from the individual records, and the result was checked for problems no question covers.
-        {' '}{verified.length - counts(verified, 'failed')} of {verified.length} verifications passed; {blocking.length ? `${blocking.length} findings need you before sign-off.` : 'no finding blocks sign-off.'}
+        {' '}{verified.length - counts(verified, 'failed')} of {verified.length} verifications passed; {blocking.length ? `${blocking.length} findings ${lead ? 'need you' : `are open for the ${who(cfg, 'finance_lead')}`} before sign-off.` : 'no finding blocks sign-off.'}
       </PageHead>
       <div className="workspace">
         <nav className="panel queue" aria-label="Checks">
-          <CheckList title="Need you before sign-off" fs={attention} current={current} />
+          <CheckList title={lead ? 'Need you before sign-off' : 'Findings'} fs={attention} current={current} />
           <CheckList title="Verified" fs={verified} current={current} />
           <CheckList title="For information" fs={info} current={current} />
         </nav>

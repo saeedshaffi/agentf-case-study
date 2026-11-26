@@ -129,9 +129,19 @@ export function useFocusTrap(ref: RefObject<HTMLElement>, active: boolean, onEsc
       if (e.key !== 'Tab' || !el) return;
       const f = focusables();
       if (!f.length) return;
-      const first = f[0], last = f[f.length - 1];
-      if (e.shiftKey && (document.activeElement === first || !el.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && (document.activeElement === last || !el.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+      // Move focus ourselves, so it never leaves, even from a heading that is only programmatically focusable.
+      e.preventDefault();
+      const active = document.activeElement as HTMLElement | null;
+      let i = active ? f.indexOf(active) : -1;
+      if (i === -1 && active && el.contains(active)) {
+        // Position of a non-tabbable element: the first tabbable that follows it.
+        const after = f.findIndex((x) => active.compareDocumentPosition(x) & Node.DOCUMENT_POSITION_FOLLOWING);
+        i = after === -1 ? f.length : after;
+        (e.shiftKey ? f[(i - 1 + f.length) % f.length] : f[i % f.length]).focus();
+        return;
+      }
+      if (i === -1) { (e.shiftKey ? f[f.length - 1] : f[0]).focus(); return; }
+      f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
     };
     document.addEventListener('keydown', onKey, true);
     return () => {

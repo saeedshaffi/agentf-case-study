@@ -1,4 +1,4 @@
-import { useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { invoiceOf, isSettled, moneyOf, type DecisionGroup } from '../../domain/decisions';
 import { sum, toCents } from '../../domain/money';
 import { batchOf } from '../../domain/store';
@@ -26,6 +26,16 @@ function Cluster({ label, decisions }: { label: string; decisions: Decision[] })
   const open = rows.filter((r) => !isSettled(work.answers[r.d.id]));
   const [selected, setSelected] = useState<Set<string>>(() => new Set(open.map((r) => r.d.id)));
   const [account, setAccount] = useState<string>('');
+  // Rows reopened by an undo come back selected, so re-booking them is one step.
+  const openKey = open.map((r) => r.d.id).join(',');
+  const prevOpen = useRef<Set<string>>(new Set(open.map((r) => r.d.id)));
+  useEffect(() => {
+    const now = new Set(open.map((r) => r.d.id));
+    const reopened = [...now].filter((id) => !prevOpen.current.has(id));
+    if (reopened.length) setSelected((s) => new Set([...s, ...reopened]));
+    prevOpen.current = now;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openKey]);
 
   const options = useMemo(() => {
     const m = new Map<string, string>();

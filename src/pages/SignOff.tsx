@@ -74,7 +74,7 @@ function SignOffInner() {
         )}
       </section>
 
-      <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 24, alignItems: 'start' }}>
+      <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 24, alignItems: 'start' }}>
         <section className="panel" aria-labelledby="req">
           <header className="panel-head"><h3 id="req">Required decisions</h3><span className="muted">{progress.requiredSettled} of {progress.required} settled</span></header>
           <table className="table"><tbody>
