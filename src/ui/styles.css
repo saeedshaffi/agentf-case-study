@@ -265,12 +265,12 @@ input[type='checkbox'] { width: 18px; height: 18px; accent-color: var(--accent);
 .lineage li::before { content: ''; position: absolute; left: -6px; top: 7px; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--ink-2); }
 
 /* ---------- toast ---------- */
-.toast { position: fixed; bottom: var(--s-6); left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; padding: var(--s-3) var(--s-4); border-radius: var(--r-panel); box-shadow: var(--elevation); z-index: var(--z-toast); display: flex; gap: var(--s-4); align-items: center; max-width: calc(100vw - 32px); }
+.toast { position: fixed; top: var(--s-4); left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; padding: var(--s-3) var(--s-4); border-radius: var(--r-panel); box-shadow: var(--elevation); z-index: var(--z-toast); display: flex; gap: var(--s-4); align-items: center; max-width: calc(100vw - 32px); }
 .toast button { background: none; border: 0; color: #fff; font-weight: var(--w-strong); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: var(--s-1); }
 .toast .dismiss { text-decoration: none; }
 .toast button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .field > * { min-width: 0; }
-html { scroll-padding-bottom: 96px; }
+html { scroll-padding-top: 80px; }
 
 /* ---------- states ---------- */
 .skeleton { background: linear-gradient(90deg, var(--line), #EEF0EC, var(--line)); background-size: 200% 100%; animation: sk 1.2s infinite; border-radius: 4px; height: 12px; }
@@ -296,7 +296,11 @@ section[tabindex='-1']:focus, article[tabindex='-1']:focus { outline: none; }
 .table .sticky-r { position: sticky; right: 0; background: var(--surface); box-shadow: -1px 0 0 var(--line); }
 .table th.sticky-r { z-index: calc(var(--z-sticky) + 1); }
 /* On phones the toast sits at the top, clear of the buttons at the bottom of a card. */
-@media (max-width: 560px) { .toast { top: var(--s-2); bottom: auto; left: var(--s-2); right: var(--s-2); transform: none; max-width: none; } }
+@media (max-width: 560px) { .toast { top: var(--s-2); left: var(--s-2); right: var(--s-2); transform: none; max-width: none; } }
 
 .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); align-items: start; }
 @media (max-width: 900px) { .grid-2 { grid-template-columns: minmax(0, 1fr); } }
+
+/* Record links in table cells keep a 24 px target with space between neighbours. */
+.table td .link { display: inline-block; min-height: 24px; margin-right: var(--s-1); }
+.table .sticky-r { padding-left: var(--s-4); }

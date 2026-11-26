@@ -39,7 +39,12 @@ export function App() {
     prevSub.current = sub;
     if (from === undefined || from === sub || prevPage.current !== page) return;
     window.scrollTo(0, 0);
-    requestAnimationFrame(() => (document.getElementById('group-title') ?? document.getElementById('finding-title'))?.focus({ preventScroll: true }));
+    requestAnimationFrame(() => {
+      const title = document.getElementById('group-title') ?? document.getElementById('finding-title');
+      // On narrow screens the queue is stacked above the work area: bring the new section into view.
+      if (title && title.getBoundingClientRect().top > window.innerHeight - 120) title.closest('section, article')?.scrollIntoView({ block: 'start' });
+      title?.focus({ preventScroll: true });
+    });
   }, [sub, page]);
 
   // After an answer, undo, acknowledgement or sign-off, the control that was used often disappears.

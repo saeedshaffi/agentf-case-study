@@ -188,10 +188,12 @@ export function Toast() {
     const onFocus = (e: FocusEvent) => {
       const el = e.target as HTMLElement | null;
       const t = box.current;
-      if (!el || !t || t.contains(el)) return;
+      // Sections and headings that receive focus programmatically are not controls the toast can hide.
+      if (!el || !t || t.contains(el) || el.getAttribute('tabindex') === '-1') return;
       const hidden = () => { const a = el.getBoundingClientRect(), b = t.getBoundingClientRect(); return a.bottom > b.top && a.top < b.bottom && a.right > b.left && a.left < b.right; };
       if (!hidden()) return;
-      window.scrollBy(0, el.getBoundingClientRect().bottom - t.getBoundingClientRect().top + 16);
+      // The toast sits at the top: scroll up so the control moves below it.
+      window.scrollBy(0, -(t.getBoundingClientRect().bottom - el.getBoundingClientRect().top + 16));
       requestAnimationFrame(() => { if (hidden()) showToast(null); });
     };
     document.addEventListener('focusin', onFocus);
