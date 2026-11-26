@@ -4,6 +4,9 @@ A working front end for a customer whose books have just been moved to Agent F. 
 
 ## Run it
 
+**Live version:** https://saeedshaffi.github.io/agentf-case-study/ (built and tested by GitHub Actions on every push).
+
+
 ```bash
 npm start
 ```

@@ -12,14 +12,14 @@ export type EndpointState =
   | { status: 'error'; message: string };
 
 export async function fetchConfig(customerId: string): Promise<CustomerConfig> {
-  const res = await fetch(`/${encodeURIComponent(customerId)}/config.json`);
+  const res = await fetch(`${import.meta.env.BASE_URL}${encodeURIComponent(customerId)}/config.json`);
   if (!res.ok) throw new Error(`No configuration found for customer "${customerId}" (HTTP ${res.status}).`);
   return parseConfig(await res.json());
 }
 
 export async function fetchEndpoint(cfg: CustomerConfig, ep: Endpoint, delayMs = 0): Promise<unknown> {
   if (delayMs) await new Promise((r) => setTimeout(r, delayMs));
-  const res = await fetch(`/${encodeURIComponent(cfg.id)}/${cfg.dataPath}/${ep}.json`);
+  const res = await fetch(`${import.meta.env.BASE_URL}${encodeURIComponent(cfg.id)}/${cfg.dataPath}/${ep}.json`);
   if (!res.ok) throw new Error(`${ep}: HTTP ${res.status}`);
   try {
     return await res.json();
