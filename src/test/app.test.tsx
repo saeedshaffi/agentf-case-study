@@ -99,7 +99,7 @@ describe('checks and sign-off', () => {
 
   it('names every blocker and keeps sign-off disabled', async () => {
     renderAs('finance_lead', { hash: '#/sign-off' });
-    expect(await screen.findByRole('heading', { name: /Not ready: 10 things left/ })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /Not ready: 116 required decisions and 5 checks left/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Sign off the migration' })).toBeDisabled();
     expect(screen.getByRole('link', { name: /Expense accounts to confirm: 89 of 89 not settled/ })).toHaveAttribute('href', '#/decisions/classification');
   });

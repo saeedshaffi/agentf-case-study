@@ -290,3 +290,10 @@ html { scroll-padding-bottom: 96px; }
 h1[tabindex='-1']:focus, h2[tabindex='-1']:focus, main:focus { outline: none; }
 .code, .link.code { white-space: nowrap; }
 strong, b, th { font-weight: var(--w-strong); }
+
+section[tabindex='-1']:focus, article[tabindex='-1']:focus { outline: none; }
+/* The row action stays in view when a table scrolls sideways. */
+.table .sticky-r { position: sticky; right: 0; background: var(--surface); box-shadow: -1px 0 0 var(--line); }
+.table th.sticky-r { z-index: calc(var(--z-sticky) + 1); }
+/* On phones the toast sits at the top, clear of the buttons at the bottom of a card. */
+@media (max-width: 560px) { .toast { top: var(--s-2); bottom: auto; left: var(--s-2); right: var(--s-2); transform: none; max-width: none; } }

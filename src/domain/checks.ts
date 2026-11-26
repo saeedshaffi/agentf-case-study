@@ -123,6 +123,9 @@ export function runChecks(idx: Indexed, cfg: CustomerConfig): Finding[] {
         items: [{ kind: 'partner', id: p.id }, ...xs.map((i) => ({ kind: 'invoice', id: i.id }) as TraceTarget)],
         decisionIds: (idx.decisionsByPartner.get(p.id) ?? []).map((d) => d.id),
         groupId: cfg.decisionGroups.find((g) => g.match.type === 'malformed_vat_id' && g.match.partnerHasZeroRatedSales)?.id,
+        // This prototype checks the format only. Until the ID is verified, the finding is not resolved.
+        resolved: () => false,
+        followUp: 'The VAT ID you entered has the right format, but it has not been verified with the EU VIES service: this prototype does not call it. Acknowledge this to carry the verification as an open item for your tax advisor.',
       });
     }
   }

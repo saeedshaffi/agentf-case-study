@@ -37,7 +37,8 @@ function SignOffInner() {
   }
   for (const f of blocking) reasons.push({ text: `${f.title}: ${f.kind === 'verification' ? 'verification failed' : f.decisionIds?.length ? 'resolve it through its decision' : 'acknowledge or resolve it'}`, to: href('checks', f.id) });
 
-  const headline = signed ? 'Signed off' : ready ? 'Ready to sign off' : `Not ready: ${reasons.length} ${reasons.length === 1 ? 'thing' : 'things'} left`;
+  const left = [progress.blockingOpen ? `${progress.blockingOpen} required ${progress.blockingOpen === 1 ? 'decision' : 'decisions'}` : '', blocking.length ? `${blocking.length} ${blocking.length === 1 ? 'check' : 'checks'}` : ''].filter(Boolean).join(' and ');
+  const headline = signed ? 'Signed off' : ready ? 'Ready to sign off' : `Not ready: ${left} left`;
 
   return (
     <div className="stack-6">

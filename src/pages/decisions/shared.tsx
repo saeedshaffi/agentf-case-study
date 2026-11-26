@@ -1,6 +1,6 @@
 import { useId, useState } from 'react';
 import { who } from '../../domain/config';
-import { isDeferred, previewEffect, type Answer } from '../../domain/decisions';
+import { isDeferred, previewEffect, PROTOTYPE_EFFECT, type Answer } from '../../domain/decisions';
 import { valueSpecFor } from '../../domain/inputs';
 import { batchOf } from '../../domain/store';
 import type { Decision } from '../../domain/types';
@@ -8,14 +8,8 @@ import { toCents } from '../../domain/money';
 import { Amount, Ref, pct } from '../../ui/components';
 import { useApp, useDerived } from '../../ui/state';
 
-/** What the engine's option text promises but this prototype does not do. Shown next to the option, not hidden. */
-export const PROTOTYPE_NOTE: Record<string, string> = {
-  enter: 'Prototype: the format is checked here; no request goes to the EU VIES service.',
-  ask_customer: 'Prototype: no request is sent. The question stays open and blocks sign-off.',
-  refund: 'Prototype: no payment instruction is created.',
-  new_customer: 'Prototype: the choice is recorded; no customer record is created.',
-  leave_open: 'The payment stays unassigned and is listed for your tax advisor.',
-};
+/** See PROTOTYPE_EFFECT: shown instead of the engine's effect text for these options. */
+export const PROTOTYPE_NOTE = PROTOTYPE_EFFECT;
 
 /** What choosing an option actually did here, for logs and summaries. */
 export const RECORDED_EFFECT: Record<string, string> = {
@@ -108,7 +102,7 @@ export function DecisionForm({ d, onDone }: { d: Decision; onDone?: () => void }
             <input type="radio" name={`${uid}-opt`} checked={choice === o.id} onChange={() => { setChoice(o.id); setValue(''); setTouched(false); }} />
             <span>
               {o.label} {d.suggested_option === o.id && <span className="tag">Engine suggestion</span>}
-              <span className="hint" style={{ display: 'block' }}>{o.effect}{PROTOTYPE_NOTE[o.id] && <> {PROTOTYPE_NOTE[o.id]}</>}</span>
+              <span className="hint" style={{ display: 'block' }}>{PROTOTYPE_NOTE[o.id] ?? o.effect}</span>
             </span>
           </label>
         ))}

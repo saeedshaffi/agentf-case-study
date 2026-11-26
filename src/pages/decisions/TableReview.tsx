@@ -24,7 +24,6 @@ function columnsFor(type: string, idx: Indexed): Col[] {
     case 'rounding_difference':
       return [
         { head: 'Invoice', cell: (d) => { const i = invoiceOf(d, idx); return i ? <Ref target={{ kind: 'invoice', id: i.id }} /> : '—'; } },
-        { head: 'Partner', cell: (d) => invoiceOf(d, idx)?.partner_name },
         { head: 'Booked', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; return <Amount value={toCents(i.booked.gross.amount)} currency={i.booked.gross.currency} />; } },
         { head: 'Export gross', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; const h = i.history[i.history.length - 1]; return <Amount value={abs(toCents(h.gross_in_export.amount))} currency={h.gross_in_export.currency} />; } },
         { head: 'Paid (bank)', right: true, cell: (d) => { const i = invoiceOf(d, idx)!; const p = paidByBank(i.id, idx); const h = toCents(i.history[i.history.length - 1].gross_in_export.amount); return <span>{p ? <Amount value={p} currency={i.original.gross.currency} /> : '—'} {p && p === abs(h) ? <span className="cap muted">= export</span> : null}</span>; } },
@@ -102,7 +101,7 @@ export function TableReview({ g }: { g: DecisionGroup }) {
                 {canDecide && <th scope="col"><input type="checkbox" aria-label={`Select all ${open.length} open questions`} checked={open.every((d) => selected.has(d.id))} onChange={(e) => setSelected(e.target.checked ? new Set(open.map((d) => d.id)) : new Set())} /></th>}
                 {cols.map((c) => <th key={c.head} scope="col" className={c.right ? 'r' : undefined}>{c.head}</th>)}
                 {oneSuggestion === undefined && <th scope="col">Engine suggestion</th>}
-                {canDecide && <th scope="col"><span className="sr-only">Decide one</span></th>}
+                {canDecide && <th scope="col" className="sticky-r"><span className="sr-only">Decide one</span></th>}
               </tr>
             </thead>
             <tbody>
@@ -112,7 +111,7 @@ export function TableReview({ g }: { g: DecisionGroup }) {
                     {canDecide && <td><input type="checkbox" aria-label={`Select ${d.title}`} checked={selected.has(d.id)} onChange={(e) => setSelected((s) => { const n = new Set(s); if (e.target.checked) n.add(d.id); else n.delete(d.id); return n; })} /></td>}
                     {cols.map((c) => <td key={c.head} className={c.right ? 'r' : undefined}>{c.cell(d)}</td>)}
                     {oneSuggestion === undefined && <td>{d.suggested_option ? optionLabel(d, d.suggested_option) : <span className="muted">None</span>}</td>}
-                    {canDecide && <td><button type="button" className="btn small" aria-expanded={expanded === d.id} onClick={() => setExpanded(expanded === d.id ? null : d.id)}>{expanded === d.id ? 'Close' : 'Decide'}</button></td>}
+                    {canDecide && <td className="sticky-r"><button type="button" className="btn small" aria-label={expanded === d.id ? `Close ${d.title}` : `Decide ${d.title}`} aria-expanded={expanded === d.id} onClick={() => setExpanded(expanded === d.id ? null : d.id)}>{expanded === d.id ? 'Close' : 'Decide'}</button></td>}
                   </tr>
                   {expanded === d.id && (
                     <tr><td colSpan={cols.length + 3} style={{ background: 'var(--surface-2)' }}>

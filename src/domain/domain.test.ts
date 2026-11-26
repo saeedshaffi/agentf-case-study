@@ -138,7 +138,10 @@ describe('finding states', () => {
   const a = (optionId: string) => ({ optionId, by: 'finance_lead' as const, at: '' });
   it('an answer that defers does not resolve a finding', () => {
     expect(checkStatus(vat, { D0168: a('ask_customer') }, {})).toBe('open');
-    expect(checkStatus(vat, { D0168: { ...a('enter'), value: 'FR40303265045' } }, {})).toBe('resolved');
+    // Entered but only format-checked: open until acknowledged, never resolved in this prototype.
+    expect(checkStatus(vat, { D0168: { ...a('enter'), value: 'FR40303265045' } }, {})).toBe('open');
+    expect(canAcknowledge(vat, { D0168: { ...a('enter'), value: 'FR40303265045' } })).toBe(true);
+    expect(canAcknowledge(vat, { D0168: a('ask_customer') })).toBe(false);
   });
   it('"another country" settles the question but not the VAT finding', () => {
     const fx = f.find((x) => x.id === 'foreign_currency_with_de_vat:K00018')!;

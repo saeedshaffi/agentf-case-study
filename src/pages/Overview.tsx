@@ -34,6 +34,7 @@ function Status_() {
   const byRule = inv.filter((i) => i.classification.decided_by === 'rule').length;
   const review = inv.filter((i) => i.classification.needs_review || i.classification.confidence < cfg.reviewThreshold).length;
   const byModel = inv.length - byRule - review;
+  const decided = inv.filter((i) => (i.classification.needs_review || i.classification.confidence < cfg.reviewThreshold) && i.decision_ids.length > 0 && i.decision_ids.every((id) => isSettled(work.answers[id]))).length;
   const bank = idx.bank;
   const fees = bank.filter((t) => t.match?.kind === 'bank_fee').length;
   const exact = bank.filter((t) => t.match?.decided_by === 'rule' && t.match.kind !== 'bank_fee').length;
@@ -95,7 +96,8 @@ function Status_() {
           <Distribution title="Invoices booked" total={inv.length} parts={[
             ['By a fixed rule', byRule, '#1E5B47'],
             [`By the model, ${Math.round(cfg.reviewThreshold * 100)} % sure or more`, byModel, '#7FA394'],
-            ['Waiting for your review', review, '#B07A1F'],
+            [lead ? 'Decided by you' : 'Decided by the finance lead', decided, '#2B4F73'],
+            [lead ? 'Waiting for your review' : 'Waiting for review', review - decided, '#B07A1F'],
           ]} />
           <Distribution title="Bank payments" total={bank.length} parts={[
             ['Exact invoice reference', exact, '#1E5B47'],

@@ -5,7 +5,7 @@ import { agreesWithEngine, type MetricId, type TraceTarget } from '../domain/met
 import { abs, sum, toCents, type Cents } from '../domain/money';
 import type { Indexed, Invoice } from '../domain/types';
 import { STATUS_TEXT } from '../pages/Checks';
-import { optionLabel, PROTOTYPE_NOTE } from '../pages/decisions/shared';
+import { optionLabel } from '../pages/decisions/shared';
 import { ACCOUNT_PLAIN, Amount, Count, DateText, Personal, Ref, Status, decidedByLabel, pct, useFocusTrap } from './components';
 import { href } from './router';
 import { useApp, useDerived } from './state';
@@ -346,7 +346,7 @@ function DecisionView({ id }: { id: string }) {
         {d.options.map((o) => (
           <div key={o.id} style={{ marginBottom: 8 }}>
             <strong>{o.label}</strong> {d.suggested_option === o.id && <span className="tag">Engine suggestion</span>}
-            <div className="cap muted">{previewEffect(d, o.id, idx).text}{PROTOTYPE_NOTE[o.id] && <> {PROTOTYPE_NOTE[o.id]}</>}</div>
+            <div className="cap muted">{previewEffect(d, o.id, idx).text}</div>
           </div>
         ))}
         {d.why_suggested && <p className="cap muted">Why suggested: {d.why_suggested}</p>}

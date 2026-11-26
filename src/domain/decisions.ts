@@ -170,6 +170,18 @@ export function totalsByCurrency(ds: Decision[], idx: Indexed): Map<string, Cent
   return m;
 }
 
+/**
+ * Some engine option texts promise things this front-end prototype does not do (a VIES lookup, sending a
+ * request, creating a payment). Wherever an option's effect is shown, this text replaces the engine's.
+ */
+export const PROTOTYPE_EFFECT: Record<string, string> = {
+  enter: 'The format is checked here. A lookup in the EU VIES service is not part of this prototype.',
+  ask_customer: 'Marks the question as waiting. No request is sent in this prototype.',
+  refund: 'Records the choice. No payment instruction is created in this prototype.',
+  new_customer: 'Records the choice. No customer record is created in this prototype.',
+  leave_open: 'The payment stays unassigned and is listed for your tax advisor.',
+};
+
 /** One line of change to an account, in EUR cents. Positive = debit increases. */
 export interface EffectLine { account: string; delta: Cents }
 
@@ -198,7 +210,7 @@ export function previewEffect(d: Decision, optionId: string, idx: Indexed): Effe
   if (d.type === 'rounding_difference' && optionId === 'use_export_gross' && d.amount_affected) {
     return { lines: [], text: `${text} (to a rounding account not included in this export)` };
   }
-  return { lines: [], text };
+  return { lines: [], text: PROTOTYPE_EFFECT[optionId] ?? text };
 }
 
 export function nowIso(): string { return new Date().toISOString(); }

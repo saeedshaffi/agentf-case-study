@@ -38,11 +38,19 @@ export function App() {
     const from = prevSub.current;
     prevSub.current = sub;
     if (from === undefined || from === sub || prevPage.current !== page) return;
+    window.scrollTo(0, 0);
     requestAnimationFrame(() => (document.getElementById('group-title') ?? document.getElementById('finding-title'))?.focus({ preventScroll: true }));
   }, [sub, page]);
 
   // After an answer, undo, acknowledgement or sign-off, the control that was used often disappears.
   // If that left focus on <body>, put it on the nearest section heading instead.
+  // Remember the section the person last worked in, so focus can return there when a control disappears.
+  const home = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const on = (e: FocusEvent) => { const el = (e.target as HTMLElement | null)?.closest?.('article, section') as HTMLElement | null; if (el) home.current = el; };
+    document.addEventListener('focusin', on);
+    return () => document.removeEventListener('focusin', on);
+  }, []);
   const prevWork = useRef(work);
   useEffect(() => {
     if (prevWork.current === work) return; // not on first load
@@ -50,6 +58,8 @@ export function App() {
     const t = requestAnimationFrame(() => requestAnimationFrame(() => {
       if (document.activeElement && document.activeElement !== document.body) return;
       if (document.querySelector('[role=dialog]')) return;
+      const section = home.current && document.contains(home.current) ? home.current : null;
+      if (section) { section.setAttribute('tabindex', '-1'); section.focus({ preventScroll: true }); return; }
       (document.getElementById('group-title') ?? document.getElementById('finding-title') ?? document.getElementById('readiness') ?? document.getElementById('page-title'))?.focus({ preventScroll: true });
     }));
     return () => cancelAnimationFrame(t);
@@ -85,7 +95,7 @@ export function App() {
           ))}
         </nav>
         <div className="proto" aria-label="Prototype controls" role="group">
-          <div>Prototype only. In the product, the login decides what you see.</div>
+          <div>Prototype only. In the product, the login decides what you see; here roles and masking are applied on screen, not by a server.</div>
           <label>
             <span className="sr-only">View as</span>
             <select className="select" value={role} onChange={(e) => setRole(e.target.value as RoleId)}>
