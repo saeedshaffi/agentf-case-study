@@ -85,7 +85,7 @@ export function DecisionForm({ d, onDone }: { d: Decision; onDone?: () => void }
   const confirm = () => {
     setTouched(true);
     if (missing || !choice) return;
-    const v = spec?.kind === 'text' ? value.replace(/\s+/g, '').toUpperCase() : value || undefined;
+    const v = spec?.kind === 'text' ? value.replace(/[\s.-]+/g, '').toUpperCase() : value || undefined;
     answer([{ id: d.id, optionId: choice, value: v }], `Saved: ${optionLabel(d, choice)}.`);
     onDone?.();
   };

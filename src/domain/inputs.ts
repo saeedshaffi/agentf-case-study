@@ -54,19 +54,43 @@ export function valueSpecFor(d: Decision, optionId: string, idx: Indexed): Value
     const cc = partner?.country ?? '';
     return {
       kind: 'text', label: 'Correct VAT ID', placeholder: cc ? `${cc === 'GR' ? 'EL' : cc}…` : 'e.g. FR12345678901',
-      validate: (v) => {
-        const s = v.replace(/\s+/g, '').toUpperCase();
-        if (!/^[A-Z]{2}[A-Z0-9]{2,12}$/.test(s)) return 'A VAT ID starts with two letters for the country, followed by 2 to 12 letters or digits.';
-        if (cc && s.slice(0, 2) !== (cc === 'GR' ? 'EL' : cc)) return `This customer is in ${cc}; their VAT ID should start with ${cc}.`;
-        return null;
-      },
+      validate: (v) => vatIdProblem(v, cc),
     };
   }
   if (d.type === 'missing_country' && optionId === 'other') {
     return {
       kind: 'text', label: 'Country (two-letter code)', placeholder: 'e.g. US, CH, AT',
-      validate: (v) => (/^[A-Za-z]{2}$/.test(v.trim()) ? (v.trim().toUpperCase() === 'DE' ? 'For Germany, choose "Germany" above.' : null) : 'Use the two-letter country code, e.g. US.'),
+      validate: (v) => {
+        const c = v.trim().toUpperCase();
+        if (!/^[A-Z]{2}$/.test(c)) return 'Use the two-letter country code, for example US.';
+        if (c === 'DE') return 'For Germany, choose "Germany" above.';
+        if (!COUNTRIES.has(c)) return `"${c}" is not a country code.`;
+        return null;
+      },
     };
   }
+  return null;
+}
+
+/** ISO 3166-1 alpha-2 codes. */
+export const COUNTRIES = new Set(('AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW').split(' '));
+
+/** Shape of EU VAT IDs after the two-letter prefix (format only; existence needs VIES). */
+const VAT_FORMAT: Record<string, RegExp> = {
+  AT: /^U\d{8}$/, BE: /^[01]\d{9}$/, BG: /^\d{9,10}$/, CY: /^\d{8}[A-Z]$/, CZ: /^\d{8,10}$/, DE: /^\d{9}$/, DK: /^\d{8}$/,
+  EE: /^\d{9}$/, EL: /^\d{9}$/, ES: /^[A-Z0-9]\d{7}[A-Z0-9]$/, FI: /^\d{8}$/, FR: /^[A-Z0-9]{2}\d{9}$/, HR: /^\d{11}$/,
+  HU: /^\d{8}$/, IE: /^\d{7}[A-Z]{1,2}$|^\d[A-Z]\d{5}[A-Z]$/, IT: /^\d{11}$/, LT: /^(\d{9}|\d{12})$/, LU: /^\d{8}$/, LV: /^\d{11}$/,
+  MT: /^\d{8}$/, NL: /^\d{9}B\d{2}$/, PL: /^\d{10}$/, PT: /^\d{9}$/, RO: /^\d{2,10}$/, SE: /^\d{12}$/, SI: /^\d{8}$/, SK: /^\d{10}$/,
+};
+
+/** Normalised (spaces removed, upper case) and checked against the country's format. Null when it looks valid. */
+export function vatIdProblem(raw: string, country?: string | null): string | null {
+  const s = raw.replace(/[\s.-]+/g, '').toUpperCase();
+  const prefix = country === 'GR' ? 'EL' : country ?? '';
+  if (!/^[A-Z]{2}/.test(s)) return 'A VAT ID starts with the two-letter country prefix, for example FR.';
+  if (prefix && s.slice(0, 2) !== prefix) return `This customer is in ${country}; their VAT ID starts with ${prefix}.`;
+  const fmt = VAT_FORMAT[s.slice(0, 2)];
+  if (!fmt) return `${s.slice(0, 2)} is not an EU VAT prefix.`;
+  if (!fmt.test(s.slice(2))) return `This does not have the format of a ${s.slice(0, 2)} VAT ID.`;
   return null;
 }

@@ -20,7 +20,7 @@ export function Overview() {
           : `${data.summary?.customer.name ?? cfg.company}'s history from ${cfg.words.oldSystem} has been loaded, booked to ${data.summary?.customer.chart_of_accounts ?? 'the chart of accounts'} and matched against your bank account.`}
       </PageHead>
       <Needs eps={[...ALL]}>{() => <Status_ />}</Needs>
-      <Needs eps={['summary']}>{() => <Loads loads={data.summary!.loads} />}</Needs>
+      {data.summary && <Loads loads={data.summary.loads} />}
     </div>
   );
 }

@@ -56,3 +56,15 @@ describe('reading saved work', () => {
     expect(parseStored(JSON.stringify({ answers: {}, acknowledged: { f1: '2026-01-01' } })).state.acks.f1.at).toBe('2026-01-01');
   });
 });
+
+import { COUNTRIES, vatIdProblem } from './inputs';
+describe('input validation', () => {
+  it('checks the VAT ID format per country', () => {
+    expect(vatIdProblem('FR12', 'FR')).toMatch(/format/);
+    expect(vatIdProblem('fr 40 303265045', 'FR')).toBeNull();
+    expect(vatIdProblem('DE123456789', 'FR')).toMatch(/starts with FR/);
+    expect(vatIdProblem('XX123456789', null)).toMatch(/not an EU VAT prefix/);
+    expect(vatIdProblem('ATU12345678', 'AT')).toBeNull();
+  });
+  it('knows country codes', () => { expect(COUNTRIES.has('US')).toBe(true); expect(COUNTRIES.has('XX')).toBe(false); });
+});

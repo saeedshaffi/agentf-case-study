@@ -57,7 +57,7 @@ describe('decision workspace', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Change answer' }));
     fireEvent.click(await screen.findByRole('radio', { name: /Enter the correct VAT id/ }));
     fireEvent.change(screen.getByLabelText('Correct VAT ID'), { target: { value: 'DE123456789' } });
-    expect(screen.getByRole('alert')).toHaveTextContent(/should start with FR/);
+    expect(screen.getByRole('alert')).toHaveTextContent(/starts with FR/);
     fireEvent.change(screen.getByLabelText('Correct VAT ID'), { target: { value: 'fr 40303265045' } });
     fireEvent.click(screen.getByRole('button', { name: 'Confirm answer' }));
     expect(await screen.findByText('1 of 116 required')).toBeInTheDocument();
